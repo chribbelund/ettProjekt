@@ -6,7 +6,11 @@
 package ettprojekt;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import oru.inf.InfException;
 
 /**
  *
@@ -33,6 +37,8 @@ public class testFil extends javax.swing.JFrame {
         btn_pick_file = new javax.swing.JButton();
         txt_file = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_box = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,6 +50,10 @@ public class testFil extends javax.swing.JFrame {
         });
 
         jButton1.setText("jButton1");
+
+        txt_box.setColumns(20);
+        txt_box.setRows(5);
+        jScrollPane1.setViewportView(txt_box);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,6 +68,10 @@ public class testFil extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btn_pick_file)))
                 .addGap(75, 75, 75))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,7 +82,9 @@ public class testFil extends javax.swing.JFrame {
                     .addComponent(txt_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,7 +95,14 @@ public class testFil extends javax.swing.JFrame {
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
-        txt_file.setText(filename);
+        try {
+            String fraga = base64Converter.convertFile(filename);
+            txt_box.setText(fraga);
+        } catch (IOException ex) {
+            Logger.getLogger(testFil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InfException ex) {
+            Logger.getLogger(testFil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_pick_fileActionPerformed
 
     /**
@@ -120,6 +143,8 @@ public class testFil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_pick_file;
     private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txt_box;
     private javax.swing.JTextField txt_file;
     // End of variables declaration//GEN-END:variables
 }

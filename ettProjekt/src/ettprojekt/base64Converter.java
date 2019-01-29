@@ -8,6 +8,7 @@ package ettprojekt;
 import static ettprojekt.EttProjekt.idb;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -19,15 +20,21 @@ import oru.inf.InfException;
  */
 public class base64Converter {
 
-    public void convertFile(String filePath) throws IOException, InfException {
+    public static String convertFile(String filePath) throws IOException, InfException {
         String fileName = FilenameUtils.getName(filePath);
+        System.out.println(fileName);
         byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
         String encodedString = Base64.getEncoder().encodeToString(fileContent);
-        String increment = idb.getAutoIncrement("FIL", "FID");
-        idb.insert("INSERT INTO FID VALUES ('" + increment + "', '" + fileName + "', '" + encodedString + "');");
+        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+        writer.println(encodedString);
+        writer.close();
+        String increment = "1";//idb.getAutoIncrement("FIL", "FID");
+        String fraga = ("INSERT INTO FID VALUES ('" + increment + "', '" + fileName + "', '" + encodedString + "');");
+        idb.insert(fraga);
+        return fraga;
     }
 
-    public void convertBase64(int fid) throws IOException, InfException {
+    public static void convertBase64(int fid) throws IOException, InfException {
         String encodedString = idb.fetchSingle("SELECT FIL FROM FILER WHERE FID ='" + fid + "';");
         String fileName = idb.fetchSingle("SELECT TEXT FROM FILER WHERE FID ='" + fid + "';");
         File outputFile = new File(fileName);
