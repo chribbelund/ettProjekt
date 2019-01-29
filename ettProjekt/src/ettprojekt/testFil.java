@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
+import org.apache.commons.io.FilenameUtils;
 import oru.inf.InfException;
 
 /**
@@ -36,7 +36,7 @@ public class testFil extends javax.swing.JFrame {
 
         btn_pick_file = new javax.swing.JButton();
         txt_file = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_upload = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_box = new javax.swing.JTextArea();
 
@@ -49,7 +49,12 @@ public class testFil extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        btn_upload.setText("Upload File");
+        btn_upload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_uploadActionPerformed(evt);
+            }
+        });
 
         txt_box.setColumns(20);
         txt_box.setLineWrap(true);
@@ -65,7 +70,7 @@ public class testFil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(btn_upload)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txt_file, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -83,7 +88,7 @@ public class testFil extends javax.swing.JFrame {
                     .addComponent(btn_pick_file)
                     .addComponent(txt_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btn_upload)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -93,54 +98,31 @@ public class testFil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pick_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pick_fileActionPerformed
-        String filename = filePicker.openFilePicker();
-        try {
-            String fraga = base64Converter.convertFile(filename);
-            txt_box.setText(fraga);
-        } catch (IOException ex) {
-        } catch (InfException ex) {
-        } 
-        
+//        String filePath = filePicker.openFilePicker();
+//        try {
+//            String fraga = base64Converter.convertFile(filePath);
+//            txt_box.setText(fraga);
+//        } catch (IOException ex) {
+//        } catch (InfException ex) {
+//        }
+
     }//GEN-LAST:event_btn_pick_fileActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(testFil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(testFil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(testFil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(testFil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btn_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uploadActionPerformed
+        boolean work = filePicker.openFilePicker();
+        if (work){
+            System.out.println("IT WORKED CYKA");
         }
-        //</editor-fold>
+        else {
+            System.out.println("BLIN. IT NOT WORKED KOMRAD");
+        }
+        
+    }//GEN-LAST:event_btn_uploadActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new testFil().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_pick_file;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_upload;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txt_box;
     private javax.swing.JTextField txt_file;
