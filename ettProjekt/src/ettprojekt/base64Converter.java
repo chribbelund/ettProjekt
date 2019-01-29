@@ -25,19 +25,17 @@ public class base64Converter {
         System.out.println(fileName);
         byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
         String encodedString = Base64.getEncoder().encodeToString(fileContent);
-//        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-//        writer.println(encodedString);
-//        writer.close();
         String increment = idb.getAutoIncrement("FILER", "FIL_ID");
         String fraga = ("INSERT INTO FILER VALUES ('" + encodedString + "', '" + fileName + "', '" + increment + "');");
         PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
         writer.println(fraga);
         writer.close();
         idb.insert(fraga);
+
         return fraga;
     }
 
-    public static void convertBase64(int fid) throws IOException, InfException {
+    public static void convertBase64(int fid) throws IOException, InfException, NullPointerException {
         String encodedString = idb.fetchSingle("SELECT FIL FROM FILER WHERE FID ='" + fid + "';");
         String fileName = idb.fetchSingle("SELECT TEXT FROM FILER WHERE FID ='" + fid + "';");
         File outputFile = new File(fileName);
