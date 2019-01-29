@@ -98,9 +98,7 @@ public class testFil extends javax.swing.JFrame {
             String fraga = base64Converter.convertFile(filename);
             txt_box.setText(fraga);
         } catch (IOException ex) {
-            Logger.getLogger(testFil.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InfException ex) {
-            Logger.getLogger(testFil.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
     }//GEN-LAST:event_btn_pick_fileActionPerformed

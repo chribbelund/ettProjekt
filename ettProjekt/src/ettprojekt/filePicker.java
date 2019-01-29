@@ -15,7 +15,7 @@ import javax.swing.JFileChooser;
 public class filePicker {
 
     //Kör denna metod för att öppna en file picker. Den returnerar pathen till filen i en string
-    public static String openFilePicker(){
+    public static String openFilePicker() {
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
