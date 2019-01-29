@@ -25,11 +25,14 @@ public class base64Converter {
         System.out.println(fileName);
         byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
         String encodedString = Base64.getEncoder().encodeToString(fileContent);
+//        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+//        writer.println(encodedString);
+//        writer.close();
+        String increment = idb.getAutoIncrement("FILER", "FIL_ID");
+        String fraga = ("INSERT INTO FILER VALUES ('" + encodedString + "', '" + fileName + "', '" + increment + "');");
         PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-        writer.println(encodedString);
+        writer.println(fraga);
         writer.close();
-        String increment = "1";//idb.getAutoIncrement("FIL", "FID");
-        String fraga = ("INSERT INTO FID VALUES ('" + increment + "', '" + fileName + "', '" + encodedString + "');");
         idb.insert(fraga);
         return fraga;
     }
