@@ -5,6 +5,10 @@
  */
 package ettprojekt;
          
+import static ettprojekt.EttProjekt.idb;
+import javax.swing.JOptionPane;
+import oru.inf.InfException;
+
 
 /**
  *
@@ -33,9 +37,9 @@ public class forstasida extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblavatar = new javax.swing.JLabel();
         lbllås = new javax.swing.JLabel();
-        Lnamn = new javax.swing.JTextField();
-        Llösen = new javax.swing.JPasswordField();
-        LI = new javax.swing.JButton();
+        txtnamn = new javax.swing.JTextField();
+        txtlosen = new javax.swing.JPasswordField();
+        btnloggain = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,7 +52,12 @@ public class forstasida extends javax.swing.JFrame {
 
         lbllås.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/lock.png"))); // NOI18N
 
-        LI.setText("Logga in");
+        btnloggain.setText("Logga in");
+        btnloggain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloggainActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -56,17 +65,17 @@ public class forstasida extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LI)
+                    .addComponent(btnloggain)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(lbllås)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Llösen))
+                            .addComponent(txtlosen))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(lblavatar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(12, 12, 12)
-                            .addComponent(Lnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(526, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -76,16 +85,16 @@ public class forstasida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblavatar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Lnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(174, 174, 174)
-                        .addComponent(LI))
+                        .addComponent(btnloggain))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Llösen, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbllås))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -99,12 +108,11 @@ public class forstasida extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,17 +142,47 @@ public class forstasida extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnloggainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloggainActionPerformed
+        // Metod för att låta användare logga in i systemet
+        
+         if(Validering.textFaltHarVarde(txtnamn) && Validering.textFaltHarVarde(txtlosen)){     //KOntrollerar mot vår valideringsklass så att textfälte har ett ifyllt värde
+
+            try{
+               
+               String id = txtnamn.getText();
+               String losenord = txtlosen.getText();   
+
+               String fraga = "SELECT losenord FROM USERS WHERE user_id = ' " + id + "';";     //Hämtar från databasen där lösenordet är lika med användarnamnet som skrivits in
+               String svar = idb.fetchSingle(fraga);
+               
+              if(losenord.equals(svar))                                                        //Kontrollerar så att lösenorder som skrivits in stämmer med det som hämtats ifrån databasen
+                    {
+                    bloggLayout b = new bloggLayout();
+                    b.setVisible(true);                                                        //Stämmer lösenordet kommer man in på välkomstsidan
+              }
+              else {
+                  JOptionPane.showMessageDialog(null, "Fel lösenord");                         //Annars kommer ett felmeddelande upp om att lösenordet inte stämmer
+              }
+               
+           }catch (InfException e) {
+                JOptionPane.showMessageDialog(null, "Något gick fel!");
+                System.out.println("Internt felmeddelande" + e.getMessage());
+           } 
+           
+       }
+    }//GEN-LAST:event_btnloggainActionPerformed
+
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton LI;
-    private javax.swing.JPasswordField Llösen;
-    private javax.swing.JTextField Lnamn;
+    private javax.swing.JButton btnloggain;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblavatar;
     private javax.swing.JLabel lbllås;
+    private javax.swing.JPasswordField txtlosen;
+    private javax.swing.JTextField txtnamn;
     // End of variables declaration//GEN-END:variables
 }
