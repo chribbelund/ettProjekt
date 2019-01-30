@@ -53,12 +53,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="334" max="32767" attributes="0"/>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,7 +104,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="556" max="32767" attributes="0"/>
+                      <EmptySpace pref="526" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -139,14 +141,14 @@
             <Component class="javax.swing.JLabel" name="lblavatar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/mira/Downloads/user.png"/>
+                  <Image iconType="3" name="/bilder/user.png"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbll&#xe5;s">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/mira/Downloads/lock.png"/>
+                  <Image iconType="3" name="/bilder/lock.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -164,7 +166,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/Users/mira/Downloads/loggo.png"/>
+              <Image iconType="3" name="/bilder/loggo.png"/>
             </Property>
           </Properties>
         </Component>

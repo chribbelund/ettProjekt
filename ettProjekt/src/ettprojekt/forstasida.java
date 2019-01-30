@@ -44,9 +44,9 @@ public class forstasida extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
 
-        lblavatar.setIcon(new javax.swing.ImageIcon("/Users/mira/Downloads/user.png")); // NOI18N
+        lblavatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/user.png"))); // NOI18N
 
-        lbllås.setIcon(new javax.swing.ImageIcon("/Users/mira/Downloads/lock.png")); // NOI18N
+        lbllås.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/lock.png"))); // NOI18N
 
         LI.setText("Logga in");
 
@@ -67,7 +67,7 @@ public class forstasida extends javax.swing.JFrame {
                             .addComponent(lblavatar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(12, 12, 12)
                             .addComponent(Lnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(556, Short.MAX_VALUE))
+                .addContainerGap(526, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +90,7 @@ public class forstasida extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/mira/Downloads/loggo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/loggo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,10 +100,11 @@ public class forstasida extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 334, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
