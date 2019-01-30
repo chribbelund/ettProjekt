@@ -27,13 +27,14 @@ public class EttProjekt {
         try {
             //Importerar databasen
             idb = new InfDB(EttProjekt.userDir);
-            new bloggLayout().setVisible(true);//Startar programmet genom att köra valElevLarare.java
+            new testFil().setVisible(true);//Startar programmet genom att köra valElevLarare.java
             System.out.println(userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
             System.out.println(userDir);
         }
+        new forstasida().setVisible(true);
     }
 
 }
