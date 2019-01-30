@@ -109,14 +109,11 @@ public class testFil extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_pick_fileActionPerformed
 
     private void btn_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uploadActionPerformed
-        boolean work = filePicker.openFilePicker();
-        if (work){
-            System.out.println("IT WORKED CYKA");
+        try {
+            filePicker.openFilePicker();
+        } catch (InfException e) {
         }
-        else {
-            System.out.println("BLIN. IT NOT WORKED KOMRAD");
-        }
-        
+
     }//GEN-LAST:event_btn_uploadActionPerformed
 
 

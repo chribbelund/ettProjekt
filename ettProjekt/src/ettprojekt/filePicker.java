@@ -5,6 +5,7 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.idb;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.apache.commons.io.FilenameUtils;
+import oru.inf.InfException;
 
 /**
  *
@@ -21,7 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 public class filePicker {
 
     //Kör denna metod för att öppna en file picker. Den returnerar pathen till filen i en string
-    public static boolean openFilePicker() {
+    public static void openFilePicker() throws InfException {
         boolean msg = false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss.SSS");
         LocalDateTime now = LocalDateTime.now();
@@ -38,11 +40,13 @@ public class filePicker {
         try {
             fileSave.copyFileUsingStream(inputFile, outputFile);
             msg = true;
-            //string auto increment
-            //insert into files (increment, outputPath)
+            String increment = idb.getAutoIncrement("FILER", "FIL_ID");
+            String fraga = ("INSERT INTO FILER VALUES ('" + outputFile + "', '" + increment + "');");
+            System.out.println(fraga);
+            idb.update(fraga);
         } catch (IOException ex) {
             Logger.getLogger(testFil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return msg;
+        
     }
 }
