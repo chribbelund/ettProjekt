@@ -14,13 +14,13 @@ import oru.inf.InfException;
  *
  * @author mira
  */
-public class forstasida extends javax.swing.JFrame {
+public class loggaIn extends javax.swing.JFrame {
 
  
     /**
      * Creates new form förstasida
      */
-    public forstasida() {
+    public loggaIn() {
         initComponents();
     }
 
