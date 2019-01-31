@@ -5,11 +5,8 @@
  */
 package ettprojekt;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.io.FilenameUtils;
+import static ettprojekt.EttProjekt.idb;
+import javax.swing.ImageIcon;
 import oru.inf.InfException;
 
 /**
@@ -34,20 +31,11 @@ public class testFil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_pick_file = new javax.swing.JButton();
-        txt_file = new javax.swing.JTextField();
         btn_upload = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txt_box = new javax.swing.JTextArea();
+        bild = new javax.swing.JLabel();
+        btnBild = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btn_pick_file.setText("SelectFile");
-        btn_pick_file.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_pick_fileActionPerformed(evt);
-            }
-        });
 
         btn_upload.setText("Upload File");
         btn_upload.addActionListener(new java.awt.event.ActionListener() {
@@ -56,57 +44,44 @@ public class testFil extends javax.swing.JFrame {
             }
         });
 
-        txt_box.setColumns(20);
-        txt_box.setLineWrap(true);
-        txt_box.setRows(5);
-        jScrollPane1.setViewportView(txt_box);
+        bild.setMaximumSize(new java.awt.Dimension(250, 250));
+        bild.setMinimumSize(new java.awt.Dimension(250, 250));
+
+        btnBild.setText("Bild");
+        btnBild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBildActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_upload)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_file, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_pick_file)))
-                        .addGap(75, 75, 75))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))))
+                    .addComponent(btn_upload)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBild)
+                        .addGap(36, 36, 36)
+                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_pick_file)
-                    .addComponent(txt_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addComponent(btn_upload)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBild))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_pick_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pick_fileActionPerformed
-//        String filePath = filePicker.openFilePicker();
-//        try {
-//            String fraga = base64Converter.convertFile(filePath);
-//            txt_box.setText(fraga);
-//        } catch (IOException ex) {
-//        } catch (InfException ex) {
-//        }
-
-    }//GEN-LAST:event_btn_pick_fileActionPerformed
 
     private void btn_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_uploadActionPerformed
         try {
@@ -116,12 +91,23 @@ public class testFil extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_uploadActionPerformed
 
+    private void btnBildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBildActionPerformed
+        try {
+            int id = 2;
+            String fraga = ("SELECT TEXT FROM FILER WHERE FIL_ID = '" + id +"';");
+            fraga = idb.fetchSingle(fraga);
+            ImageIcon icon = new ImageIcon(fraga);
+            bild.setIcon(icon);
+            //Lägg in så att bilden scalear
+        } catch (InfException ex) {
+            System.out.println("det fånkar inte");
+        }
+    }//GEN-LAST:event_btnBildActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_pick_file;
+    private javax.swing.JLabel bild;
+    private javax.swing.JButton btnBild;
     private javax.swing.JButton btn_upload;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txt_box;
-    private javax.swing.JTextField txt_file;
     // End of variables declaration//GEN-END:variables
 }
