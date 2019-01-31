@@ -34,7 +34,7 @@ public class EttProjekt {
             System.out.println("Internt felmeddelande" + undantag.getMessage());
             System.out.println(userDir);
         }      
-        new forstasida().setVisible(true);      //När programmet startas korrekt öppnas den första sidan
+        new loggaIn().setVisible(true);      //När programmet startas korrekt öppnas den första sidan
     }
 
 }
