@@ -54,6 +54,7 @@ public class Validering {
         return false;
     }
 
+//Metod för att kontrollera så att användarnamnet är korrekt från det användaren matar in mot databasen     
     public boolean isUsernameCorrect(JTextField txtUsername) {
         boolean correctUsername = false;
         try {
@@ -75,6 +76,7 @@ public class Validering {
         return correctUsername;
     }
 
+//Metod för att kontrollera så att lösenordet är korrekt från det användaren matar in mot databasen
     public boolean isPasswordCorrect(JTextField txtUsername, String txtPassword) {
         boolean passwordIsCorrect = true;
 
@@ -97,6 +99,7 @@ public class Validering {
         return passwordIsCorrect;
     }
 
+//Metod för att kontrollera om användaren har admin behörighet
     public boolean isAdminCorrect(JTextField txtUsername) {
         boolean isAdmin = false;
         try {
