@@ -33,7 +33,8 @@ public class EttProjekt {
             JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
             System.out.println(userDir);
-        }
+        }      
+        new forstasida().setVisible(true);      //När programmet startas korrekt öppnas den första sidan
     }
 
 }
