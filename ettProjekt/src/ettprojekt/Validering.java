@@ -99,14 +99,32 @@ public class Validering {
         return passwordIsCorrect;
     }
 
+//Metod för att kontrollera om användaren har superadmin behörighet
+    public boolean isSuperAdminCorrect(JTextField txtnamn) {
+        boolean isSuperAdmin = false;
+        try {
+            String anvandarnamn = txtnamn.getText();
+            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
+            String superadmin = idb.fetchSingle(fraga);
+            if (superadmin.equals("'SUPERADMIN'")) {
+                isSuperAdmin = true;
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+        return isSuperAdmin;
+    
+   }
+    
 //Metod för att kontrollera om användaren har admin behörighet
-    public boolean isAdminCorrect(JTextField txtUsername) {
+    public boolean isAdminCorrect(JTextField txtnamn) {
         boolean isAdmin = false;
         try {
-            String username = txtUsername.getText();
-            String fraga = "SELECT LARARE.ADMINISTRATOR FROM LARARE WHERE EFTERNAMN = '" + username + "';";
+            String anvandarnamn = txtnamn.getText();
+            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
             String admin = idb.fetchSingle(fraga);
-            if (admin.equals("T")) {
+            if (admin.equals("'ADMIN'")) {
                 isAdmin = true;
             }
         } catch (InfException e) {
