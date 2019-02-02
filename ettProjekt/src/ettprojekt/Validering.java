@@ -60,7 +60,7 @@ public class Validering {
         try {
             String svar = null;
             //Skriv om denna fråga så att den fungerar med databasen
-            String fraga = "SELECT EFTERNAMN FROM LARARE WHERE EFTERNAMN = '" + txtUsername.getText() + "';";
+            String fraga = "SELECT LAST_NAME FROM USERS WHERE LAST_NAME = '" + txtUsername.getText() + "';";
             svar = idb.fetchSingle(fraga);
             if (svar == null) {
                 JOptionPane.showMessageDialog(null, "Fel användarnamn!");
@@ -84,7 +84,7 @@ public class Validering {
             String username = txtUsername.getText();
             String password = txtPassword;
             //Skriv om denna metod så att den fungerar med databasen
-            String correctPassword = "SELECT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN = '" + username + "';";
+            String correctPassword = "SELECT LOSENORD FROM USERS WHERE LAST_NAME = '" + username + "';";
             correctPassword = idb.fetchSingle(correctPassword);
 
             if (!(password.equals(correctPassword))) {

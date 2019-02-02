@@ -4,24 +4,24 @@
  * and open the template in the editor.
  */
 package ettprojekt;
-         
+
 import static ettprojekt.EttProjekt.idb;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
-
 
 /**
  *
  * @author mira
  */
 public class loggaIn extends javax.swing.JFrame {
+    private Validering val;
 
- 
     /**
      * Creates new form förstasida
      */
     public loggaIn() {
         initComponents();
+        val = new Validering();
     }
 
     /**
@@ -37,8 +37,8 @@ public class loggaIn extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblavatar = new javax.swing.JLabel();
         lbllås = new javax.swing.JLabel();
-        txtnamn = new javax.swing.JTextField();
-        txtlosen = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         btnloggain = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -70,12 +70,12 @@ public class loggaIn extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(lbllås)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtlosen))
+                            .addComponent(txtPassword))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(lblavatar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(12, 12, 12)
-                            .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(526, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -85,7 +85,7 @@ public class loggaIn extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblavatar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -94,7 +94,7 @@ public class loggaIn extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbllås))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -143,37 +143,24 @@ public class loggaIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloggainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloggainActionPerformed
-        // Metod för att låta användare logga in i systemet
-        
-         if(Validering.textFaltHarVarde(txtnamn) && Validering.textFaltHarVarde(txtlosen)){     //KOntrollerar mot vår valideringsklass så att textfälte har ett ifyllt värde
-
-            try{
-               
-               String id = txtnamn.getText();
-               String losenord = txtlosen.getText();   
-
-               String fraga = "SELECT losenord FROM USERS WHERE user_id = ' " + id + "';";     //Hämtar från databasen där lösenordet är lika med användarnamnet som skrivits in
-               String svar = idb.fetchSingle(fraga);
-               
-              if(losenord.equals(svar))                                                        //Kontrollerar så att lösenorder som skrivits in stämmer med det som hämtats ifrån databasen
-                    {
-                    bloggLayout b = new bloggLayout();
-                    b.setVisible(true);                                                        //Stämmer lösenordet kommer man in på välkomstsidan
-              }
-              else {
-                  JOptionPane.showMessageDialog(null, "Fel lösenord");                         //Annars kommer ett felmeddelande upp om att lösenordet inte stämmer
-              }
-               
-           }catch (InfException e) {
-                JOptionPane.showMessageDialog(null, "Något gick fel!");
-                System.out.println("Internt felmeddelande" + e.getMessage());
-           } 
-           
-       }
+        //Kollar om användarnamnet finns i databasen
+        if (val.isUsernameCorrect(txtUsername)) {
+            String pws = new String(txtPassword.getPassword());
+            //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
+            if (val.isPasswordCorrect(txtUsername, pws)) {
+                //val.isAdminCorrect(txtUsername)
+                if (1 == 2) {
+                    //Kollar om personen är superadmin
+                } else if (1==2) {
+                    //Kollar om personen är admin
+                } else {
+                    new testFil().setVisible(true);
+                    dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_btnloggainActionPerformed
 
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnloggain;
@@ -182,7 +169,7 @@ public class loggaIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblavatar;
     private javax.swing.JLabel lbllås;
-    private javax.swing.JPasswordField txtlosen;
-    private javax.swing.JTextField txtnamn;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
