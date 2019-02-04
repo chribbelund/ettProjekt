@@ -5,9 +5,9 @@
  */
 package ettprojekt;
 
-import static ettprojekt.EttProjekt.idb;
 import static ettprojekt.EttProjekt.userDir;
-import java.io.File;
+import static java.lang.String.valueOf;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -58,11 +58,12 @@ public class skapaanvandare extends javax.swing.JFrame {
         txttel = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txtanv = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtlosen = new javax.swing.JPasswordField();
         cbstatus = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        btnGenerera = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,7 +85,7 @@ public class skapaanvandare extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Användarnamn");
+        jLabel6.setText("Användar ID");
 
         jLabel7.setText("Lösenord");
 
@@ -96,6 +97,13 @@ public class skapaanvandare extends javax.swing.JFrame {
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/add-user-male.png"))); // NOI18N
+
+        btnGenerera.setText("Generera");
+        btnGenerera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenereraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -118,14 +126,16 @@ public class skapaanvandare extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtanv, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel7))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(29, 29, 29)
+                        .addComponent(btnGenerera))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel8)))
-                .addContainerGap(370, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +154,9 @@ public class skapaanvandare extends javax.swing.JFrame {
                                 .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(txtanv, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGenerera))))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -219,7 +231,7 @@ public class skapaanvandare extends javax.swing.JFrame {
            	String namn = txtnamn.getText();
            	String mejl = txtmejl.getText();
                 String tel = txttel.getText();
-                String anvandare= txtanv.getText();
+                String anvandare= txtID.getText();
                 String losen = txtlosen.getText();
                 String admin = cbstatus.getSelectedItem().toString();
                 
@@ -270,7 +282,23 @@ public class skapaanvandare extends javax.swing.JFrame {
     
     }//GEN-LAST:event_cbstatusActionPerformed
 
+    private void btnGenereraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenereraActionPerformed
+         //Den här metoden tilldelar ett nytt id i storleksordning 
+        
+        ArrayList nummer = new ArrayList();
+        try{
+            ArrayList<String> antal = idb.fetchColumn("Select USER_ID from USERS");
+            int nyttId = antal.size()+1;
+            txtID.setText(valueOf(nyttId));
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnGenereraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerera;
     private javax.swing.JComboBox<String> cbstatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -282,7 +310,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtanv;
+    private javax.swing.JTextField txtID;
     private javax.swing.JPasswordField txtlosen;
     private javax.swing.JTextField txtmejl;
     private javax.swing.JTextField txtnamn;
