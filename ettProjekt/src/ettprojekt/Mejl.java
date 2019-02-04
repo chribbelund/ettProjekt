@@ -30,12 +30,14 @@ public class Mejl {
         });
         
         try{
+            //Skapar meddelandet genom att hämta det användaren har skrivit in från fönstret SkickaMejl
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fran));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(till));
             message.setSubject(amne);
             message.setText(meddelande);
             
+            //Skickar mejlet till vald mejladress
             Transport.send(message);
             
         }catch(MessagingException e){
