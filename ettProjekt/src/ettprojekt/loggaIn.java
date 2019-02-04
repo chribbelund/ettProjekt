@@ -152,7 +152,11 @@ public class loggaIn extends javax.swing.JFrame {
             try {
                 String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + name + "';");
                 int id = Integer.parseInt(ID);
-                User.setId(id);
+                User u = User.getInstance();
+                u.setId(id);
+              
+               
+              
             } catch (InfException ex) {
             }
             //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
