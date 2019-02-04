@@ -51,7 +51,7 @@ public class skapaanvandare extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtnamn = new javax.swing.JTextField();
+        txtFornamn = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtmejl = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -64,6 +64,8 @@ public class skapaanvandare extends javax.swing.JFrame {
         cbstatus = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         btnGenerera = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtEfternamn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,7 +74,7 @@ public class skapaanvandare extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(51, 153, 255));
 
-        jLabel3.setText("Namn");
+        jLabel3.setText("Förnamn");
 
         jLabel4.setText("Mejl");
 
@@ -105,6 +107,8 @@ public class skapaanvandare extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Efternamn");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -114,14 +118,16 @@ public class skapaanvandare extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(186, 186, 186)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2)
                                 .addComponent(txttel, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addComponent(txtmejl)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel3)
-                                .addComponent(txtnamn))
-                            .addComponent(cbstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtFornamn)
+                                .addComponent(txtEfternamn)))
                         .addGap(156, 156, 156)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,20 +149,28 @@ public class skapaanvandare extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
+                                .addComponent(jLabel8)
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel3)
+                                .addGap(16, 16, 16)
+                                .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnGenerera))))
+                                    .addComponent(btnGenerera)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEfternamn)))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -221,32 +235,34 @@ public class skapaanvandare extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    if(Validering.textFaltHarVarde(txtnamn)){
+    if(Validering.textFaltHarVarde(txtFornamn)){
                     
         if(Validering.isHeltal(txttel)){
 
 
                 try{
            	
-           	String namn = txtnamn.getText();
+           	String fornamn = txtFornamn.getText();
+                String efternamn = txtEfternamn.getText();
            	String mejl = txtmejl.getText();
                 String tel = txttel.getText();
-                String anvandare= txtID.getText();
+                String ID= txtID.getText();
                 String losen = txtlosen.getText();
                 String admin = cbstatus.getSelectedItem().toString();
                 
                 
                 
                 
-            	
-           	String fraga1 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','T');";
-                String fraga2 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','F');";
-           	String svar = idb.fetchSingle(fraga1);
+            	String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
+           	String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "', '" + tel + "','ADMIN','" + losen + "', '" + ID + "');";
+                String fraga2 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "', '" + tel + "','USER','" + losen + "', '" + ID + "');";
+         
+                String svar = idb.fetchSingle(fraga);
                 
                 
                 
            	
-          	if(namn.equals(svar))
+          	if(ID.equals(svar))
                     {
                         JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
                     }
@@ -277,6 +293,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbstatusActionPerformed
+        
         String admin = cbstatus.getSelectedItem().toString();
         System.out.println(admin);
     
@@ -302,6 +319,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbstatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -310,10 +328,11 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField txtEfternamn;
+    private javax.swing.JTextField txtFornamn;
     private javax.swing.JTextField txtID;
     private javax.swing.JPasswordField txtlosen;
     private javax.swing.JTextField txtmejl;
-    private javax.swing.JTextField txtnamn;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
 
