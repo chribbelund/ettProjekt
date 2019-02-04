@@ -7,6 +7,7 @@ package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import oru.inf.InfException;
 
 /**
@@ -20,6 +21,7 @@ public class testFil extends javax.swing.JFrame {
      */
     public testFil() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
