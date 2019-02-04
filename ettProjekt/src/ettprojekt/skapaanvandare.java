@@ -18,7 +18,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     /**
      * Creates new form skapaanvandare
      */
-    public static InfDB idb;
+     public static InfDB idb;
     public skapaanvandare() {
         initComponents();
         try{
@@ -214,36 +214,45 @@ public class skapaanvandare extends javax.swing.JFrame {
                 String anvandare= txtanv.getText();
                 String losen = txtlosen.getText();
                 String admin = cbstatus.getSelectedItem().toString();
-                String user = cbstatus.getSelectedItem().toString();
+                
                 
                 
                 
             	
-           	String fraga1 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','" + admin + "');";
-                String fraga2 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','" + user + "');";
+           	String fraga1 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','T');";
+                String fraga2 = "INSERT INTO user(namn, majl, tel, anvandare, losen, id, Admin) VALUES('" + namn+ "', '" + mejl + "', '" + tel + "', '" + anvandare + "','" + losen + "','F');";
            	String svar = idb.fetchSingle(fraga1);
                 
                 
                 
            	
           	if(namn.equals(svar))
-                	{
-                	JOptionPane.showMessageDialog(null, "anavandare finns redan i systemet");
-          	}
-          	else { 
-                    idb.insert(fraga1);
-              	JOptionPane.showMessageDialog(null, "ny anavandare tillagd");
-          	}
-           	
-        	}catch(InfException e) {
-            	JOptionPane.showMessageDialog(null, "Något gick fel!");
-            	System.out.println("Internt felmeddelande" + e.getMessage());
+                    {
+                        JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
+                    }
+                    else {
+                        if(admin.equals("Admin")){
+                            idb.insert(fraga1);
+
+                        }
+                        else { idb.insert(fraga2);
+
+                        }
+                        JOptionPane.showMessageDialog(null, "Ny användare tillagd");
+                    }
+
+                }catch(InfException e) {
+                    JOptionPane.showMessageDialog(null, "Något gick fel!");
+                    System.out.println("Internt felmeddelande" + e.getMessage());
+                }
+
+            }
        	} 
 
-        }
-        }
-        {      
-                                            }                                           
+        
+
+              
+                                                                                     
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
