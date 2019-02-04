@@ -5,8 +5,8 @@
  */
 package ettprojekt;
 
-import static ettprojekt.EttProjekt.idb;
 import javax.swing.JOptionPane;
+import oru.inf.InfDB;
 import oru.inf.InfException;
 
 /**
@@ -18,8 +18,17 @@ public class skapaanvandare extends javax.swing.JFrame {
     /**
      * Creates new form skapaanvandare
      */
+    public static InfDB idb;
     public skapaanvandare() {
         initComponents();
+        try{
+            idb = new InfDB ("/lib/DATABASE.FDB");
+        }
+        
+        catch(InfException e){
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("fel:" + e);
+    }
     }
 
     /**
@@ -262,4 +271,6 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JTextField txtnamn;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
+
+   
 }
