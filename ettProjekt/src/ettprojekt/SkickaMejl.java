@@ -175,7 +175,7 @@ public class SkickaMejl extends javax.swing.JFrame {
                String fran = txtMejlFran.getText();
                
                Mejl.SkickaMejlet(till, amne, meddelande, losen, fran);
-               JOptionPane.showMessageDialog(this,"Whiho");
+               JOptionPane.showMessageDialog(this,"Ditt mejl har skickats!");
                
                txtMejladress.setText("");
                pwLosen.setText("");

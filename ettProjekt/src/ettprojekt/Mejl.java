@@ -5,8 +5,6 @@
  */
 package ettprojekt;
 
-import static java.time.LocalDateTime.from;
-import static java.util.Date.from;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
