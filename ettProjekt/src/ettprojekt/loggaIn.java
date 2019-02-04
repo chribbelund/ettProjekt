@@ -6,6 +6,8 @@
 package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
@@ -145,7 +147,14 @@ public class loggaIn extends javax.swing.JFrame {
     private void btnloggainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloggainActionPerformed
         //Kollar om användarnamnet finns i databasen
         if (val.isUsernameCorrect(txtUsername)) {
+            String name = txtUsername.getText();
             String pws = new String(txtPassword.getPassword());
+            try {
+                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + name + "';");
+                int id = Integer.parseInt(ID);
+                User.setId(id);
+            } catch (InfException ex) {
+            }
             //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
             if (val.isPasswordCorrect(txtUsername, pws)) {
                 //val.isAdminCorrect(txtUsername)
@@ -154,7 +163,7 @@ public class loggaIn extends javax.swing.JFrame {
                 } else if (1==2) {
                     //Kollar om personen är admin
                 } else {
-                    new testFil().setVisible(true);
+                    new placeholderStartsida().setVisible(true);
                     dispose();
                 }
             }

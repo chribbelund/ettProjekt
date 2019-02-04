@@ -10,7 +10,7 @@ package ettprojekt;
  * @author EmelieD
  */
 public class User {
-    public int userId;
+    public static int userId;
     
     private static User firstInstance = null;
     
@@ -27,7 +27,7 @@ public class User {
         return firstInstance;
     }
     
-    public void setId (int ID){
+    public static void setId (int ID){
         userId = ID;
     }
     
