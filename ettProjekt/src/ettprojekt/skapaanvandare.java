@@ -5,6 +5,9 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.idb;
+import static ettprojekt.EttProjekt.userDir;
+import java.io.File;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -18,11 +21,16 @@ public class skapaanvandare extends javax.swing.JFrame {
     /**
      * Creates new form skapaanvandare
      */
-     public static InfDB idb;
+    public static InfDB idb;
+    
     public skapaanvandare() {
         initComponents();
+        userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
+        userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
         try{
-            idb = new InfDB ("/lib/DATABASE.FDB");
+           //Importerar databasen
+            idb = new InfDB(EttProjekt.userDir);
+            System.out.println(userDir);
         }
         
         catch(InfException e){
@@ -257,7 +265,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbstatusActionPerformed
-         String admin = cbstatus.getSelectedItem().toString();
+        String admin = cbstatus.getSelectedItem().toString();
         System.out.println(admin);
     
     }//GEN-LAST:event_cbstatusActionPerformed
