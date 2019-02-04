@@ -27,7 +27,7 @@ public class EttProjekt {
         try {
             //Importerar databasen
             idb = new InfDB(EttProjekt.userDir);
-            new loggaIn().setVisible(true);//Startar programmet genom att köra valElevLarare.java
+            new skapaanvandare().setVisible(true);//Startar programmet genom att köra valElevLarare.java
             System.out.println(userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
