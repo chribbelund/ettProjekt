@@ -87,9 +87,10 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="txtInlagg">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="BLOGGINL&#xc4;GG&#xa;"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -140,6 +141,9 @@
       </Layout>
     </Container>
     <Component class="javax.swing.JTextField" name="txtTitel">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

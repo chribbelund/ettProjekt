@@ -69,9 +69,10 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(698, 358));
 
+        txtInlagg.setEditable(false);
         txtInlagg.setColumns(20);
         txtInlagg.setRows(5);
-        txtInlagg.setText("BLOGGINLÄGG\n");
+        txtInlagg.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtInlagg);
 
         tagg1.setText("Tagg1");
@@ -96,6 +97,8 @@ public class inlaggFrame extends javax.swing.JPanel {
             frameBildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
+
+        txtTitel.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
