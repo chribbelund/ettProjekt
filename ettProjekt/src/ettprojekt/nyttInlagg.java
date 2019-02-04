@@ -138,8 +138,8 @@ public class nyttInlagg extends javax.swing.JFrame {
            String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
            String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
            System.out.println(fraga3);
-           //idb.insert(fraga3);
-           //idb.insert(fraga2);
+           idb.insert(fraga3);
+           idb.insert(fraga2);
            JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
       }
       catch (InfException e)

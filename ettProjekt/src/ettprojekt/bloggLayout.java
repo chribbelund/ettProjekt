@@ -35,6 +35,7 @@ public class bloggLayout extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH); 
         panel = new inlaggFrame();
+        Startsida();
         
         
         
@@ -50,6 +51,7 @@ public class bloggLayout extends javax.swing.JFrame {
       String projektNamn = (String)projektBox.getSelectedItem().toString();
       return projektNamn;
       
+      
    
     }
     
@@ -57,11 +59,92 @@ public class bloggLayout extends javax.swing.JFrame {
         try{
         String fraga = "SELECT INLAGG_ID FROM PROJEKT_INLAGG";
         ArrayList <String> allaInlagg = idb.fetchColumn(fraga);
-        }
-        catch (InfException e){
+        int antalInlagg = allaInlagg.size();
+        
+        
+         String fragan= "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
+         ArrayList <String> texter = idb.fetchColumn(fragan);
+         System.out.println(texter);
+         
+         fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
+         ArrayList <String> titlar = idb.fetchColumn(fragan);
+         
+             for (int j = 0; j < antalInlagg; j++){
+              inlaggFrame panel = new inlaggFrame();
+          
+              panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
+              panel1.add(Box.createRigidArea(new Dimension(0,20)));
+              panel1.add(panel);
+              panel1.setVisible(true);
+              String allaTexter = texter.get(j);
+              String allaTitlar = titlar.get(j);
+              panel.setText(allaTexter);
+              panel.setTitel(allaTitlar);
+              
+             
             
+             
+          }
+         
+         
+        }
+         catch (InfException e){
+            JOptionPane.showMessageDialog(null, "Något gick fel");
         }
         
+    }
+    
+    public void bloggInlaggen(){
+        try {
+        
+        String projektNamn = (String)projektBox.getSelectedItem();
+        System.out.println(projektNamn);
+       
+       String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+       String projektId = idb.fetchSingle(fraga1);
+       int projektIdInt = Integer.parseInt(projektId);
+       String fraga2 = "SELECT INLAGG_ID FROM PROJEKT_INLAGG WHERE PROJEKT_ID = " + projektIdInt + ";";
+       ArrayList <String> inlaggLista = idb.fetchColumn(fraga2);
+       int antalInlagg = inlaggLista.size();
+     
+       
+         String fragan= "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
+         ArrayList <String> texter = idb.fetchColumn(fragan);
+         System.out.println(texter);
+         
+         fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
+         ArrayList <String> titlar = idb.fetchColumn(fragan);
+         System.out.println(titlar);
+         
+         
+        
+         for (int j = 0; j < antalInlagg; j++){
+              inlaggFrame panel = new inlaggFrame();
+          
+              panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
+              panel1.add(Box.createRigidArea(new Dimension(0,20)));
+              panel1.add(panel);
+              panel1.setVisible(true);
+              String allaTexter = texter.get(j);
+              String allaTitlar = titlar.get(j);
+              panel.setText(allaTexter);
+              panel.setTitel(allaTitlar);
+              
+             
+            
+             
+          }
+         
+
+       }
+       catch(InfException e){
+           JOptionPane.showMessageDialog(null, "Något gick fel");
+       }
+        
+    }
+    
+    public void rensa(){
+        panel1.remove(panel);
     }
 
     /**
@@ -183,51 +266,8 @@ public class bloggLayout extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-       
-       String projektNamn = (String)projektBox.getSelectedItem();
-       System.out.println(projektNamn);
-       
-       String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-       String projektId = idb.fetchSingle(fraga1);
-       int projektIdInt = Integer.parseInt(projektId);
-       String fraga2 = "SELECT INLAGG_ID FROM PROJEKT_INLAGG WHERE PROJEKT_ID = " + projektIdInt + ";";
-       ArrayList <String> inlaggLista = idb.fetchColumn(fraga2);
-       int antalInlagg = inlaggLista.size();
-     
-       
-         String fragan= "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
-         ArrayList <String> texter = idb.fetchColumn(fragan);
-         System.out.println(texter);
-         
-         fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
-         ArrayList <String> titlar = idb.fetchColumn(fragan);
-         System.out.println(titlar);
-         
-         
-        
-         for (int j = 0; j < antalInlagg; j++){
-              inlaggFrame panel = new inlaggFrame();
-          
-              panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-              panel1.add(Box.createRigidArea(new Dimension(0,20)));
-              panel1.add(panel);
-              panel1.setVisible(true);
-              String allaTexter = texter.get(j);
-              String allaTitlar = titlar.get(j);
-              panel.setText(allaTexter);
-              panel.setTitel(allaTitlar);
-              
-             
-            
-             
-          }
-         
-
-       }
-       catch(InfException e){
-           JOptionPane.showMessageDialog(null, "Något gick fel");
-       }
+        rensa();
+        bloggInlaggen();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
