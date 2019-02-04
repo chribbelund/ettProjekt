@@ -6,16 +6,30 @@
 package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
+import static ettprojekt.EttProjekt.userDir;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import oru.inf.InfException;
-
+import oru.inf.InfDB;
 /**
  *
  * @author emmaj
  */
 public class Validering {
-
+    
+    private InfDB idb;
+    
+    public Validering() {
+        userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
+        userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
+        try {
+            idb = new InfDB(EttProjekt.userDir);
+        } catch (InfException ettUndantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
+        }
+    }
 //Metod för att kontrollera om inmatningsrutan är tom    
     public static boolean textFaltHarVarde(JTextField rutaAttKolla) {
         boolean resultat = true;
@@ -59,7 +73,6 @@ public class Validering {
         boolean correctUsername = false;
         try {
             String svar = null;
-            //Skriv om denna fråga så att den fungerar med databasen
             String fraga = "SELECT LAST_NAME FROM USERS WHERE LAST_NAME = '" + txtUsername.getText() + "';";
             svar = idb.fetchSingle(fraga);
             if (svar == null) {
@@ -83,7 +96,6 @@ public class Validering {
         try {
             String username = txtUsername.getText();
             String password = txtPassword;
-            //Skriv om denna metod så att den fungerar med databasen
             String correctPassword = "SELECT LOSENORD FROM USERS WHERE LAST_NAME = '" + username + "';";
             correctPassword = idb.fetchSingle(correctPassword);
 
@@ -133,5 +145,29 @@ public class Validering {
         }
         return isAdmin;
     }
+    
+//Metod för att kolla om användar ID finns när man söker efter inlägg skapad av användare X
+//Denna metod kan koperias för att validera alla ID sökningar i hela databasen
+        public boolean isIdCorrect(JTextField txtnamn) {
+        boolean rattId = false;
+        try {
+            String id = "SELECT USER_ID FROM USER;";
+            ArrayList<String> userId = idb.fetchColumn(id);
+            for (String ettId : userId) {
+                if (ettId.equals(txtnamn.getText())) {
+                    rattId = true;
+                }
+            }
+            if (rattId == false) {
+                JOptionPane.showMessageDialog(null, "Användarens ID hittades inte");
+                txtnamn.requestFocus();
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+        return rattId;
+    }
+        
 
 }
