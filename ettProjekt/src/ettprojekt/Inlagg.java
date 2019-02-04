@@ -5,8 +5,9 @@
  */
 package ettprojekt;
 
-import java.util.ArrayList;
-import oru.inf.InfDB;
+import static ettprojekt.EttProjekt.idb;
+import javax.swing.JOptionPane;
+import oru.inf.InfException;
 
 /**
  *
@@ -14,23 +15,27 @@ import oru.inf.InfDB;
  */
 public class Inlagg extends javax.swing.JFrame {
 
-    private InfDB idb;
-    private String namn;
+
    
     
     public Inlagg() {
         initComponents();
-        this.idb = idb;
-        this.namn = namn;
-        setSize(750, 700);
         setLocationRelativeTo(null);
     }
     
     public void laggTillInlagg(){
-        String s = jTextArea1.getText();
-        String newLine = "\n";
-        jTextArea1.append(s + newLine);
-        
+         try {
+            String nextLine = "\n";
+            String text = jTextArea1.getText() + nextLine;
+            String date = ("2019-01-01");
+            String titel = jTextField1.getText();
+            String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
+            String fraga = ("INSERT INTO INLAGG VALUES ('" + date + "', '" + text + "', '" + titel +  "', '" + increment + "');");
+            JOptionPane.showMessageDialog(null, "Lyckad inmatning!");
+            idb.insert(fraga);
+        } catch (InfException ex) {
+            
+        }
     }
 
     /**
@@ -48,8 +53,8 @@ public class Inlagg extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -73,12 +78,11 @@ public class Inlagg extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Inlägg");
-
         jButton4.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jButton4.setText("Ändra");
+
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setText("Titel....");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,10 +93,6 @@ public class Inlagg extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(123, 123, 123))
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -102,12 +102,16 @@ public class Inlagg extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                 .addGap(105, 105, 105))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(306, 306, 306)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel2)
+                .addGap(55, 55, 55)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -126,7 +130,7 @@ public class Inlagg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        laggTillInlagg();
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -136,8 +140,8 @@ public class Inlagg extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
