@@ -36,14 +36,12 @@ public class SkickaMejl extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtMejladress = new javax.swing.JTextField();
         txtAmne = new javax.swing.JTextField();
-        txtMeddelande = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnSkickaMejl = new javax.swing.JButton();
         btnRensa = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtMejlFran = new javax.swing.JTextField();
-        pwLosen = new javax.swing.JPasswordField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtMeddelande = new javax.swing.JTextArea();
+        btnAvbryt = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -74,10 +72,22 @@ public class SkickaMejl extends javax.swing.JFrame {
         });
 
         btnRensa.setText("Rensa");
+        btnRensa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRensaActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Från:");
+        txtMeddelande.setColumns(20);
+        txtMeddelande.setRows(5);
+        jScrollPane1.setViewportView(txtMeddelande);
 
-        jLabel6.setText("Lösenord:");
+        btnAvbryt.setText("Avbryt");
+        btnAvbryt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvbrytActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,70 +96,51 @@ public class SkickaMejl extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAmne, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(106, 106, 106)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAmne)
-                            .addComponent(txtMejladress)
-                            .addComponent(txtMejlFran, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSkickaMejl)
-                                .addGap(87, 87, 87)
-                                .addComponent(btnRensa))
-                            .addComponent(txtMeddelande, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                            .addComponent(pwLosen))))
+                        .addGap(9, 9, 9)
+                        .addComponent(btnSkickaMejl)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRensa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAvbryt)
+                        .addGap(18, 18, 18))
+                    .addComponent(txtMejladress, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(284, 284, 284))
+                .addGap(297, 297, 297))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMejladress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAmne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addComponent(txtMejlFran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pwLosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMeddelande, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(28, 28, 28)
+                    .addComponent(txtMejladress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAmne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSkickaMejl)
-                    .addComponent(btnRensa))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(btnRensa)
+                    .addComponent(btnAvbryt))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,39 +159,53 @@ public class SkickaMejl extends javax.swing.JFrame {
 
     private void btnSkickaMejlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkickaMejlActionPerformed
 
+               //Skapat strings och variabler för att hämta texten som användaren skriver in och lagra den
                String till = txtMejladress.getText();
                String amne = txtAmne.getText(); 
                String meddelande = txtMeddelande.getText();
-               String losen = pwLosen.getText();
-               String fran = txtMejlFran.getText();
                
+               //Vi har skapat en egen mejl för detta projekt, så alla mejl som kan skickas i projektet skickas ifrån mejladressen nedan. 
+               String losen = "Javagrupp5"; 
+               String fran = "ettprojekt1@gmail.com";
+               
+               //Kallar på klassen "Mejl" och metoden i klassen "SkickaMejlet" som används för att skicka mejlet
+               //Om det genomförs framgångsrikt utan några problem kommer mejlet att skickas iväg och ett meddelande poppar upp och bekräftar detta
                Mejl.SkickaMejlet(till, amne, meddelande, losen, fran);
                JOptionPane.showMessageDialog(this,"Ditt mejl har skickats!");
                
+               //Efter att mejlet skickas rensas fälten så att de blir tomma
                txtMejladress.setText("");
-               pwLosen.setText("");
                txtAmne.setText("");
                txtMeddelande.setText("");
-               txtMejlFran.setText("");
                    
     }//GEN-LAST:event_btnSkickaMejlActionPerformed
 
+    private void btnRensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRensaActionPerformed
+               //Metoden rensar alla fönster när användaren trycker på knappen "Rensa"
+               txtMejladress.setText("");
+               txtAmne.setText("");
+               txtMeddelande.setText("");
+    }//GEN-LAST:event_btnRensaActionPerformed
+
+    private void btnAvbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvbrytActionPerformed
+        //Metoden stänger detta fönster
+        this.dispose();
+    }//GEN-LAST:event_btnAvbrytActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvbryt;
     private javax.swing.JButton btnRensa;
     private javax.swing.JButton btnSkickaMejl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField pwLosen;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtAmne;
-    private javax.swing.JTextField txtMeddelande;
-    private javax.swing.JTextField txtMejlFran;
+    private javax.swing.JTextArea txtMeddelande;
     private javax.swing.JTextField txtMejladress;
     // End of variables declaration//GEN-END:variables
 }
