@@ -146,6 +146,27 @@ public class Validering {
         return isAdmin;
     }
     
+    //Metod för att kontrollera så att den email som matats in är korrekt från det användaren matar in mot databasen
+    public boolean isEmailCorrect(JTextField txtMejladress) {
+        boolean isEmailCorrect = true;
+
+        try {
+            String userEmail = txtMejladress.getText();
+            String correctEmail = "SELECT EMAIL FROM USERS WHERE EMAIL = '" + userEmail + "';";
+            String email = idb.fetchSingle(correctEmail);
+
+            if (!(email.equals(correctEmail))) {
+                isEmailCorrect = false;
+                JOptionPane.showMessageDialog(null, "Email finns inte. Försök igen");
+            }
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+        return isEmailCorrect;
+    }
+    
 //Metod för att kolla om användar ID finns när man söker efter inlägg skapad av användare X
 //Denna metod kan koperias för att validera alla ID sökningar i hela databasen
         public boolean isIdCorrect(JTextField txtnamn) {
