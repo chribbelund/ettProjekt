@@ -74,6 +74,7 @@ public class Validering {
         try {
             String svar = null;
             String fraga = "SELECT LAST_NAME FROM USERS WHERE LAST_NAME = '" + txtUsername.getText() + "';";
+            System.out.println(fraga);
             svar = idb.fetchSingle(fraga);
             if (svar == null) {
                 JOptionPane.showMessageDialog(null, "Fel användarnamn!");
@@ -112,13 +113,14 @@ public class Validering {
     }
 
 //Metod för att kontrollera om användaren har superadmin behörighet
-    public boolean isSuperAdminCorrect(JTextField txtnamn) {
+    public boolean isSuperAdminCorrect() {
         boolean isSuperAdmin = false;
         try {
-            String anvandarnamn = txtnamn.getText();
-            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
+            User u = User.getInstance(); //när man loggar in sätter man ID till den personen som loggar in
+            int id = u.getID();          //här hämtar man ID från den personen som loggar in! När personen loggar ut blir ID = null
+            String fraga = "SELECT TYPER FROM USERS WHERE USER_ID = '" + id + "';";
             String superadmin = idb.fetchSingle(fraga);
-            if (superadmin.equals("'SUPERADMIN'")) {
+            if (superadmin.equals("SUPERADMIN")) {
                 isSuperAdmin = true;
             }
         } catch (InfException e) {
@@ -130,13 +132,14 @@ public class Validering {
    }
     
 //Metod för att kontrollera om användaren har admin behörighet
-    public boolean isAdminCorrect(JTextField txtnamn) {
+    public boolean isAdminCorrect() {
         boolean isAdmin = false;
         try {
-            String anvandarnamn = txtnamn.getText();
-            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
+            User u = User.getInstance(); //när man loggar in sätter man ID till den personen som loggar in
+            int id = u.getID();          //här hämtar man ID från den personen som loggar in! När personen loggar ut blir ID = null
+            String fraga = "SELECT TYPER FROM USERS WHERE USER_ID = '" + id + "';";
             String admin = idb.fetchSingle(fraga);
-            if (admin.equals("'ADMIN'")) {
+            if (admin.equals("ADMIN")) {
                 isAdmin = true;
             }
         } catch (InfException e) {

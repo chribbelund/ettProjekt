@@ -16,6 +16,7 @@ import oru.inf.InfException;
  * @author mira
  */
 public class loggaIn extends javax.swing.JFrame {
+
     private Validering val;
 
     /**
@@ -145,35 +146,59 @@ public class loggaIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloggainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloggainActionPerformed
-        //Kollar om användarnamnet finns i databasen
         if (val.isUsernameCorrect(txtUsername)) {
-            String name = txtUsername.getText();
+            String namn = txtUsername.getText();
             String pws = new String(txtPassword.getPassword());
             try {
-                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + name + "';");
+                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + namn + "';");
                 int id = Integer.parseInt(ID);
                 User u = User.getInstance();
                 u.setId(id);
-              
-               
-              
-            } catch (InfException ex) {
+            } catch (Exception ex) {
             }
-            //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
-            if (val.isPasswordCorrect(txtUsername, pws)) {
-                //val.isAdminCorrect(txtUsername)
-                if (1 == 2) {
-                    //Kollar om personen är superadmin
-                } else if (1==2) {
-                    //Kollar om personen är admin
+                if (val.isPasswordCorrect(txtUsername, pws)) {
+                    if (val.isSuperAdminCorrect()) {
+                        new placeholderStartsida().setVisible(true);
+                        System.out.println("SuperAdmin");
+                        dispose();
+                    } else if (val.isAdminCorrect()) {
+                        new nyttProjekt().setVisible(true);
+                        System.out.println("Admin");
+                        dispose();
+                    } else {
+                        new skapaanvandare().setVisible(true);
+                        System.out.println("Standard");
+                        dispose();
+                    }
                 } else {
-                    new placeholderStartsida().setVisible(true);
-                    dispose();
+                    JOptionPane.showMessageDialog(null, "Ange ett korrekt inlogg!");
                 }
             }
-        }
     }//GEN-LAST:event_btnloggainActionPerformed
 
+                //Kollar om användarnamnet finns i databasen
+//        if (val.isUsernameCorrect(txtUsername)) {
+//            String name = txtUsername.getText();
+//            String pws = new String(txtPassword.getPassword());
+//            try {
+//                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + name + "';");
+//                int id = Integer.parseInt(ID);
+//                User u = User.getInstance();
+//                u.setId(id);
+//            } catch (InfException ex) {
+//            }
+//            //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
+//            if (val.isPasswordCorrect(txtUsername, pws)) {
+//                if (1 == 2) {
+//                    //Kollar om personen är superadmin
+//                } else if (1 == 2) {
+//                    //Kollar om personen är admin
+//                } else {
+//                    new bloggLayout().setVisible(true);
+//                    dispose();
+//                }
+//            }
+//        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnloggain;

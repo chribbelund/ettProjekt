@@ -20,7 +20,7 @@ import oru.inf.InfException;
 public class bloggLayout extends javax.swing.JFrame {
     private inlaggFrame panel;
     
-   
+   private Validering val;
    
 
     
@@ -36,7 +36,7 @@ public class bloggLayout extends javax.swing.JFrame {
         this.setExtendedState(this.MAXIMIZED_BOTH); 
         panel = new inlaggFrame();
         Startsida();
-        
+        val = new Validering();
         
         
        
@@ -219,6 +219,11 @@ public class bloggLayout extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Redigera projekt");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem7.setText("Ta bort projekt");
@@ -280,6 +285,15 @@ public class bloggLayout extends javax.swing.JFrame {
          this.dispose();
          
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+     if(val.isAdminCorrect()){
+         new skapaanvandare().setVisible(true);
+     }
+     else{
+         JOptionPane.showMessageDialog(null, "Ej behörig");
+     }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
