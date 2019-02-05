@@ -49,6 +49,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,6 +71,9 @@ public class skapaanvandare extends javax.swing.JFrame {
         btnGenereraLosenord = new javax.swing.JButton();
         txtlosen = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,6 +222,8 @@ public class skapaanvandare extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Shree Devanagari 714", 2, 24)); // NOI18N
         jLabel1.setText("Skapa Användare");
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/loggo_liten.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -229,16 +235,21 @@ public class skapaanvandare extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(97, 97, 97)
+                .addGap(81, 81, 81)
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,10 +262,7 @@ public class skapaanvandare extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -271,8 +279,6 @@ public class skapaanvandare extends javax.swing.JFrame {
     if(Validering.isHeltalID(txtID)){
                     
     if(Validering.isHeltal(txttel)){
-        
-
 
                 try{
            	
@@ -283,18 +289,13 @@ public class skapaanvandare extends javax.swing.JFrame {
                 String ID= txtID.getText();
                 String losen = txtlosen.getText();
                 String admin = cbstatus.getSelectedItem().toString();
-                
-                
-                
-                
+              
             	String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
            	String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "', '" + tel + "','ADMIN','" + losen + "', '" + ID + "');";
                 String fraga2 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "', '" + tel + "','USER','" + losen + "', '" + ID + "');";
          
                 String svar = idb.fetchSingle(fraga);
-                
-                
-                
+
            	
           	if(ID.equals(svar))
                     {
@@ -327,12 +328,7 @@ public class skapaanvandare extends javax.swing.JFrame {
                txtmejl.setText("");
                txttel.setText("");
                txtID.setText("");
-               txtlosen.setText("");
-
-        
-
-              
-                                                                                     
+               txtlosen.setText("");                                                            
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -407,6 +403,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JButton btnGenereraLosenord;
     private javax.swing.JComboBox<String> cbstatus;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -415,6 +412,7 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtEfternamn;
