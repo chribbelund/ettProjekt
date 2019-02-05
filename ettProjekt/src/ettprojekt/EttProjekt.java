@@ -34,7 +34,7 @@ public class EttProjekt {
             System.out.println("Internt felmeddelande" + undantag.getMessage());
             System.out.println(userDir);
         }
-        new skapaanvandare().setVisible(true);
+        new startsida().setVisible(true);
     }
 
 }
