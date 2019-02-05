@@ -5,7 +5,6 @@
  */
 package ettprojekt;
 
-import static ettprojekt.EttProjekt.idb;
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -30,6 +29,7 @@ public class Validering {
             System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
         }
     }
+
 //Metod för att kontrollera om inmatningsrutan är tom    
     public static boolean textFaltHarVarde(JTextField rutaAttKolla) {
         boolean resultat = true;
@@ -38,6 +38,48 @@ public class Validering {
             JOptionPane.showMessageDialog(null, "Inmatningsrutan är tom!");
             rutaAttKolla.requestFocus();
             resultat = false;
+        }
+
+        return resultat;
+    }
+    
+
+//Metod för att kontrollera om inmatningsrutan för förnamn är tom    
+    public static boolean textFaltFornamn(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        if (rutaAttKolla.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett förnamn!");
+            rutaAttKolla.requestFocus();
+            resultat = false;
+        }
+
+        return resultat;
+    }
+    
+
+//Metod för att kontrollera om inmatningsrutan för förnamn är tom    
+    public static boolean textFaltEfternamn(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        if (rutaAttKolla.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett Efternamn!");
+            rutaAttKolla.requestFocus();
+            resultat = false;
+        }
+
+        return resultat;
+    }
+    
+//Metod för att kontrollera att inmatningsrutan endast accepterar heltatsvärden för ID 
+    public static boolean isHeltalID(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        try {
+            String inStrang = rutaAttKolla.getText();
+            Integer.parseInt(inStrang);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett ID i formatet heltal!");
         }
 
         return resultat;
