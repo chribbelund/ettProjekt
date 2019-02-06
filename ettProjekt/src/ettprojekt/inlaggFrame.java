@@ -5,48 +5,55 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.idb;
+import javax.swing.JOptionPane;
+import oru.inf.InfException;
+
 /**
  *
  * @author Christoffer
  */
 public class inlaggFrame extends javax.swing.JPanel {
-    
-    
-  
 
     /**
      * Creates new form inlaggFrame
+     *
      * @param idb
      * @param ID
      */
+    private static String ID;
+    private Validering val;
+
     public inlaggFrame() {
         initComponents();
-      
-        
-        
+        val = new Validering;
+
     }
-    
-    public String getText(){
+
+    public String getText() {
         return txtInlagg.getText();
     }
-    
-    public String getTitel(){
+
+    public String getTitel() {
         return txtTitel.getText();
     }
-    
-    
+
     public void setText(String text) {
-        
+
         txtInlagg.setText(text);
     }
-    
-    public void setTitel(String titel){
+
+    public void setTitel(String titel) {
         txtTitel.setText(titel);
     }
-    
 
-    
-    
+    public void setID(String id) {
+        ID = id;
+    }
+
+    public String getID() {
+        return ID;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,23 +64,18 @@ public class inlaggFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtInlagg = new javax.swing.JTextArea();
         tagg1 = new javax.swing.JLabel();
         tagg2 = new javax.swing.JLabel();
         tagg3 = new javax.swing.JLabel();
         tagg4 = new javax.swing.JLabel();
         tagg5 = new javax.swing.JLabel();
-        frameBild = new javax.swing.JPanel();
         txtTitel = new javax.swing.JTextField();
+        txtInlagg = new java.awt.TextArea();
+        jLabel1 = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
-
-        txtInlagg.setEditable(false);
-        txtInlagg.setColumns(20);
-        txtInlagg.setRows(5);
-        txtInlagg.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(txtInlagg);
 
         tagg1.setText("Tagg1");
 
@@ -85,59 +87,63 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         tagg5.setText("Tagg5");
 
-        frameBild.setBackground(new java.awt.Color(0, 51, 51));
+        jLabel1.setText("a");
 
-        javax.swing.GroupLayout frameBildLayout = new javax.swing.GroupLayout(frameBild);
-        frameBild.setLayout(frameBildLayout);
-        frameBildLayout.setHorizontalGroup(
-            frameBildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
-        );
-        frameBildLayout.setVerticalGroup(
-            frameBildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
+        btnDelete.setText("Ta bort");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        txtTitel.setEditable(false);
+        jButton2.setText("jButton2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(52, 52, 52)
+                .addComponent(tagg1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tagg2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tagg3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tagg4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tagg5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(frameBild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tagg1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg5)))))
-                .addContainerGap())
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtTitel)
+                        .addComponent(txtInlagg, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)))
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(frameBild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btnDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tagg1)
@@ -145,20 +151,38 @@ public class inlaggFrame extends javax.swing.JPanel {
                     .addComponent(tagg3)
                     .addComponent(tagg4)
                     .addComponent(tagg5))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+
+            String fraga1 = "DELETE FROM INLAGG WHERE INLAGG_ID = '" + ID + "'";
+            String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
+            System.out.println(fraga1);
+            idb.delete(fraga2);
+            idb.delete(fraga1);
+            new projektBloggen().setVisible(true);
+
+            JOptionPane.showMessageDialog(null, "Inlagg har raderats");
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel frameBild;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel tagg1;
     private javax.swing.JLabel tagg2;
     private javax.swing.JLabel tagg3;
     private javax.swing.JLabel tagg4;
     private javax.swing.JLabel tagg5;
-    private javax.swing.JTextArea txtInlagg;
+    private java.awt.TextArea txtInlagg;
     private javax.swing.JTextField txtTitel;
     // End of variables declaration//GEN-END:variables
 }
