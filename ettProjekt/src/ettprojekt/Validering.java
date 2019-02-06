@@ -7,6 +7,7 @@ package ettprojekt;
 
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import oru.inf.InfException;
@@ -233,4 +234,29 @@ public class Validering {
     }
         
 
+public boolean isPasswordCorect(){
+String password;
+String alpha = "(.*[a-zA-Z].*)";
+String numeric = "(.*[0-9].*)";
+    
+//
+Scanner keyboard = new Scanner(System.in);
+System.out.print("skriv in ditt lösenord: ");
+password = keyboard.nextLine();
+
+boolean valid = true;
+
+// lösen måste vara minst 8 tecken.
+if (password.length() < 8) {
+    System.out.println("lösenord måste vara minst 8 tecken.");
+    valid = false;
+    }
+// lösen måste innehålla en siffra
+if (!password.matches(numeric)) {
+    System.out.println("lösenord måste innehålla en siffra.");
+    valid = false;
 }
+if (valid) {
+    System.out.println("lösenord godkännt.");
+}
+
