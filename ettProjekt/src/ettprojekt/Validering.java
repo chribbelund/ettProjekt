@@ -8,6 +8,7 @@ package ettprojekt;
 import static ettprojekt.EttProjekt.idb;
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import oru.inf.InfException;
@@ -147,6 +148,36 @@ public class Validering {
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return isAdmin;
+    }
+    
+    public boolean isProjektAgare(JComboBox<String> boxNamn){
+        boolean isAgare = false;
+        try{
+            String projektNamn = (String)boxNamn.getSelectedItem();
+            System.out.println(projektNamn);
+            User u = User.getInstance();
+            int id = u.getID();
+            String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
+            System.out.println(fraga);
+            ArrayList<String> agare= idb.fetchColumn(fraga);
+            if(agare == null){
+                isAgare = false;
+                JOptionPane.showMessageDialog(null, "Ej behörig");
+            }
+            for(int i = 0; i< agare.size(); i++){
+                String ettProjekt = agare.get(i);
+                System.out.println(ettProjekt);
+            
+            if(ettProjekt.equals(projektNamn)){
+                isAgare = true;
+                
+            }
+            }
+            
+        } catch(InfException e){
+            JOptionPane.showMessageDialog(null, "Ej behörig");
+        }
+        return isAgare;
     }
     
     //Metod för att kontrollera så att den email som matats in är korrekt från det användaren matar in mot databasen

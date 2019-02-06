@@ -130,13 +130,14 @@ public class nyttProjekt extends javax.swing.JFrame {
      User u = User.getInstance();
      int agare = u.getID();
     
-     String fraga = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
+     String fraga = "Insert into projekt values ( '" + namn + "', " + increment + "," + 1 + ",'" + beskrivning + "')";
      System.out.println(fraga);
      idb.insert(fraga);
+     JOptionPane.showMessageDialog(null, "Projekt har lagts till");
      
     }
     catch(InfException e){
-        JOptionPane.showMessageDialog(null, "Något gick snett");
+        JOptionPane.showMessageDialog(null, "Något gick fel");
     }
     }//GEN-LAST:event_skapaProjektActionPerformed
 

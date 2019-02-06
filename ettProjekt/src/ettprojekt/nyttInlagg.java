@@ -119,16 +119,17 @@ public class nyttInlagg extends javax.swing.JFrame {
           
           
            String text = panelInlagg.getText();
-           System.out.println(text);
+           
            String titel = panelInlagg.getTitel();
-           System.out.println(titel);
+          
            String pattern = "yyyy-MM-dd";
            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
            String date = simpleDateFormat.format(new Date());
-           System.out.println(date);
+           
            String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
-           System.out.println(increment);
-           String projektNamn = layout.getProjektNamn();
+           
+           bloggLayout l = new bloggLayout();
+           String projektNamn = l.getProjektNamn();
            System.out.println(projektNamn);
            
            String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
@@ -149,7 +150,7 @@ public class nyttInlagg extends javax.swing.JFrame {
     }//GEN-LAST:event_nyttActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     new bloggLayout().setVisible(true);
+     new projektBloggen().setVisible(true);
      this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
