@@ -25,6 +25,7 @@ public class loggaIn extends javax.swing.JFrame {
         initComponents();
         val = new Validering();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,7 +168,7 @@ public class loggaIn extends javax.swing.JFrame {
                 } else if (1==2) {
                     //Kollar om personen är admin
                 } else {
-                    new placeholderStartsida().setVisible(true);
+                    new startsida().setVisible(true);
                     dispose();
                 }
             }
