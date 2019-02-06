@@ -8,7 +8,10 @@ package ettprojekt;
 import static ettprojekt.EttProjekt.idb;
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import oru.inf.InfException;
 import oru.inf.InfDB;
@@ -109,6 +112,30 @@ public class Validering {
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return passwordIsCorrect;
+    }
+    
+    
+//Kollar om lösenordet är i korrekt format
+    public boolean passwordCorrectFormat(JPasswordField txtlosen) {
+    char[] losen = txtlosen.getPassword();
+    String password = new String(losen);
+    if(password.length()>=8)
+    {
+        Pattern letter = Pattern.compile("[a-zA-z]");
+        Pattern digit = Pattern.compile("[0-9]");
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        //Pattern eight = Pattern.compile (".{8}");
+
+
+           Matcher hasLetter = letter.matcher(password);
+           Matcher hasDigit = digit.matcher(password);
+           Matcher hasSpecial = special.matcher(password);
+
+           return hasLetter.find() && hasDigit.find() && hasSpecial.find();
+
+    }
+    else
+        return false;
     }
 
 //Metod för att kontrollera om användaren har superadmin behörighet
