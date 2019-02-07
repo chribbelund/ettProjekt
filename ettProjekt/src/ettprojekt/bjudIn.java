@@ -21,8 +21,9 @@ public class bjudIn extends javax.swing.JFrame {
      * Creates new form bjudIn
      */
     private InfDB idb;
-    private String anvandarNamn;
     private String namn;
+    private Integer aID;
+    private Integer mID;
     
     
     public bjudIn(InfDB idb, String namn) {
@@ -38,14 +39,15 @@ public class bjudIn extends javax.swing.JFrame {
     this.idb = idb;
     this.namn = namn;
     getAnvandare();
+    getMoten();
     }
     
     public void getAnvandare () {
     
         try{
-            ArrayList<HashMap<String, String>> anvandareList = idb.fetchRows("SELECT FIRST_NAME, LAST_NAME FROM USERS ");
+            ArrayList<HashMap<String, String>> anvandareList = idb.fetchRows("SELECT USER_ID, FIRST_NAME FROM USERS ");
             for (HashMap<String, String> anvandare : anvandareList) {
-                String allanamn = anvandare.get("FIRST_NAME") + " " + anvandare.get("LAST_NAME");
+                String allanamn = anvandare.get("USER_ID") + " " + anvandare.get("FIRST_NAME");
                 anvandarList.addItem(allanamn);
             }
         }
@@ -60,9 +62,9 @@ public class bjudIn extends javax.swing.JFrame {
     public void getMoten () {
     
         try{
-            ArrayList<HashMap<String, String>> moteList = idb.fetchRows("SELECT TITEL, MOTE_ID FROM MOTEN ");
+            ArrayList<HashMap<String, String>> moteList = idb.fetchRows("SELECT MOTE_ID, TITEL FROM MOTEN ");
             for (HashMap<String, String> mote : moteList) {
-                String allamote = mote.get("TITEL") + " " + mote.get("MOTE_ID");
+                String allamote = mote.get("MOTE_ID") + " " + mote.get("TITEL");
                 motenList.addItem(allamote);
             }
         }
@@ -95,10 +97,25 @@ public class bjudIn extends javax.swing.JFrame {
         jLabel1.setText("Bjud in användare");
 
         anvandarList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Välj användare" }));
+        anvandarList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anvandarListActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Bjud");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         motenList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Välj möte" }));
+        motenList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                motenListActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,6 +148,40 @@ public class bjudIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+                idb.insert("INSERT INTO SKAPAR_MOTE "
+                        + "(USER_ID, MOTE_ID) "
+                        + "VALUES (" + aID + ","
+                        + "'" + mID+ "',"
+                        + ")");
+                JOptionPane.showMessageDialog(null, "Elev blev registrerad");
+            } catch (InfException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void anvandarListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandarListActionPerformed
+        Object a = anvandarList.getSelectedItem();
+        String anvandare = String.valueOf(a);
+
+        String anvandarID;
+        anvandarID = anvandare.split(" ")[0];
+        aID = Integer.parseInt(anvandarID);
+    }//GEN-LAST:event_anvandarListActionPerformed
+
+    private void motenListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motenListActionPerformed
+        Object m = motenList.getSelectedItem();
+        String mote = String.valueOf(m);
+
+        String moteID;
+        moteID = mote.split(" ")[0];
+        mID = Integer.parseInt(moteID);
+    }//GEN-LAST:event_motenListActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
