@@ -157,6 +157,7 @@ public class bloggLayout extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         postArea = new javax.swing.JScrollPane();
         panel1 = new javax.swing.JPanel();
         projektBox = new javax.swing.JComboBox<>();
@@ -294,6 +295,7 @@ public class bloggLayout extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panel1;
     private javax.swing.JScrollPane postArea;
     private javax.swing.JComboBox<String> projektBox;
