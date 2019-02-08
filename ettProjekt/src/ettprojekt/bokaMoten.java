@@ -5,13 +5,17 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.idb;
+import java.sql.ResultSet;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -25,44 +29,16 @@ public class bokaMoten extends javax.swing.JFrame {
      * Creates new form MotesHanterare
      */
     private InfDB idb;
-    private String anvandarNamn;
-    private String namn;
+
    
     
-    
-    public bokaMoten(InfDB idb, String namn) {
-    initComponents();
-    this.idb = idb;
-    this.namn = namn;
-    
-    
-    }
     
     public bokaMoten(InfDB idb) {
     initComponents();
     this.idb = idb;
-    this.namn = namn;
-    getAnvandare();
+    
     }
     
-    public void getAnvandare () {
-    
-        try{
-            ArrayList<HashMap<String, String>> anvandareList = idb.fetchRows("SELECT FIRST_NAME, LAST_NAME FROM USERS ");
-            for (HashMap<String, String> anvandare : anvandareList) {
-                String allanamn = anvandare.get("FIRST_NAME") + " " + anvandare.get("LAST_NAME");
-                anvandarList.addItem(allanamn);
-            }
-        }
-        catch(InfException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        catch(NullPointerException n){
-            JOptionPane.showMessageDialog(null, n.getMessage());
-        }
-    }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,163 +48,148 @@ public class bokaMoten extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DateM = new org.jdatepicker.impl.UtilDateModel();
-        jTimeChooserDemo1 = new lu.tudor.santec.jtimechooser.demo.JTimeChooserDemo();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTitel = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBoka = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        txtPlats = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         timePicker1 = new com.github.lgooddatepicker.components.TimePicker();
-        anvandarList = new javax.swing.JComboBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Boka möten");
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel2.setText("Mötesämne");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Datum");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel8.setText("Meddelande");
-
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jButton1.setText("Boka");
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Plats");
-
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Tid");
-
-        timePicker1.setText("Välj tid");
-        timePicker1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-
-        anvandarList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bjud in användare" }));
-        anvandarList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anvandarListActionPerformed(evt);
-            }
-        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Boka möten");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+
+        jLabel2.setText("Mötesämne");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+
+        txtTitel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitelActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Datum");
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel8.setText("Meddelande");
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+
+        btnBoka.setText("Boka");
+        btnBoka.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        btnBoka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBokaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Plats");
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+
+        txtPlats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlatsActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Tid");
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+
+        timePicker1.setText("Välj tid");
+        timePicker1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(438, 438, 438))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane2)
-                            .addComponent(anvandarList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField1))
-                        .addGap(206, 206, 206)
+                        .addContainerGap()
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtPlats, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(166, 166, 166)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(314, 314, 314)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(49, 49, 49))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(376, 376, 376)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBoka)
+                .addGap(355, 355, 355))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(334, 334, 334)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(anvandarList, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)))
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton1)
-                        .addGap(14, 14, 14))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnBoka)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,7 +198,7 @@ public class bokaMoten extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,28 +210,35 @@ public class bokaMoten extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtPlatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlatsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtPlatsActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtTitelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtTitelActionPerformed
 
-    private void anvandarListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandarListActionPerformed
-        DefaultListModel aLista = new DefaultListModel();
-        Object a = anvandarList.getSelectedItem();
-        anvandarNamn = String.valueOf(a);
-        
-        String fornamn = anvandarNamn.split(" ")[0];
-        String efternamn = anvandarNamn.split(" ")[1];
-    }//GEN-LAST:event_anvandarListActionPerformed
+    private void btnBokaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBokaActionPerformed
+        try {
+            String titel = txtTitel.getText();
+            Date datum1 = jCalendar1.getDate();
+            String datum = datum1.toString();
+            
+            String meddelande = jTextArea1.getText();
+            String plats = txtPlats.getText();
+            String increment = idb.getAutoIncrement("MOTEN", "MOTE_ID");
+            LocalTime tid = timePicker1.getTime();
+            String fraga = ("INSERT INTO MOTEN VALUES ('" + titel + "', '" + datum + "', '" + meddelande + "', '" + tid + "', '" + plats +  "', '" + increment + "');");
+            idb.insert(fraga);
+            JOptionPane.showMessageDialog(null, "Bokad!");
+        } catch (InfException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBokaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdatepicker.impl.UtilDateModel DateM;
-    private javax.swing.JComboBox anvandarList;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBoka;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -283,9 +251,8 @@ public class bokaMoten extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField6;
-    private lu.tudor.santec.jtimechooser.demo.JTimeChooserDemo jTimeChooserDemo1;
     private com.github.lgooddatepicker.components.TimePicker timePicker1;
+    private javax.swing.JTextField txtPlats;
+    private javax.swing.JTextField txtTitel;
     // End of variables declaration//GEN-END:variables
 }
