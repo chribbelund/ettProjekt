@@ -18,9 +18,11 @@ import oru.inf.InfException;
  * @author Christoffer
  */
 public class bloggLayout extends javax.swing.JFrame {
+    
     private inlaggFrame panel;
     
-   
+   private Validering val;
+   private static String projekt;
    
 
     
@@ -28,14 +30,15 @@ public class bloggLayout extends javax.swing.JFrame {
 
     /**
      * Creates new form bloggLayout
-     * @param idb
-     * 
+     *
+     *
+     *
      */
     public bloggLayout() {
         initComponents();
-        this.setExtendedState(this.MAXIMIZED_BOTH); 
+        this.setExtendedState(this.MAXIMIZED_BOTH);
         panel = new inlaggFrame();
-        Startsida();
+        val = new Validering();
         
         
         
@@ -46,106 +49,50 @@ public class bloggLayout extends javax.swing.JFrame {
        
     }
     
-    public String getProjektNamn(){
-      
-      String projektNamn = (String)projektBox.getSelectedItem().toString();
-      return projektNamn;
-      
-      
-   
+    public String getProjektNamn() {
+        
+        return projekt;
     }
     
-    public void Startsida(){
-        try{
-        String fraga = "SELECT INLAGG_ID FROM PROJEKT_INLAGG";
-        ArrayList <String> allaInlagg = idb.fetchColumn(fraga);
-        int antalInlagg = allaInlagg.size();
+    public void setProjektNamn() {
         
+        projekt = (String) projektBox.getSelectedItem();
         
-         String fragan= "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
-         ArrayList <String> texter = idb.fetchColumn(fragan);
-         System.out.println(texter);
-         
-         fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
-         ArrayList <String> titlar = idb.fetchColumn(fragan);
-         
-             for (int j = 0; j < antalInlagg; j++){
-              inlaggFrame panel = new inlaggFrame();
-          
-              panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-              panel1.add(Box.createRigidArea(new Dimension(0,20)));
-              panel1.add(panel);
-              panel1.setVisible(true);
-              String allaTexter = texter.get(j);
-              String allaTitlar = titlar.get(j);
-              panel.setText(allaTexter);
-              panel.setTitel(allaTitlar);
-              
-             
+    }
+    
+    public void Startsida() {
+        try {
+            String fraga = "SELECT INLAGG_ID FROM PROJEKT_INLAGG";
+            ArrayList<String> allaInlagg = idb.fetchColumn(fraga);
+            int antalInlagg = allaInlagg.size();
             
-             
-          }
-         
-         
-        }
-         catch (InfException e){
+            String fragan = "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
+            ArrayList<String> texter = idb.fetchColumn(fragan);
+            
+            fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID";
+            ArrayList<String> titlar = idb.fetchColumn(fragan);
+            
+            for (int j = 0; j < antalInlagg; j++) {
+                inlaggFrame panel = new inlaggFrame();
+                
+                panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
+                panel1.add(Box.createRigidArea(new Dimension(0, 20)));
+                panel1.add(panel);
+                panel1.setVisible(true);
+                String allaTexter = texter.get(j);
+                String allaTitlar = titlar.get(j);
+                panel.setText(allaTexter);
+                panel.setTitel(allaTitlar);
+        
+                
+            }
+            
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-        
     }
     
-    public void bloggInlaggen(){
-        try {
-        
-        String projektNamn = (String)projektBox.getSelectedItem();
-        System.out.println(projektNamn);
-       
-       String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-       String projektId = idb.fetchSingle(fraga1);
-       int projektIdInt = Integer.parseInt(projektId);
-       String fraga2 = "SELECT INLAGG_ID FROM PROJEKT_INLAGG WHERE PROJEKT_ID = " + projektIdInt + ";";
-       ArrayList <String> inlaggLista = idb.fetchColumn(fraga2);
-       int antalInlagg = inlaggLista.size();
-     
-       
-         String fragan= "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
-         ArrayList <String> texter = idb.fetchColumn(fragan);
-         System.out.println(texter);
-         
-         fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
-         ArrayList <String> titlar = idb.fetchColumn(fragan);
-         System.out.println(titlar);
-         
-         
-        
-         for (int j = 0; j < antalInlagg; j++){
-              inlaggFrame panel = new inlaggFrame();
-          
-              panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-              panel1.add(Box.createRigidArea(new Dimension(0,20)));
-              panel1.add(panel);
-              panel1.setVisible(true);
-              String allaTexter = texter.get(j);
-              String allaTitlar = titlar.get(j);
-              panel.setText(allaTexter);
-              panel.setTitel(allaTitlar);
-              
-             
-            
-             
-          }
-         
-
-       }
-       catch(InfException e){
-           JOptionPane.showMessageDialog(null, "Något gick fel");
-       }
-        
-    }
     
-    public void rensa(){
-        panel1.remove(panel);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,23 +103,13 @@ public class bloggLayout extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
         postArea = new javax.swing.JScrollPane();
         panel1 = new javax.swing.JPanel();
         projektBox = new javax.swing.JComboBox<>();
         ComboBox.cboxLaggTillProjekt(projektBox);
         jButton1 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-
-        jButton2.setText("jButton2");
+        nyttProjekt = new javax.swing.JButton();
+        taBortProjekt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 450));
@@ -200,43 +137,19 @@ public class bloggLayout extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Projekt");
-
-        jMenuItem1.setText("Nytt projekt");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        nyttProjekt.setText("Nytt projekt");
+        nyttProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                nyttProjektActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Nytt inlägg");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        taBortProjekt.setText("Ta bort projekt");
+        taBortProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                taBortProjektActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Redigera projekt");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem7.setText("Ta bort projekt");
-        jMenu1.add(jMenuItem7);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Användare");
-
-        jMenuItem5.setText("Bjud in användare");
-        jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setText("Ta bort användare");
-        jMenu2.add(jMenuItem6);
-
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,56 +159,70 @@ public class bloggLayout extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(projektBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nyttProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(taBortProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addComponent(postArea, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(postArea, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+            .addComponent(postArea, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(projektBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(taBortProjekt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nyttProjekt)
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        rensa();
-        bloggInlaggen();
+        setProjektNamn();
+        new projektBloggen().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       new nyttInlagg().setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void nyttProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttProjektActionPerformed
+        new nyttProjekt().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_nyttProjektActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         new nyttProjekt().setVisible(true);
-         this.dispose();
-         
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void taBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortProjektActionPerformed
+        try {
+          
+            if(val.isProjektAgare(projektBox)){
+            String projektNamn = (String) projektBox.getSelectedItem();
+            String id = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+            String projektId = idb.fetchSingle(id);
+            String fraga2 = "DELETE FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+            System.out.println(fraga2);
+            String fraga1 = "DELETE FROM PROJEKT_INLAGG WHERE PROJEKT_ID = '" + projektId + "'";
+            System.out.println(fraga1);
+            
+            idb.delete(fraga1);
+            idb.delete(fraga2);
+            ComboBox.cboxLaggTillProjekt(projektBox);
+            JOptionPane.showMessageDialog(null, "Projekt har tagits bort");
+        } }catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+    }//GEN-LAST:event_taBortProjektActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JButton nyttProjekt;
     private javax.swing.JPanel panel1;
     private javax.swing.JScrollPane postArea;
     private javax.swing.JComboBox<String> projektBox;
+    private javax.swing.JButton taBortProjekt;
     // End of variables declaration//GEN-END:variables
 }

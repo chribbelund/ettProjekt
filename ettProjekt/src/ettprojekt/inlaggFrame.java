@@ -5,48 +5,71 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.idb;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
+import oru.inf.InfException;
+
 /**
  *
  * @author Christoffer
  */
 public class inlaggFrame extends javax.swing.JPanel {
-    
-    
-  
+
+    private String ID;
+    private Validering val;
+    private projektBloggen blogg;
 
     /**
      * Creates new form inlaggFrame
-     * @param idb
-     * @param ID
+     *
      */
     public inlaggFrame() {
         initComponents();
-      
+        val = new Validering();
+        spara.setVisible(false);
+       
         
-        
+
     }
-    
-    public String getText(){
+
+    public String getText() {
         return txtInlagg.getText();
     }
-    
-    public String getTitel(){
+
+    public String getTitel() {
         return txtTitel.getText();
     }
-    
-    
+
     public void setText(String text) {
-        
+
         txtInlagg.setText(text);
     }
-    
-    public void setTitel(String titel){
+
+    public void setTitel(String titel) {
         txtTitel.setText(titel);
     }
-    
 
-    
-    
+    public void setID(String id) {
+        ID = id;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setEditable() {
+        txtTitel.setEditable(false);
+        txtInlagg.setEditable(false);
+    }
+
+    public void setOsynlig() {
+        taBort.setVisible(false);
+        redigera.setVisible(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,23 +80,19 @@ public class inlaggFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtInlagg = new javax.swing.JTextArea();
         tagg1 = new javax.swing.JLabel();
         tagg2 = new javax.swing.JLabel();
         tagg3 = new javax.swing.JLabel();
         tagg4 = new javax.swing.JLabel();
         tagg5 = new javax.swing.JLabel();
-        frameBild = new javax.swing.JPanel();
         txtTitel = new javax.swing.JTextField();
+        taBort = new javax.swing.JButton();
+        redigera = new javax.swing.JButton();
+        spara = new javax.swing.JButton();
+        txtInlagg = new java.awt.TextArea();
+        bild = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
-
-        txtInlagg.setEditable(false);
-        txtInlagg.setColumns(20);
-        txtInlagg.setRows(5);
-        txtInlagg.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(txtInlagg);
 
         tagg1.setText("Tagg1");
 
@@ -85,80 +104,183 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         tagg5.setText("Tagg5");
 
-        frameBild.setBackground(new java.awt.Color(0, 51, 51));
+        taBort.setText("Ta bort");
+        taBort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taBortActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout frameBildLayout = new javax.swing.GroupLayout(frameBild);
-        frameBild.setLayout(frameBildLayout);
-        frameBildLayout.setHorizontalGroup(
-            frameBildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
-        );
-        frameBildLayout.setVerticalGroup(
-            frameBildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
+        redigera.setText("Redigera");
+        redigera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redigeraActionPerformed(evt);
+            }
+        });
 
-        txtTitel.setEditable(false);
+        spara.setText("Spara");
+        spara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sparaActionPerformed(evt);
+            }
+        });
+
+        bild.setText("bild");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(tagg1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tagg2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tagg3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tagg4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tagg5)
+                        .addGap(187, 187, 187)
+                        .addComponent(taBort))
+                    .addComponent(txtInlagg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(frameBild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tagg1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tagg5)))))
-                .addContainerGap())
+                        .addComponent(redigera)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spara))
+                    .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(frameBild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tagg1)
-                    .addComponent(tagg2)
-                    .addComponent(tagg3)
-                    .addComponent(tagg4)
-                    .addComponent(tagg5))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tagg1)
+                            .addComponent(tagg2)
+                            .addComponent(tagg3)
+                            .addComponent(tagg4)
+                            .addComponent(tagg5))
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(taBort)
+                            .addComponent(redigera)
+                            .addComponent(spara)))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void taBortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortActionPerformed
+           try {
+            
+           
+            String fraga1 = "DELETE FROM INLAGG WHERE INLAGG_ID = '" + ID + "'";
+
+            String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
+
+            idb.delete(fraga2);
+            idb.delete(fraga1);
+            JOptionPane.showMessageDialog(null, "Inlagg har raderats");
+            blogg.dispose();
+            new projektBloggen().setVisible(true);
+            
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+
+    }//GEN-LAST:event_taBortActionPerformed
+    
+    public void agare(){
+       try{
+       User u = User.getInstance();
+       int id = u.getID();
+       String fraga = "SELECT INLAGG_ID FROM PROJEKT_INLAGG JOIN PROJEKT ON  WHERE AGARE = " + id + ";";
+       ArrayList<String> inlagg = idb.fetchColumn(fraga);
+       for (int i =0; i < inlagg.size(); i++){
+           String inlaggId = inlagg.get(i);
+       
+       if(ID.equals(inlaggId)){
+           taBort.setVisible(true);
+           redigera.setVisible(true);
+       }
+       else{
+           setOsynlig();
+       }
+       }
+       }catch(InfException e){
+           JOptionPane.showMessageDialog(null, "Något gick fel");
+       }
+    }
+    public void setProjektBloggen(projektBloggen projektBloggen) {
+        blogg = projektBloggen;
+    }
+
+    private void redigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redigeraActionPerformed
+        spara.setVisible(true);
+        txtTitel.setEditable(true);
+        txtInlagg.setEditable(true);
+
+
+    }//GEN-LAST:event_redigeraActionPerformed
+    
+    private void sparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sparaActionPerformed
+        try {
+            String nyText = txtInlagg.getText();
+            System.out.println(nyText);
+            String nyTitel = txtTitel.getText();
+            System.out.println(nyTitel);
+
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String date = simpleDateFormat.format(new Date());
+            System.out.println(ID);
+
+            String fraga5 = "UPDATE INLAGG SET DATUM= '" + date + "', TEXT ='" + nyText + "' , TITEL = '" + nyTitel + "', INLAGG_ID ='" + ID + "' WHERE INLAGG_ID = '" + ID + "'";
+            System.out.println(fraga5);
+            idb.update(fraga5);
+            blogg.revalidate();
+            JOptionPane.showMessageDialog(null, "Inlägg har uppdaterats");
+            setEditable();
+            spara.setVisible(false);
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+    }//GEN-LAST:event_sparaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel frameBild;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel bild;
+    private javax.swing.JButton redigera;
+    private javax.swing.JButton spara;
+    private javax.swing.JButton taBort;
     private javax.swing.JLabel tagg1;
     private javax.swing.JLabel tagg2;
     private javax.swing.JLabel tagg3;
     private javax.swing.JLabel tagg4;
     private javax.swing.JLabel tagg5;
-    private javax.swing.JTextArea txtInlagg;
+    private java.awt.TextArea txtInlagg;
     private javax.swing.JTextField txtTitel;
     // End of variables declaration//GEN-END:variables
 }

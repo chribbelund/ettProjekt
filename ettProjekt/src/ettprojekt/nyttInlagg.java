@@ -34,6 +34,7 @@ public class nyttInlagg extends javax.swing.JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.add(panelInlagg);
         panelInlagg.setVisible(true);
+        panelInlagg.setOsynlig();
         
     }
 
@@ -48,8 +49,7 @@ public class nyttInlagg extends javax.swing.JFrame {
 
         panel = new javax.swing.JPanel();
         nytt = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,17 +71,10 @@ public class nyttInlagg extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Tillbaka");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tillbaka.setText("Tillbaka");
+        tillbaka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                tillbakaActionPerformed(evt);
             }
         });
 
@@ -92,12 +85,10 @@ public class nyttInlagg extends javax.swing.JFrame {
             .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(tillbaka)
                 .addGap(70, 70, 70)
                 .addComponent(nytt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(30, 30, 30))
+                .addGap(30, 161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,29 +97,30 @@ public class nyttInlagg extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nytt)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(tillbaka))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     
+    
     private void nyttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttActionPerformed
       try{
           
           
            String text = panelInlagg.getText();
-           System.out.println(text);
+           
            String titel = panelInlagg.getTitel();
-           System.out.println(titel);
+          
            String pattern = "yyyy-MM-dd";
            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
            String date = simpleDateFormat.format(new Date());
-           System.out.println(date);
+           
            String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
-           System.out.println(increment);
-           String projektNamn = layout.getProjektNamn();
+           
+           bloggLayout l = new bloggLayout();
+           String projektNamn = l.getProjektNamn();
            System.out.println(projektNamn);
            
            String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
@@ -148,27 +140,15 @@ public class nyttInlagg extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_nyttActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     new bloggLayout().setVisible(true);
+    private void tillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaActionPerformed
+     new projektBloggen().setVisible(true);
      this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   
-         
-     bloggLayout j = new bloggLayout();
-     j.getProjektNamn();
-     System.out.println(j);
-    
-     
-     
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_tillbakaActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton nytt;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton tillbaka;
     // End of variables declaration//GEN-END:variables
 }

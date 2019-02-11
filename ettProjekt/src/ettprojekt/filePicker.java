@@ -44,4 +44,24 @@ public class filePicker {
         }
 
     }
+        public static String fileSaverProfil(String file, int id) throws InfException, IOException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss.SSS");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        File inputFile = new File(file);
+        String outputPath = System.getProperty("user.dir") + "/files/" + date + "-" + FilenameUtils.getName(file);
+        outputPath = outputPath.replaceAll("\\s+","");
+        File outputFile = new File(outputPath);
+
+        fileSave.copyFileUsingStream(inputFile, outputFile);
+        return outputPath;
+    }
+        
+    public static String filePicker(){
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String file = f.getAbsolutePath();
+        return file;
+    }
 }

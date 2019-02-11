@@ -5,24 +5,22 @@
  */
 package ettprojekt;
 
-import static ettprojekt.EttProjekt.idb;
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import oru.inf.InfException;
 import oru.inf.InfDB;
+
 /**
  *
  * @author emmaj
  */
 public class Validering {
-    
+
     private InfDB idb;
-    
+
     public Validering() {
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
         userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
@@ -33,6 +31,7 @@ public class Validering {
             System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
         }
     }
+
 //Metod för att kontrollera om inmatningsrutan är tom    
     public static boolean textFaltHarVarde(JTextField rutaAttKolla) {
         boolean resultat = true;
@@ -41,6 +40,46 @@ public class Validering {
             JOptionPane.showMessageDialog(null, "Inmatningsrutan är tom!");
             rutaAttKolla.requestFocus();
             resultat = false;
+        }
+
+        return resultat;
+    }
+
+//Metod för att kontrollera om inmatningsrutan för förnamn är tom    
+    public static boolean textFaltFornamn(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        if (rutaAttKolla.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett förnamn!");
+            rutaAttKolla.requestFocus();
+            resultat = false;
+        }
+
+        return resultat;
+    }
+
+//Metod för att kontrollera om inmatningsrutan för förnamn är tom    
+    public static boolean textFaltEfternamn(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        if (rutaAttKolla.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett Efternamn!");
+            rutaAttKolla.requestFocus();
+            resultat = false;
+        }
+
+        return resultat;
+    }
+
+//Metod för att kontrollera att inmatningsrutan endast accepterar heltatsvärden för ID 
+    public static boolean isHeltalID(JTextField rutaAttKolla) {
+        boolean resultat = true;
+
+        try {
+            String inStrang = rutaAttKolla.getText();
+            Integer.parseInt(inStrang);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Vänligen ange ett ID i formatet heltal!");
         }
 
         return resultat;
@@ -113,39 +152,16 @@ public class Validering {
         }
         return passwordIsCorrect;
     }
-    
-    
-//Kollar om lösenordet är i korrekt format
-    public boolean passwordCorrectFormat(JPasswordField txtlosen) {
-    char[] losen = txtlosen.getPassword();
-    String password = new String(losen);
-    if(password.length()>=8)
-    {
-        Pattern letter = Pattern.compile("[a-zA-z]");
-        Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-        //Pattern eight = Pattern.compile (".{8}");
-
-
-           Matcher hasLetter = letter.matcher(password);
-           Matcher hasDigit = digit.matcher(password);
-           Matcher hasSpecial = special.matcher(password);
-
-           return hasLetter.find() && hasDigit.find() && hasSpecial.find();
-
-    }
-    else
-        return false;
-    }
 
 //Metod för att kontrollera om användaren har superadmin behörighet
-    public boolean isSuperAdminCorrect(JTextField txtnamn) {
+    public boolean isSuperAdminCorrect() {
         boolean isSuperAdmin = false;
         try {
-            String anvandarnamn = txtnamn.getText();
-            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
+            User u = User.getInstance(); //när man loggar in sätter man ID till den personen som loggar in
+            int id = u.getID();          //här hämtar man ID från den personen som loggar in! När personen loggar ut blir ID = null
+            String fraga = "SELECT TYPER FROM USERS WHERE USER_ID = '" + id + "';";
             String superadmin = idb.fetchSingle(fraga);
-            if (superadmin.equals("'SUPERADMIN'")) {
+            if (superadmin.equals("SUPERADMIN")) {
                 isSuperAdmin = true;
             }
         } catch (InfException e) {
@@ -153,17 +169,18 @@ public class Validering {
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return isSuperAdmin;
-    
-   }
-    
+
+    }
+
 //Metod för att kontrollera om användaren har admin behörighet
-    public boolean isAdminCorrect(JTextField txtnamn) {
+    public boolean isAdminCorrect() {
         boolean isAdmin = false;
         try {
-            String anvandarnamn = txtnamn.getText();
-            String fraga = "SELECT TYPER from USERS where USER_ID = '" + anvandarnamn + "';";
+            User u = User.getInstance(); //när man loggar in sätter man ID till den personen som loggar in
+            int id = u.getID();          //här hämtar man ID från den personen som loggar in! När personen loggar ut blir ID = null
+            String fraga = "SELECT TYPER FROM USERS WHERE USER_ID = '" + id + "';";
             String admin = idb.fetchSingle(fraga);
-            if (admin.equals("'ADMIN'")) {
+            if (admin.equals("ADMIN")) {
                 isAdmin = true;
             }
         } catch (InfException e) {
@@ -172,7 +189,7 @@ public class Validering {
         }
         return isAdmin;
     }
-    
+
     //Metod för att kontrollera så att den email som matats in är korrekt från det användaren matar in mot databasen
     public boolean isEmailCorrect(JTextField txtMejladress) {
         boolean isEmailCorrect = true;
@@ -193,10 +210,10 @@ public class Validering {
         }
         return isEmailCorrect;
     }
-    
+
 //Metod för att kolla om användar ID finns när man söker efter inlägg skapad av användare X
 //Denna metod kan koperias för att validera alla ID sökningar i hela databasen
-        public boolean isIdCorrect(JTextField txtnamn) {
+    public boolean isIdCorrect(JTextField txtnamn) {
         boolean rattId = false;
         try {
             String id = "SELECT USER_ID FROM USER;";
@@ -216,6 +233,65 @@ public class Validering {
         }
         return rattId;
     }
-        
+
+    public boolean isProjektAgare(JComboBox<String> boxNamn) {
+        boolean isAgare = false;
+        try {
+            String projektNamn = (String) boxNamn.getSelectedItem();
+            System.out.println(projektNamn);
+            User u = User.getInstance();
+            int id = u.getID();
+            String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
+            System.out.println(fraga);
+            ArrayList<String> agare = idb.fetchColumn(fraga);
+            if (agare == null) {
+                isAgare = false;
+                JOptionPane.showMessageDialog(null, "Ej behörig");
+            }
+            for (int i = 0; i < agare.size(); i++) {
+                String ettProjekt = agare.get(i);
+                System.out.println(ettProjekt);
+
+                if (ettProjekt.equals(projektNamn)) {
+                    isAgare = true;
+
+                }
+            }
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Ej behörig");
+        }
+        return isAgare;
+    }
+
+    public boolean isProjektAgareString(String namnet) {
+        boolean isAgare = false;
+        try {
+
+            System.out.println(namnet);
+            User u = User.getInstance();
+            int id = u.getID();
+            String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
+            System.out.println(fraga);
+            ArrayList<String> agare = idb.fetchColumn(fraga);
+
+            if (agare == null) {
+                isAgare = false;
+                JOptionPane.showMessageDialog(null, "Ej behörig");
+            }
+            for (int i = 0; i < agare.size(); i++) {
+                String ettProjekt = agare.get(i);
+
+                if (ettProjekt.equals(namnet)) {
+
+                    isAgare = true;
+
+                }
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Ej behörig");
+        }
+        return isAgare;
+    }
 
 }
