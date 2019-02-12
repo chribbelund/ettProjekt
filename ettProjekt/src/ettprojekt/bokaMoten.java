@@ -8,6 +8,7 @@ package ettprojekt;
 import static ettprojekt.EttProjekt.idb;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -28,17 +29,12 @@ public class bokaMoten extends javax.swing.JFrame {
     /**
      * Creates new form MotesHanterare
      */
-    private InfDB idb;
 
-   
-    
-    
-    public bokaMoten(InfDB idb) {
-    initComponents();
-    this.idb = idb;
-    
+    public bokaMoten() {
+        initComponents();
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +58,7 @@ public class bokaMoten extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtPlats = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        calendar = new com.toedter.calendar.JCalendar();
         timePicker1 = new com.github.lgooddatepicker.components.TimePicker();
 
         jTextArea2.setColumns(20);
@@ -128,12 +124,10 @@ public class bokaMoten extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,7 +136,7 @@ public class bokaMoten extends javax.swing.JFrame {
                         .addGap(166, 166, 166)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -171,21 +165,20 @@ public class bokaMoten extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel3))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(btnBoka)
@@ -220,15 +213,19 @@ public class bokaMoten extends javax.swing.JFrame {
 
     private void btnBokaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBokaActionPerformed
         try {
+            DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd");
+            String datum = formatDatum.format(calendar.getDate());
             String titel = txtTitel.getText();
-            Date datum1 = jCalendar1.getDate();
-            String datum = datum1.toString();
-            
             String meddelande = jTextArea1.getText();
             String plats = txtPlats.getText();
+            String tid = timePicker1.getText();
+            System.out.println(tid);
             String increment = idb.getAutoIncrement("MOTEN", "MOTE_ID");
-            LocalTime tid = timePicker1.getTime();
-            String fraga = ("INSERT INTO MOTEN VALUES ('" + titel + "', '" + datum + "', '" + meddelande + "', '" + tid + "', '" + plats +  "', '" + increment + "');");
+            System.out.println(increment);
+            User u = User.getInstance();
+            int id = u.getID();
+            String fraga = ("INSERT INTO MOTEN VALUES ('" + titel + "', '" + datum + "', '" + meddelande + "', '" + tid + "', '" + plats + "', '" + increment + "', '" + id + "');");
+            System.out.println(fraga);
             idb.insert(fraga);
             JOptionPane.showMessageDialog(null, "Bokad!");
         } catch (InfException ex) {
@@ -239,7 +236,7 @@ public class bokaMoten extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBoka;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private com.toedter.calendar.JCalendar calendar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
