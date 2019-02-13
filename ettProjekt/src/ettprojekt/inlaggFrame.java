@@ -33,8 +33,6 @@ public class inlaggFrame extends javax.swing.JPanel {
         initComponents();
         val = new Validering();
         spara.setVisible(false);
-       
-        
 
     }
 
@@ -67,12 +65,14 @@ public class inlaggFrame extends javax.swing.JPanel {
         txtTitel.setEditable(false);
         txtInlagg.setEditable(false);
     }
-    public void setSkapare(String namn){
-       lblNamn.setText(namn);
-       namnet = namn;
+
+    public void setSkapare(String namn) {
+        namnet = namn;
+        lblNamn.setText(namn);
+
     }
-    
-    public String getSkapare(){
+
+    public String getSkapare() {
         return namnet;
     }
 
@@ -138,7 +138,7 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         bild.setText("bild");
 
-        lblNamn.setBackground(new java.awt.Color(51, 255, 255));
+        lblNamn.setBackground(new java.awt.Color(255, 255, 255));
         lblNamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblNamnActionPerformed(evt);
@@ -175,9 +175,9 @@ public class inlaggFrame extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(150, 150, 150)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtTitel, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(lblNamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -213,16 +213,15 @@ public class inlaggFrame extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     private void taBortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortActionPerformed
-           try {
-            
-           
+        try {
+
             String fraga1 = "DELETE FROM INLAGG WHERE INLAGG_ID = '" + ID + "'";
 
             String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
-            
+
             String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";
             System.out.println(fraga3);
 
@@ -232,35 +231,61 @@ public class inlaggFrame extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Inlagg har raderats");
             blogg.dispose();
             new projektBloggen().setVisible(true);
-            
 
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
 
     }//GEN-LAST:event_taBortActionPerformed
-    
-    public void agare(){
-       try{
-       User u = User.getInstance();
-       int id = u.getID();
-       String fraga = "SELECT AGARE FROM PROJEKT JOIN PROJEKT_IN";
-       ArrayList<String> inlagg = idb.fetchColumn(fraga);
-       for (int i =0; i < inlagg.size(); i++){
-           String inlaggId = inlagg.get(i);
-       
-       if(ID.equals(inlaggId)){
-           taBort.setVisible(true);
-           redigera.setVisible(true);
-       }
-       else{
-           setOsynlig();
-       }
-       }
-       }catch(InfException e){
-           JOptionPane.showMessageDialog(null, "Något gick fel");
-       }
+
+    public void projektAgare() {
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+            String stringId = Integer.toString(id);
+            bloggLayout l = new bloggLayout();
+            String projekt = l.getProjektNamn();
+            String fraga = "SELECT AGARE FROM PROJEKT WHERE PROJEKTNAMN = '" + projekt + "'";
+            String agarId = idb.fetchSingle(fraga);
+
+            if (stringId.equals(agarId)) {
+                taBort.setVisible(true);
+                redigera.setVisible(true);
+            } else {
+                setOsynlig();
+
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "FEL");
+        }
     }
+
+    public void inlaggAgare() {
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+            String stringId = Integer.toString(id);
+            String fraga1 = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + stringId + "'";
+            String fraga2 = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + stringId + "'";
+            String fornamn = idb.fetchSingle(fraga1);
+            String efternamn = idb.fetchSingle(fraga2);
+            String helaNamnet = fornamn + " " + efternamn;
+            System.out.println(helaNamnet);
+            System.out.println(namnet);
+
+            if (helaNamnet.equals(namnet)) {
+                taBort.setVisible(true);
+                redigera.setVisible(true);
+            } else {
+                setOsynlig();
+            }
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+
+    }
+
     public void setProjektBloggen(projektBloggen projektBloggen) {
         blogg = projektBloggen;
     }
@@ -272,7 +297,7 @@ public class inlaggFrame extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_redigeraActionPerformed
-    
+
     private void sparaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sparaActionPerformed
         try {
             String nyText = txtInlagg.getText();
@@ -296,22 +321,24 @@ public class inlaggFrame extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
     }//GEN-LAST:event_sparaActionPerformed
-    
-    public String getUserId(){
+
+    public void setLabelOsynlig() {
+        lblNamn.setVisible(false);
+    }
+
+    public String getUserId() {
         return userId;
     }
     private void lblNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblNamnActionPerformed
-        try{
-        String fornamnet = namnet.split(" ")[0];
-        String efternamnet = namnet.split(" ")[1];
-        String fraga = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + fornamnet + "'AND LAST_NAME = '" + efternamnet + "'";
-        String anvandare = idb.fetchSingle(fraga);
-        userId = anvandare; 
-        new Profil().setVisible(true);
-        
-       
-        
-        }catch(InfException e){
+        try {
+            String fornamnet = namnet.split(" ")[0];
+            String efternamnet = namnet.split(" ")[1];
+            String fraga = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + fornamnet + "'AND LAST_NAME = '" + efternamnet + "'";
+            String anvandare = idb.fetchSingle(fraga);
+            userId = anvandare;
+            new Profil().setVisible(true);
+
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
     }//GEN-LAST:event_lblNamnActionPerformed

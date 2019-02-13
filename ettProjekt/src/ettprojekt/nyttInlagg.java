@@ -35,6 +35,7 @@ public class nyttInlagg extends javax.swing.JFrame {
         panel.add(panelInlagg);
         panelInlagg.setVisible(true);
         panelInlagg.setOsynlig();
+        panelInlagg.setLabelOsynlig();
 
     }
 

@@ -130,8 +130,8 @@ public class projektBloggen extends javax.swing.JFrame {
     }//GEN-LAST:event_nyttInlaggActionPerformed
 
     private void anvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandareActionPerformed
-     new HanteraAnvandare().setVisible(true);
-     this.dispose();
+        new HanteraAnvandare().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_anvandareActionPerformed
 
     public void bloggInlaggen() {
@@ -174,15 +174,21 @@ public class projektBloggen extends javax.swing.JFrame {
                 panel.setID(id);
                 panel.setProjektBloggen(this);
                 panel.setEditable();
+                panel.projektAgare();
+
                 try {
                     String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
+                    System.out.println(anvandare + " fraga");
+                    System.out.println(id + " id");
                     String anvandarId = idb.fetchSingle(anvandare);
+                    System.out.println(anvandarId +" anvandarid");
                     String fornamn = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
                     String fornamnet = idb.fetchSingle(fornamn);
                     String efternamn = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
                     String efternamnet = idb.fetchSingle(efternamn);
                     String helaNamnet = fornamnet + " " + efternamnet;
                     panel.setSkapare(helaNamnet);
+                    panel.inlaggAgare();
                 } catch (InfException e) {
                     JOptionPane.showMessageDialog(null, "Användare fel");
                 }
