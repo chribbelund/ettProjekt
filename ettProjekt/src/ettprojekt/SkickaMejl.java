@@ -170,7 +170,7 @@ public class SkickaMejl extends javax.swing.JFrame {
                
                //Kallar på klassen "Mejl" och metoden i klassen "SkickaMejlet" som används för att skicka mejlet
                //Om det genomförs framgångsrikt utan några problem kommer mejlet att skickas iväg och ett meddelande poppar upp och bekräftar detta
-               Mejl.SkickaMejlet(till, amne, meddelande, losen, fran);
+               Mejl.SkickaMejlet(till, amne, meddelande);
                JOptionPane.showMessageDialog(this,"Ditt mejl har skickats!");
                
                //Efter att mejlet skickas rensas fälten så att de blir tomma
