@@ -9,13 +9,13 @@ import static ettprojekt.EttProjekt.idb;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import oru.inf.InfException;
 
 /**
@@ -24,6 +24,8 @@ import oru.inf.InfException;
  */
 public class projektBloggen extends javax.swing.JFrame {
 
+    private Validering val;
+
     /**
      * Creates new form projektBloggen
      */
@@ -31,6 +33,7 @@ public class projektBloggen extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         bloggInlaggen();
+        val = new Validering();
 
     }
 
@@ -78,6 +81,11 @@ public class projektBloggen extends javax.swing.JFrame {
         jMenu1.add(nyttInlagg);
 
         anvandare.setText("Hantera användare");
+        anvandare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anvandareActionPerformed(evt);
+            }
+        });
         jMenu1.add(anvandare);
 
         jMenuBar1.add(jMenu1);
@@ -121,11 +129,15 @@ public class projektBloggen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_nyttInlaggActionPerformed
 
+    private void anvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandareActionPerformed
+     new HanteraAnvandare().setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_anvandareActionPerformed
+
     public void bloggInlaggen() {
 
         try {
             bloggLayout layout = new bloggLayout();
-
             String projektNamn = layout.getProjektNamn();
 
             String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
@@ -133,15 +145,20 @@ public class projektBloggen extends javax.swing.JFrame {
             int projektIdInt = Integer.parseInt(projektId);
             String fraga2 = "SELECT INLAGG_ID FROM PROJEKT_INLAGG WHERE PROJEKT_ID = " + projektIdInt + ";";
             ArrayList<String> inlaggLista = idb.fetchColumn(fraga2);
-            int antalInlagg = inlaggLista.size();
-            if (inlaggLista == null){
-                new nyttInlagg().setVisible(true);
+
+            if (inlaggLista == null) {
+                return;
+
             }
+            Collections.reverse(inlaggLista);
+            int antalInlagg = inlaggLista.size();
             String fragan = "SELECT TEXT FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
             ArrayList<String> texter = idb.fetchColumn(fragan);
+            Collections.reverse(texter);
 
             fragan = "SELECT TITEL FROM INLAGG JOIN PROJEKT_INLAGG ON INLAGG.INLAGG_ID = PROJEKT_INLAGG.INLAGG_ID WHERE PROJEKT_ID = " + projektIdInt + ";";
             ArrayList<String> titlar = idb.fetchColumn(fragan);
+            Collections.reverse(titlar);
 
             for (int j = 0; j < antalInlagg; j++) {
                 inlaggFrame panel = new inlaggFrame();
@@ -157,13 +174,25 @@ public class projektBloggen extends javax.swing.JFrame {
                 panel.setID(id);
                 panel.setProjektBloggen(this);
                 panel.setEditable();
+                try {
+                    String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
+                    String anvandarId = idb.fetchSingle(anvandare);
+                    String fornamn = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
+                    String fornamnet = idb.fetchSingle(fornamn);
+                    String efternamn = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
+                    String efternamnet = idb.fetchSingle(efternamn);
+                    String helaNamnet = fornamnet + " " + efternamnet;
+                    panel.setSkapare(helaNamnet);
+                } catch (InfException e) {
+                    JOptionPane.showMessageDialog(null, "Användare fel");
+                }
 
             }
-           
 
         } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
+            JOptionPane.showMessageDialog(null, "lbl fel");
         }
+
     }
 
 

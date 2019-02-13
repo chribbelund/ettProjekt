@@ -6,6 +6,7 @@
 package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,6 +55,12 @@ public class loggaIn extends javax.swing.JFrame {
         lblavatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/user.png"))); // NOI18N
 
         lbllås.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/lock.png"))); // NOI18N
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         btnloggain.setText("Logga in");
         btnloggain.addActionListener(new java.awt.event.ActionListener() {
@@ -176,29 +183,38 @@ public class loggaIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnloggainActionPerformed
 
-    //Kollar om användarnamnet finns i databasen
-//        if (val.isUsernameCorrect(txtUsername)) {
-//            String name = txtUsername.getText();
-//            String pws = new String(txtPassword.getPassword());
-//            try {
-//                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + name + "';");
-//                int id = Integer.parseInt(ID);
-//                User u = User.getInstance();
-//                u.setId(id);
-//            } catch (InfException ex) {
-//            }
-//            //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
-//            if (val.isPasswordCorrect(txtUsername, pws)) {
-//                if (1 == 2) {
-//                    //Kollar om personen är superadmin
-//                } else if (1 == 2) {
-//                    //Kollar om personen är admin
-//                } else {
-//                    new bloggLayout().setVisible(true);
-//                    dispose();
-//                }
-//            }
-//        }
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (val.isUsernameCorrect(txtUsername)) {
+                String namn = txtUsername.getText();
+                String pws = new String(txtPassword.getPassword());
+                try {
+                    String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + namn + "';");
+                    int id = Integer.parseInt(ID);
+                    User u = User.getInstance();
+                    u.setId(id);
+                } catch (Exception ex) {
+                }
+                if (val.isPasswordCorrect(txtUsername, pws)) {
+                    if (val.isSuperAdminCorrect()) {
+                        new startsidan().setVisible(true);
+                        System.out.println("SuperAdmin");
+                        dispose();
+                    } else if (val.isAdminCorrect()) {
+                        new startsidan().setVisible(true);
+                        System.out.println("Admin");
+                        dispose();
+                    } else {
+                        new startsidan().setVisible(true);
+                        System.out.println("Standard");
+                        dispose();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ange ett korrekt inlogg!");
+                }
+            }
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnloggain;

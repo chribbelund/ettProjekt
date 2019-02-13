@@ -17,13 +17,13 @@ import oru.inf.InfException;
  * @author EmelieD
  */
 public class nyttInlagg extends javax.swing.JFrame {
+
     private bloggLayout layout;
     private inlaggFrame panelInlagg;
-    
-    
 
     /**
      * Creates new form nyttInlagg
+     *
      * @param idb
      */
     public nyttInlagg() {
@@ -35,7 +35,7 @@ public class nyttInlagg extends javax.swing.JFrame {
         panel.add(panelInlagg);
         panelInlagg.setVisible(true);
         panelInlagg.setOsynlig();
-        
+
     }
 
     /**
@@ -103,49 +103,58 @@ public class nyttInlagg extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     
-    
+
+
     private void nyttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttActionPerformed
-      try{
-          
-          
-           String text = panelInlagg.getText();
-           
-           String titel = panelInlagg.getTitel();
-          
-           String pattern = "yyyy-MM-dd";
-           SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-           String date = simpleDateFormat.format(new Date());
-           
-           String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
-           
-           bloggLayout l = new bloggLayout();
-           String projektNamn = l.getProjektNamn();
-           System.out.println(projektNamn);
-           
-           String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-           String projektId = idb.fetchSingle(fraga1);
-           int projektIdInt = Integer.parseInt(projektId);
-           System.out.println(projektIdInt);
-           String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
-           String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-           System.out.println(fraga3);
-           idb.insert(fraga3);
-           idb.insert(fraga2);
-           JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
-      }
-      catch (InfException e)
-      {
-          JOptionPane.showConfirmDialog(null, "Något gick fel");
-      }
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+
+            String fornamnet = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = " + id + ";";
+            String fornamn = idb.fetchSingle(fornamnet);
+            String efternamnet = "SELECT LAST_NAME FROM USERS WHERE USER_ID = " + id + ";";
+            String efternamn = idb.fetchSingle(efternamnet);
+            String helaNamnet = fornamn + " " + efternamn;
+            System.out.println(helaNamnet);
+            String text = panelInlagg.getText();
+
+            String titel = panelInlagg.getTitel();
+
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String date = simpleDateFormat.format(new Date());
+
+            String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
+
+            bloggLayout l = new bloggLayout();
+            String projektNamn = l.getProjektNamn();
+            System.out.println(projektNamn);
+
+            String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+            String projektId = idb.fetchSingle(fraga1);
+            int projektIdInt = Integer.parseInt(projektId);
+            System.out.println(projektIdInt);
+            String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
+            String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
+            String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+            System.out.println(fraga3);
+
+            idb.insert(fraga3);
+            idb.insert(fraga2);
+            idb.insert(fraga4);
+
+            JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+        } catch (InfException e) {
+            JOptionPane.showConfirmDialog(null, "Något gick fel");
+        }
     }//GEN-LAST:event_nyttActionPerformed
 
     private void tillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaActionPerformed
-     new projektBloggen().setVisible(true);
-     this.dispose();
+        new projektBloggen().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_tillbakaActionPerformed
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton nytt;
     private javax.swing.JPanel panel;
