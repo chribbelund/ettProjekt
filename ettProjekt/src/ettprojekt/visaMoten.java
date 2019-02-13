@@ -28,17 +28,16 @@ public class visaMoten extends javax.swing.JFrame {
     private void visaMote() {
         try {
             String datum = Kalender.datumMote;
-            ///test.setText(datum);
             String fraga = ("SELECT TITEL FROM MOTEN WHERE DATUM = '" + datum + "';");
             ArrayList<String> moten = idb.fetchColumn(fraga);
             String fraga2 = ("SELECT TID FROM MOTEN WHERE DATUM = '" + datum + "';");
             ArrayList<String> moten2 = idb.fetchColumn(fraga2);
-            System.out.println(moten);
-            ///moten = idb.fetchColumn(fraga);
+            String fraga3 = ("SELECT PLATS FROM MOTEN WHERE DATUM = '" + datum + "';");
+            ArrayList<String> moten3 = idb.fetchColumn(fraga3);
             if (!(moten == null)) {
                 String svar = "";
                 for (int i = 0; i < moten.size(); i++) {
-                    svar += (moten.get(i) + " " + moten2.get(i) + "\n");
+                    svar += (moten.get(i) + " " + moten2.get(i) +" " + moten3.get(i) + "\n");
                 }
                 txtMoten.setText(svar);
             }
