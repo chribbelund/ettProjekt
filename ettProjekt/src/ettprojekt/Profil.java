@@ -143,7 +143,7 @@ byte[] person_image=null;
         jLabel1.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
         jLabel1.setText("Förnamn");
 
-        lbfnamn.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
+        lbfnamn.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
         lbfnamn.setText("namn");
 
         jLabel3.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
