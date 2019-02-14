@@ -27,7 +27,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtMoten" alignment="0" min="-2" pref="364" max="-2" attributes="0"/>
-                  <Component id="test" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelDatum" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -37,7 +37,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="test" min="-2" max="-2" attributes="0"/>
+              <Component id="labelDatum" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtMoten" min="-2" pref="244" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -46,9 +46,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="test">
+    <Component class="javax.swing.JLabel" name="labelDatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="datum"/>
       </Properties>
     </Component>
     <Component class="java.awt.TextArea" name="txtMoten">

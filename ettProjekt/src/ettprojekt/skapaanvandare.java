@@ -5,8 +5,6 @@ package ettprojekt;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import static ettprojekt.EttProjekt.userDir;
 import static java.lang.String.valueOf;
 import java.util.ArrayList;
@@ -26,21 +24,19 @@ public class skapaanvandare extends javax.swing.JFrame {
      * Creates new form skapaanvandare
      */
     public static InfDB idb;
-    
+
     public skapaanvandare() {
         initComponents();
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
         userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
-        try{
-           //Importerar databasen
+        try {
+            //Importerar databasen
             idb = new InfDB(EttProjekt.userDir);
             System.out.println(userDir);
-        }
-        
-        catch(InfException e){
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("fel:" + e);
-    }
+        }
     }
 
     /**
@@ -62,12 +58,9 @@ public class skapaanvandare extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txttel = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cbstatus = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        btnGenereraID = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtEfternamn = new javax.swing.JTextField();
         btnAvbryt = new javax.swing.JButton();
@@ -99,8 +92,6 @@ public class skapaanvandare extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Användar ID");
-
         jLabel7.setText("Lösenord");
 
         cbstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Användare", "Admin" }));
@@ -111,13 +102,6 @@ public class skapaanvandare extends javax.swing.JFrame {
         });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/add-user-male.png"))); // NOI18N
-
-        btnGenereraID.setText("Generera");
-        btnGenereraID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenereraIDActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Efternamn");
 
@@ -173,15 +157,11 @@ public class skapaanvandare extends javax.swing.JFrame {
                                 .addGap(42, 42, 42))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnGenereraLosenord)
-                                    .addComponent(btnGenereraID))
+                                .addComponent(btnGenereraLosenord)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(lblBild, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,14 +182,9 @@ public class skapaanvandare extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
+                        .addComponent(jLabel3)
                         .addGap(16, 16, 16)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGenereraID))
+                        .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -285,94 +260,72 @@ public class skapaanvandare extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
-         //if(Validering.textFaltHarVarde(txtFornamn) && (Validering.textFaltHarVarde(txtEfternamn))
- 
-    if(Validering.textFaltFornamn(txtFornamn)){
-        
-    if(Validering.textFaltEfternamn(txtEfternamn)){
-        
-    if(Validering.isHeltalID(txtID)){
-                    
-    if(Validering.isHeltal(txttel)){
 
-                try{
-           	
-           	String fornamn = txtFornamn.getText();
-                String efternamn = txtEfternamn.getText();
-           	String mejl = txtmejl.getText();
-                String tel = txttel.getText();
-                String ID= txtID.getText();
-                String losen = txtlosen.getText();
-                String admin = cbstatus.getSelectedItem().toString();
-                String bild = System.getProperty("user.dir") + "/src/bilder/gender-neutral-user-filled.png";
-              
-            	String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
-           	String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "', '" + tel + "','ADMIN','" + losen + "', '" + ID + "');";
-                String fraga2 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "','" + tel + "','USER','" + losen + "', '" + ID + "');";
-         
-                String svar = idb.fetchSingle(fraga);
+        //if(Validering.textFaltHarVarde(txtFornamn) && (Validering.textFaltHarVarde(txtEfternamn))
+        if (Validering.textFaltFornamn(txtFornamn)) {
 
-           	
-          	if(ID.equals(svar))
-                    {
-                        JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
-                    }
-                    else {
-                        if(admin.equals("Admin")){
-                            idb.insert(fraga1);
+            if (Validering.textFaltEfternamn(txtEfternamn)) {
 
+                if (Validering.isHeltal(txttel)) {
+
+                    try {
+
+                        String fornamn = txtFornamn.getText();
+                        String efternamn = txtEfternamn.getText();
+                        String mejl = txtmejl.getText();
+                        String tel = txttel.getText();
+                        String ID = idb.getAutoIncrement("USERS", "USER_ID");
+                        System.out.println(ID);
+                        String losen = txtlosen.getText();
+                        String admin = cbstatus.getSelectedItem().toString();
+                        String bild = System.getProperty("user.dir") + "/src/bilder/gender-neutral-user-filled.png";
+
+                        String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
+                        String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "', '" + tel + "','ADMIN','" + losen + "', '" + ID + "');";
+                        String fraga2 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, TYPER, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "','" + tel + "','USER','" + losen + "', '" + ID + "');";
+
+                        String svar = idb.fetchSingle(fraga);
+
+                        if (ID.equals(svar)) {
+                            JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
+                        } else {
+                            if (admin.equals("Admin")) {
+                                idb.insert(fraga1);
+
+                            } else {
+                                idb.insert(fraga2);
+
+                            }
+                            JOptionPane.showMessageDialog(null, "Ny användare tillagd");
                         }
-                        else { idb.insert(fraga2);
 
-                        }
-                        JOptionPane.showMessageDialog(null, "Ny användare tillagd");
+                    } catch (InfException e) {
+                        JOptionPane.showMessageDialog(null, "Något gick fel!");
+                        System.out.println("Internt felmeddelande" + e.getMessage());
                     }
 
-                }catch(InfException e) {
-                    JOptionPane.showMessageDialog(null, "Något gick fel!");
-                    System.out.println("Internt felmeddelande" + e.getMessage());
                 }
+            }
+        }
 
-        }
-        }
-        }
-       	} 
-    
-    //Efter att användaren är tillagd rensas fälten så de blir tomma
-               txtFornamn.setText("");
-               txtEfternamn.setText("");
-               txtmejl.setText("");
-               txttel.setText("");
-               txtID.setText("");
-               txtlosen.setText("");                                                            
+        //Efter att användaren är tillagd rensas fälten så de blir tomma
+        txtFornamn.setText("");
+        txtEfternamn.setText("");
+        txtmejl.setText("");
+        txttel.setText("");
+        txtlosen.setText("");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbstatusActionPerformed
-        
+
         String admin = cbstatus.getSelectedItem().toString();
         System.out.println(admin);
-    
+
     }//GEN-LAST:event_cbstatusActionPerformed
 
-    private void btnGenereraIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenereraIDActionPerformed
-         //Den här metoden tilldelar ett nytt id i storleksordning 
-        
-        ArrayList nummer = new ArrayList();
-        try{
-            ArrayList<String> antal = idb.fetchColumn("Select USER_ID from USERS;");
-            int nyttId = antal.size()+1;
-            txtID.setText(valueOf(nyttId));
-        }
-        catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + e.getMessage());
-        }
-    }//GEN-LAST:event_btnGenereraIDActionPerformed
-
     private void btnAvbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvbrytActionPerformed
-         //Metoden stänger detta fönster
+        //Metoden stänger detta fönster
         this.dispose();
     }//GEN-LAST:event_btnAvbrytActionPerformed
 
@@ -382,41 +335,38 @@ public class skapaanvandare extends javax.swing.JFrame {
         //Det slumpas alltså ut en siffra mellan 1-9
         //Sedan slumpas det 7 bokstäver
         //Dessa sätts ihop till en string som blir det genererade lösenordet
-        
-        String nummer ="0123456789";
-        
-        Random rnd=new Random();
-        
-        StringBuilder sb=new StringBuilder(1);
-        
-        for(int i=0; i<1; i++)
-        {
+
+        String nummer = "0123456789";
+
+        Random rnd = new Random();
+
+        StringBuilder sb = new StringBuilder(1);
+
+        for (int i = 0; i < 1; i++) {
             sb.append(nummer.charAt(rnd.nextInt(nummer.length())));
         }
-        
-        String bokstaver ="abcdefghijklmnopqrstuvxyz";
-        
-        Random rand=new Random();
-        
-        StringBuilder sbb=new StringBuilder(7);
-        
-        for(int i=0; i<7; i++)
-        {
+
+        String bokstaver = "abcdefghijklmnopqrstuvxyz";
+
+        Random rand = new Random();
+
+        StringBuilder sbb = new StringBuilder(7);
+
+        for (int i = 0; i < 7; i++) {
             sbb.append(bokstaver.charAt(rand.nextInt(bokstaver.length())));
         }
 
-        String random1 =sb.toString();
-        String random2 =sbb.toString();
-        
+        String random1 = sb.toString();
+        String random2 = sbb.toString();
+
         String random;
         random = random2 + random1;
-        
-    	txtlosen.setText(random);
+
+        txtlosen.setText(random);
     }//GEN-LAST:event_btnGenereraLosenordActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAvbryt;
-    private javax.swing.JButton btnGenereraID;
     private javax.swing.JButton btnGenereraLosenord;
     private javax.swing.JComboBox<String> cbstatus;
     private javax.swing.JButton jButton1;
@@ -427,7 +377,6 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -436,11 +385,9 @@ public class skapaanvandare extends javax.swing.JFrame {
     private javax.swing.JLabel lblBild;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtFornamn;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtlosen;
     private javax.swing.JTextField txtmejl;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
 
- 
 }
