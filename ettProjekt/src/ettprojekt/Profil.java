@@ -71,6 +71,9 @@ byte[] person_image=null;
     String hamtalosen = "SELECT LOSENORD from users where user_id =" +id + ";";
     System.out.println(hamtalosen);
     
+    String hamtatel = "SELECT TELEFON from users where user_id =" +id + ";";
+    System.out.println(hamtatel);
+    
    String hamtabild = "SELECT BILDER from users where user_id =" +id+ ";";
    System.out.println(hamtabild);
    
@@ -84,6 +87,9 @@ byte[] person_image=null;
     String losen = idb.fetchSingle(hamtalosen);
     System.out.println(losen);
     
+     String tel = idb.fetchSingle(hamtatel);
+    System.out.println(tel);
+    
     String hamtamejl = "SELECT EMAIL from users where user_id ="+id+ ";";
     String mejlen = idb.fetchSingle(hamtamejl);
 
@@ -91,6 +97,7 @@ byte[] person_image=null;
             lbenamn.setText(enamn);
             txtlosen.setText(losen);
             txtmejl.setText(mejlen);
+            txttel.setText(tel);
             //String test = ("/Users/mira/NetBeansProjects/ettProjekt/ettProjekt/files/2019-02-08 12.54.06.108-asplund.jpg");
             ImageIcon imageIcon = new ImageIcon (new ImageIcon(bild).getImage().getScaledInstance(lblbild.getWidth(),lblbild.getHeight(),Image.SCALE_SMOOTH));
             lblbild.setIcon(imageIcon);
@@ -126,6 +133,8 @@ byte[] person_image=null;
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblbild = new javax.swing.JLabel();
+        lbltel = new javax.swing.JLabel();
+        txttel = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,10 +184,10 @@ byte[] person_image=null;
         });
 
         jLabel2.setFont(new java.awt.Font("Shree Devanagari 714", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel2.setForeground(new java.awt.Color(51, 153, 255));
         jLabel2.setText("Profil");
 
-        jPanel3.setBackground(new java.awt.Color(0, 102, 255));
+        jPanel3.setBackground(new java.awt.Color(51, 153, 255));
         jPanel3.setForeground(new java.awt.Color(0, 51, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -193,6 +202,11 @@ byte[] person_image=null;
         );
 
         lblbild.setText("bild");
+
+        lbltel.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
+        lbltel.setText("Tel");
+
+        txttel.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,11 +228,13 @@ byte[] person_image=null;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbmejl)
-                            .addComponent(lblosen))
+                            .addComponent(lblosen)
+                            .addComponent(lbltel))
                         .addGap(85, 85, 85)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtmejl, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                            .addComponent(txtlosen))))
+                            .addComponent(txtlosen)
+                            .addComponent(txttel))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnbild)
@@ -234,7 +250,7 @@ byte[] person_image=null;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel2)))
-                .addGap(122, 392, Short.MAX_VALUE))
+                .addGap(122, 448, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +268,11 @@ byte[] person_image=null;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(lbenamn))
-                        .addGap(73, 73, 73)
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbltel)
+                            .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbmejl)
                             .addComponent(txtmejl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -264,7 +284,7 @@ byte[] person_image=null;
                     .addComponent(lblosen)
                     .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbild))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avbryt)
                     .addComponent(btnupdate))
@@ -295,10 +315,10 @@ byte[] person_image=null;
             String losenord = txtlosen.getText();
             System.out.println(losenord);
             String mejl = txtmejl.getText();
-           
+           String tel =txttel.getText();
             
 
-            String sql = "update users set LOSENORD ='" + losenord + "' ,EMAIL= '"+ mejl+ "' where  USER_ID = '" +id+"';";
+            String sql = "update users set LOSENORD ='" + losenord + "' ,EMAIL= '"+ mejl+ "',TELEFON= '" +tel+ "' where  USER_ID = '" +id+"';";
             System.out.println(sql);
             idb.update(sql);
          try{
@@ -369,9 +389,11 @@ byte[] person_image=null;
     private javax.swing.JLabel lbfnamn;
     private javax.swing.JLabel lblbild;
     private javax.swing.JLabel lblosen;
+    private javax.swing.JLabel lbltel;
     private javax.swing.JLabel lbmejl;
     private javax.swing.JTextField txtlosen;
     private javax.swing.JTextField txtmejl;
+    private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
 
 }
