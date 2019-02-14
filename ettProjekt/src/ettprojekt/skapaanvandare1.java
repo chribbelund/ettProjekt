@@ -257,44 +257,46 @@ public class skapaanvandare1 extends javax.swing.JFrame {
             if (Validering.isString(txtEfternamn)) {
 
                 if (Validering.isHeltalID(txttel)) {
+                    if (Validering.isEmailFormatCorrect(txtmejl)) {
 
-                    try {
+                        try {
 
-                        String fornamn = txtFornamn.getText();
-                        String efternamn = txtEfternamn.getText();
-                        String mejl = txtmejl.getText();
-                        String tel = txttel.getText();
-                        String ID = idb.getAutoIncrement("USERS", "USER_ID");
-                        System.out.println(ID);
-                        String losen = txtlosen.getText();
+                            String fornamn = txtFornamn.getText();
+                            String efternamn = txtEfternamn.getText();
+                            String mejl = txtmejl.getText();
+                            String tel = txttel.getText();
+                            String ID = idb.getAutoIncrement("USERS", "USER_ID");
+                            System.out.println(ID);
+                            String losen = txtlosen.getText();
 
-                        String bild = System.getProperty("user.dir") + "/src/bilder/gender-neutral-user-filled.png";
+                            String bild = System.getProperty("user.dir") + "/src/bilder/gender-neutral-user-filled.png";
 
-                        String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
-                        String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "', '" + tel + "','" + losen + "', '" + ID + "');";
+                            String fraga = "SELECT USER_ID from USERS where USER_ID=" + ID;
+                            String fraga1 = "INSERT INTO USERS(FIRST_NAME, LAST_NAME, EMAIL, BILDER, TELEFON, LOSENORD, USER_ID) VALUES('" + fornamn + "', '" + efternamn + "', '" + mejl + "','" + bild + "', '" + tel + "','" + losen + "', '" + ID + "');";
 
-                        String svar = idb.fetchSingle(fraga);
-                        String svar1 = idb.fetchSingle(fraga1);
+                            String svar = idb.fetchSingle(fraga);
+                            String svar1 = idb.fetchSingle(fraga1);
 
-                        if (ID.equals(svar)) {
-                            JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
-                        } else {
-                            idb.insert(fraga1);
+                            if (ID.equals(svar)) {
+                                JOptionPane.showMessageDialog(null, "användare finns redan i systemet");
+                            } else {
+                                idb.insert(fraga1);
 
-                            JOptionPane.showMessageDialog(null, "Ny användare tillagd");
-                            //Efter att användaren är tillagd rensas fälten så de blir tomma
-                            txtFornamn.setText("");
-                            txtEfternamn.setText("");
-                            txtmejl.setText("");
-                            txttel.setText("");
-                            txtlosen.setText("");
+                                JOptionPane.showMessageDialog(null, "Ny användare tillagd");
+                                //Efter att användaren är tillagd rensas fälten så de blir tomma
+                                txtFornamn.setText("");
+                                txtEfternamn.setText("");
+                                txtmejl.setText("");
+                                txttel.setText("");
+                                txtlosen.setText("");
+                            }
+
+                        } catch (InfException e) {
+                            JOptionPane.showMessageDialog(null, "Något gick fel!");
+                            System.out.println("Internt felmeddelande" + e.getMessage());
                         }
 
-                    } catch (InfException e) {
-                        JOptionPane.showMessageDialog(null, "Något gick fel!");
-                        System.out.println("Internt felmeddelande" + e.getMessage());
                     }
-
                 }
             }
         }
@@ -324,21 +326,34 @@ public class skapaanvandare1 extends javax.swing.JFrame {
             sb.append(nummer.charAt(rnd.nextInt(nummer.length())));
         }
 
-        String bokstaver = "abcdefghijklmnopqrstuvxyz";
+        String bokstaver = "abcdefghijklmnopqrstuvwxyz";
+        String storbokstav = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String tecken = "[!@#$%&*()_+=|<>?{}\\[\\]~-]";
 
+        StringBuilder sbbb = new StringBuilder(1);
+        for (int i = 0; i < 1; i++) {
+            sbbb.append(storbokstav.charAt(rnd.nextInt(storbokstav.length())));
+        }
+        StringBuilder sbbbb = new StringBuilder(1);
+        for (int i = 0; i < 1; i++){
+            sbbb.append(tecken.charAt(rnd.nextInt(tecken.length())));
+        }
+        
         Random rand = new Random();
 
-        StringBuilder sbb = new StringBuilder(7);
+        StringBuilder sbb = new StringBuilder(6);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             sbb.append(bokstaver.charAt(rand.nextInt(bokstaver.length())));
         }
 
         String random1 = sb.toString();
         String random2 = sbb.toString();
+        String random3 = sbbb.toString();
+        String random4 = sbbbb.toString();
 
         String random;
-        random = random2 + random1;
+        random = random3 + random2 + random1 + random4;
 
         txtlosen.setText(random);
     }//GEN-LAST:event_btnGenereraLosenordActionPerformed
