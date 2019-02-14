@@ -153,11 +153,11 @@ public class loggaIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloggainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloggainActionPerformed
-        if (val.isUsernameCorrect(txtUsername)) {
+        if (val.isEmailCorrect(txtUsername)) {
             String namn = txtUsername.getText();
             String pws = new String(txtPassword.getPassword());
             try {
-                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + namn + "';");
+                String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE EMAIL = '" + namn + "';");
                 int id = Integer.parseInt(ID);
                 User u = User.getInstance();
                 u.setId(id);
@@ -183,11 +183,11 @@ public class loggaIn extends javax.swing.JFrame {
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (val.isUsernameCorrect(txtUsername)) {
+            if (val.isEmailCorrect(txtUsername)) {
                 String namn = txtUsername.getText();
                 String pws = new String(txtPassword.getPassword());
                 try {
-                    String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE LAST_NAME = '" + namn + "';");
+                    String ID = idb.fetchSingle("SELECT USER_ID FROM USERS WHERE EMAIL = '" + namn + "';");
                     int id = Integer.parseInt(ID);
                     User u = User.getInstance();
                     u.setId(id);

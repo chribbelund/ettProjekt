@@ -112,6 +112,8 @@ public class skapaanvandare1 extends javax.swing.JFrame {
             }
         });
 
+        txtlosen.setEditable(false);
+
         lblBild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/gender-neutral-user-filled.png"))); // NOI18N
 
         jLabel11.setText("Profilbild");

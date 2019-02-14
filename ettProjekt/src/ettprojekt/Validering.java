@@ -154,7 +154,7 @@ public class Validering {
         try {
             String username = txtUsername.getText();
             String password = txtPassword;
-            String correctPassword = "SELECT LOSENORD FROM USERS WHERE LAST_NAME = '" + username + "';";
+            String correctPassword = "SELECT LOSENORD FROM USERS WHERE EMAIL = '" + username + "';";
             correctPassword = idb.fetchSingle(correctPassword);
 
             if (!(password.equals(correctPassword))) {
@@ -207,13 +207,15 @@ public class Validering {
     }
 
     //Metod för att kontrollera så att den email som matats in är korrekt från det användaren matar in mot databasen
-    public boolean isEmailCorrect(JTextField txtMejladress) {
+    public boolean issEmailCorrect(JTextField txtMejladress) {
         boolean isEmailCorrect = true;
 
         try {
             String userEmail = txtMejladress.getText();
+            System.out.println(userEmail + ".");
             String correctEmail = "SELECT EMAIL FROM USERS WHERE EMAIL = '" + userEmail + "';";
             String email = idb.fetchSingle(correctEmail);
+            System.out.println(email + ".");
 
             if (!(email.equals(correctEmail))) {
                 isEmailCorrect = false;
@@ -223,8 +225,31 @@ public class Validering {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
+            isEmailCorrect = false;
         }
         return isEmailCorrect;
+    }
+
+    public boolean isEmailCorrect(JTextField epost) {
+        try {
+            String userEmail = epost.getText();
+            System.out.println(userEmail + ".");
+            String correctEmail = "SELECT EMAIL FROM USERS WHERE EMAIL = '" + userEmail + "';";
+            String email = idb.fetchSingle(correctEmail);
+            System.out.println(email + ".");
+
+            if (userEmail.equals(email)) {
+                System.out.println("true");
+                return true;
+                
+            } else {
+                System.out.println("false");
+                return false;
+            }
+        } catch (InfException e) {
+            System.out.println("false");
+            return false;
+        }
     }
 
     public static boolean isEmailFormatCorrect(JTextField epost) {
