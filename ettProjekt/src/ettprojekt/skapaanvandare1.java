@@ -252,9 +252,9 @@ public class skapaanvandare1 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         //if(Validering.textFaltHarVarde(txtFornamn) && (Validering.textFaltHarVarde(txtEfternamn))
-        if (Validering.textFaltFornamn(txtFornamn)) {
+        if (Validering.isString(txtFornamn)) {
 
-            if (Validering.textFaltEfternamn(txtEfternamn)) {
+            if (Validering.isString(txtEfternamn)) {
 
                 if (Validering.isHeltalID(txttel)) {
 
@@ -282,6 +282,12 @@ public class skapaanvandare1 extends javax.swing.JFrame {
                             idb.insert(fraga1);
 
                             JOptionPane.showMessageDialog(null, "Ny användare tillagd");
+                            //Efter att användaren är tillagd rensas fälten så de blir tomma
+                            txtFornamn.setText("");
+                            txtEfternamn.setText("");
+                            txtmejl.setText("");
+                            txttel.setText("");
+                            txtlosen.setText("");
                         }
 
                     } catch (InfException e) {
@@ -293,12 +299,6 @@ public class skapaanvandare1 extends javax.swing.JFrame {
             }
         }
 
-        //Efter att användaren är tillagd rensas fälten så de blir tomma
-        txtFornamn.setText("");
-        txtEfternamn.setText("");
-        txtmejl.setText("");
-        txttel.setText("");
-        txtlosen.setText("");
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

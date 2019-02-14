@@ -32,7 +32,19 @@ public class Validering {
         }
     }
 
+    public static boolean isString(JTextField txtNamn) {
+        boolean isString = false;
+
+        if (txtNamn.getText().matches("[a-zA-Z]+")) {
+            isString = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Ange ett korrekt namn");
+            txtNamn.requestFocus();
+        }
+        return isString;
+    }
 //Metod för att kontrollera om inmatningsrutan är tom    
+
     public static boolean textFaltHarVarde(JTextField rutaAttKolla) {
         boolean resultat = true;
 
