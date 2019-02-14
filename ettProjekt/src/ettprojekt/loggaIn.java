@@ -177,8 +177,6 @@ public class loggaIn extends javax.swing.JFrame {
                     System.out.println("Standard");
                     dispose();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Ange ett korrekt inlogg!");
             }
         }
     }//GEN-LAST:event_btnloggainActionPerformed
@@ -209,8 +207,6 @@ public class loggaIn extends javax.swing.JFrame {
                         System.out.println("Standard");
                         dispose();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ange ett korrekt inlogg!");
                 }
             }
         }

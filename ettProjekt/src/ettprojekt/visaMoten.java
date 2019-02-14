@@ -28,6 +28,7 @@ public class visaMoten extends javax.swing.JFrame {
     private void visaMote() {
         try {
             String datum = Kalender.datumMote;
+            labelDatum.setText("Möten på " + datum);
             String fraga = ("SELECT TITEL FROM MOTEN WHERE DATUM = '" + datum + "';");
             ArrayList<String> moten = idb.fetchColumn(fraga);
             String fraga2 = ("SELECT TID FROM MOTEN WHERE DATUM = '" + datum + "';");
@@ -55,12 +56,12 @@ public class visaMoten extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        test = new javax.swing.JLabel();
+        labelDatum = new javax.swing.JLabel();
         txtMoten = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        test.setText("jLabel1");
+        labelDatum.setText("datum");
 
         txtMoten.setEditable(false);
 
@@ -71,18 +72,15 @@ public class visaMoten extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtMoten, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(test)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(txtMoten, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDatum))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(test)
+                .addComponent(labelDatum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMoten, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -93,7 +91,7 @@ public class visaMoten extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel test;
+    private javax.swing.JLabel labelDatum;
     private java.awt.TextArea txtMoten;
     // End of variables declaration//GEN-END:variables
 }
