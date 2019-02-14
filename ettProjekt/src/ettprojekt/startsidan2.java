@@ -69,7 +69,7 @@ void showTime(){
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 255));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Profil");

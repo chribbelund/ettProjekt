@@ -77,7 +77,7 @@ public class skapaanvandare1 extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel3.setBackground(new java.awt.Color(0, 102, 255));
 
         jLabel3.setText("Förnamn");
 
