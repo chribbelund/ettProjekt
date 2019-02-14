@@ -103,6 +103,7 @@ public class inlaggFrame extends javax.swing.JPanel {
         bild = new javax.swing.JLabel();
         lblNamn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(698, 358));
 
         tagg1.setText("Tagg1");
