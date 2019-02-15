@@ -7,11 +7,15 @@ package ettprojekt;
 
 import static ettprojekt.EttProjekt.userDir;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import oru.inf.InfException;
 import oru.inf.InfDB;
+import java.io.*;
+import java.util.regex.Matcher;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -150,7 +154,7 @@ public class Validering {
         try {
             String username = txtUsername.getText();
             String password = txtPassword;
-            String correctPassword = "SELECT LOSENORD FROM USERS WHERE LAST_NAME = '" + username + "';";
+            String correctPassword = "SELECT LOSENORD FROM USERS WHERE EMAIL = '" + username + "';";
             correctPassword = idb.fetchSingle(correctPassword);
 
             if (!(password.equals(correctPassword))) {
@@ -203,13 +207,15 @@ public class Validering {
     }
 
     //Metod för att kontrollera så att den email som matats in är korrekt från det användaren matar in mot databasen
-    public boolean isEmailCorrect(JTextField txtMejladress) {
+    public boolean issEmailCorrect(JTextField txtMejladress) {
         boolean isEmailCorrect = true;
 
         try {
             String userEmail = txtMejladress.getText();
+            System.out.println(userEmail + ".");
             String correctEmail = "SELECT EMAIL FROM USERS WHERE EMAIL = '" + userEmail + "';";
             String email = idb.fetchSingle(correctEmail);
+            System.out.println(email + ".");
 
             if (!(email.equals(correctEmail))) {
                 isEmailCorrect = false;
@@ -219,8 +225,45 @@ public class Validering {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
+            isEmailCorrect = false;
         }
         return isEmailCorrect;
+    }
+
+    public boolean isEmailCorrect(JTextField epost) {
+        try {
+            String userEmail = epost.getText();
+            System.out.println(userEmail + ".");
+            String correctEmail = "SELECT EMAIL FROM USERS WHERE EMAIL = '" + userEmail + "';";
+            String email = idb.fetchSingle(correctEmail);
+            System.out.println(email + ".");
+
+            if (userEmail.equals(email)) {
+                System.out.println("true");
+                return true;
+                
+            } else {
+                System.out.println("false");
+                return false;
+            }
+        } catch (InfException e) {
+            System.out.println("false");
+            return false;
+        }
+    }
+
+    public static boolean isEmailFormatCorrect(JTextField epost) {
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        String mail = epost.getText();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(mail);
+        if (m.find()) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Ange en korrekt epost");
+            epost.requestFocus();
+            return false;
+        }
     }
 
 //Metod för att kolla om användar ID finns när man söker efter inlägg skapad av användare X
@@ -304,6 +347,27 @@ public class Validering {
             JOptionPane.showMessageDialog(null, "Ej behörig");
         }
         return isAgare;
+    }
+
+    //Kollar om lösenordet är i korrekt format
+    public boolean passwordCorrectFormat(JPasswordField txtlosen) {
+        char[] losen = txtlosen.getPassword();
+        String password = new String(losen);
+        if (password.length() >= 8) {
+            Pattern letter = Pattern.compile("[a-zA-z]");
+            Pattern digit = Pattern.compile("[0-9]");
+            Pattern special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+            //Pattern eight = Pattern.compile (".{8}");
+
+            Matcher hasLetter = letter.matcher(password);
+            Matcher hasDigit = digit.matcher(password);
+            Matcher hasSpecial = special.matcher(password);
+
+            return hasLetter.find() && hasDigit.find() && hasSpecial.find();
+
+        } else {
+            return false;
+        }
     }
 
 }
