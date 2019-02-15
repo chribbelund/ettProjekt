@@ -241,7 +241,7 @@ public class Validering {
             if (userEmail.equals(email)) {
                 System.out.println("true");
                 return true;
-                
+
             } else {
                 System.out.println("false");
                 return false;
@@ -297,7 +297,6 @@ public class Validering {
             User u = User.getInstance();
             int id = u.getID();
             String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
-            System.out.println(fraga);
             ArrayList<String> agare = idb.fetchColumn(fraga);
             if (agare == null) {
                 isAgare = false;
@@ -305,8 +304,7 @@ public class Validering {
             }
             for (int i = 0; i < agare.size(); i++) {
                 String ettProjekt = agare.get(i);
-                System.out.println(ettProjekt);
-
+                
                 if (ettProjekt.equals(projektNamn)) {
                     isAgare = true;
 
@@ -318,31 +316,27 @@ public class Validering {
         }
         return isAgare;
     }
-
-    public boolean isProjektAgareString(String namnet) {
+    
+    public boolean isProjektAgare(String projektnamn) {
         boolean isAgare = false;
         try {
-
-            System.out.println(namnet);
             User u = User.getInstance();
             int id = u.getID();
             String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
-            System.out.println(fraga);
             ArrayList<String> agare = idb.fetchColumn(fraga);
-
             if (agare == null) {
                 isAgare = false;
                 JOptionPane.showMessageDialog(null, "Ej behörig");
             }
             for (int i = 0; i < agare.size(); i++) {
                 String ettProjekt = agare.get(i);
-
-                if (ettProjekt.equals(namnet)) {
-
+                
+                if (ettProjekt.equals(projektnamn)) {
                     isAgare = true;
 
                 }
             }
+
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Ej behörig");
         }
@@ -368,6 +362,66 @@ public class Validering {
         } else {
             return false;
         }
+    }
+
+    public boolean isMedIForskningProjekt(String projektnamnet) {
+        boolean isMedlem = false;
+
+        try {
+            String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektnamnet + "'";
+            String projektID = idb.fetchSingle(fraga1);
+            User u = User.getInstance();
+            int id = u.getID();
+            String stringId = Integer.toString(id);
+            String fraga2 = "SELECT USER_ID FROM DELTAR_I_PROJEKT WHERE PROJEKT_ID = '" + projektID + "'";
+            ArrayList<String> medlemmar = idb.fetchColumn(fraga2);
+            if (medlemmar == null) {
+                isMedlem = false;
+
+            }
+            for (int i = 0; i < medlemmar.size(); i++) {
+                String enMedlem = medlemmar.get(i);
+
+                if (enMedlem.equals(stringId)) {
+                    isMedlem = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
+                }
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
+        }
+        return isMedlem;
+    }
+
+    public boolean isMedIUtbildningProjekt(String projektnamnet) {
+        boolean isMedlem = false;
+
+        try {
+            String fraga1 = "SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektnamnet + "'";
+            String projektID = idb.fetchSingle(fraga1);
+            User u = User.getInstance();
+            int id = u.getID();
+            String stringId = Integer.toString(id);
+            String fraga2 = "SELECT USER_ID FROM DELTAR_I_UTBILDNING WHERE UTBILDNINGS_ID = '" + projektID + "'";
+            ArrayList<String> medlemmar = idb.fetchColumn(fraga2);
+            if (medlemmar == null) {
+                isMedlem = false;
+
+            }
+            for (int i = 0; i < medlemmar.size(); i++) {
+                String enMedlem = medlemmar.get(i);
+
+                if (enMedlem.equals(stringId)) {
+                    isMedlem = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
+                }
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
+        }
+        return isMedlem;
     }
 
 }

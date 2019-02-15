@@ -24,6 +24,9 @@ public class inlaggFrame extends javax.swing.JPanel {
     private projektBloggen blogg;
     private String namnet;
     private String userId;
+    private UtbildningProjektFlode utbildningBloggen;
+    private FormellaBlogg formellaBloggen;
+    private InformellaBlogg informellaBloggen;
 
     /**
      * Creates new form inlaggFrame
@@ -273,14 +276,24 @@ public class inlaggFrame extends javax.swing.JPanel {
             String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
 
             String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";
-            System.out.println(fraga3);
 
             idb.delete(fraga2);
             idb.delete(fraga3);
             idb.delete(fraga1);
             JOptionPane.showMessageDialog(null, "Inlagg har raderats");
-            blogg.dispose();
-            new projektBloggen().setVisible(true);
+            if (EttProjekt.siffraVilken == 1) {
+                blogg.dispose();
+                new projektBloggen().setVisible(true);
+            } else if (EttProjekt.siffraVilken == 2) {
+                utbildningBloggen.dispose();
+                new UtbildningProjektFlode().setVisible(true);
+            } else if (EttProjekt.siffraVilken == 3) {
+                formellaBloggen.dispose();
+                new FormellaBlogg().setVisible(true);
+            } else if (EttProjekt.siffraVilken == 4) {
+                informellaBloggen.dispose();
+                new InformellaBlogg().setVisible(true);
+            }
 
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -296,6 +309,28 @@ public class inlaggFrame extends javax.swing.JPanel {
             bloggLayout l = new bloggLayout();
             String projekt = l.getProjektNamn();
             String fraga = "SELECT AGARE FROM PROJEKT WHERE PROJEKTNAMN = '" + projekt + "'";
+            String agarId = idb.fetchSingle(fraga);
+
+            if (stringId.equals(agarId)) {
+                taBort.setVisible(true);
+                redigera.setVisible(true);
+            } else {
+                setOsynlig();
+
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "FEL");
+        }
+    }
+
+    public void utbildningAgare() {
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+            String stringId = Integer.toString(id);
+            bloggLayout l = new bloggLayout();
+            String projekt = l.getProjektNamn();
+            String fraga = "SELECT AGARE FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projekt + "'";
             String agarId = idb.fetchSingle(fraga);
 
             if (stringId.equals(agarId)) {
@@ -340,6 +375,19 @@ public class inlaggFrame extends javax.swing.JPanel {
         blogg = projektBloggen;
     }
 
+    public void setUtbildningBloggen(UtbildningProjektFlode utbildningBlogg) {
+        utbildningBloggen = utbildningBlogg;
+    }
+
+    public void setFormellaBloggen(FormellaBlogg formellBlogg) {
+        formellaBloggen = formellBlogg;
+
+    }
+
+    public void setInFormellaBloggen(InformellaBlogg informellBlogg) {
+        informellaBloggen = informellBlogg;
+
+    }
     private void redigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redigeraActionPerformed
         spara.setVisible(true);
         txtTitel.setEditable(true);
@@ -363,7 +411,6 @@ public class inlaggFrame extends javax.swing.JPanel {
             String fraga5 = "UPDATE INLAGG SET DATUM= '" + date + "', TEXT ='" + nyText + "' , TITEL = '" + nyTitel + "', INLAGG_ID ='" + ID + "' WHERE INLAGG_ID = '" + ID + "'";
             System.out.println(fraga5);
             idb.update(fraga5);
-            blogg.revalidate();
             JOptionPane.showMessageDialog(null, "Inlägg har uppdaterats");
             setEditable();
             spara.setVisible(false);

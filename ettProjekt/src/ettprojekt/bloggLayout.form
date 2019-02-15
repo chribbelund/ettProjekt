@@ -114,23 +114,20 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="visaProjekt" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
                                   <Component id="projektBox" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="nyttForskningProjekt" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="taBortProjekt" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" min="-2" pref="135" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="135" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" min="-2" pref="135" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel2" pref="135" max="32767" attributes="0"/>
+                          <Component id="jButton1" pref="135" max="32767" attributes="0"/>
+                          <Component id="utbildningBox" pref="135" max="32767" attributes="0"/>
+                          <Component id="nyUtbildning" alignment="0" max="32767" attributes="0"/>
+                          <Component id="taBortUtbildning" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="nyttProjekt" min="-2" pref="126" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="taBortProjekt" min="-2" pref="130" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -145,19 +142,24 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="projektBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="utbildningBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="visaProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nyttProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="taBortProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nyttForskningProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nyUtbildning" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="54" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="taBortProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="taBortUtbildning" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="88" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -193,7 +195,7 @@
                 <Property name="text" type="java.lang.String" value="Forskningsprojekt"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="utbildningBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -224,12 +226,28 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="taBortProjektActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="nyttProjekt">
+            <Component class="javax.swing.JButton" name="nyttForskningProjekt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nytt projekt"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nyttProjektActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nyttForskningProjektActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="nyUtbildning">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nytt projekt"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nyUtbildningActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="taBortUtbildning">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ta bort projekt"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="taBortUtbildningActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

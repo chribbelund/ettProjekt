@@ -177,17 +177,24 @@ public class projektBloggen extends javax.swing.JFrame {
 
 
     private void nyttInlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlaggActionPerformed
-        new nyttInlagg().setVisible(true);
-        this.dispose();
+        bloggLayout layout = new bloggLayout();
+        String projektNamn = layout.getProjektNamn();
+        if (val.isMedIForskningProjekt(projektNamn)) {
+            new nyttInlagg().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_nyttInlaggActionPerformed
 
     private void anvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandareActionPerformed
-        new HanteraAnvandare().setVisible(true);
+        bloggLayout layout = new bloggLayout();
+        String projektNamn = layout.getProjektNamn();
+        if (val.isProjektAgare(projektNamn)) {
+            new HanteraAnvandare().setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_anvandareActionPerformed
 
     public void bloggInlaggen() {
-
         try {
             bloggLayout layout = new bloggLayout();
             String projektNamn = layout.getProjektNamn();
@@ -224,16 +231,15 @@ public class projektBloggen extends javax.swing.JFrame {
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
                 panel.setID(id);
+                System.out.println(id);
                 panel.setProjektBloggen(this);
                 panel.setEditable();
                 panel.projektAgare();
 
                 try {
                     String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
-                    System.out.println(anvandare + " fraga");
-                    System.out.println(id + " id");
                     String anvandarId = idb.fetchSingle(anvandare);
-                    System.out.println(anvandarId +" anvandarid");
+                    System.out.println(anvandarId);
                     String fornamn = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
                     String fornamnet = idb.fetchSingle(fornamn);
                     String efternamn = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
@@ -248,9 +254,8 @@ public class projektBloggen extends javax.swing.JFrame {
             }
 
         } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "lbl fel");
+            JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-
     }
 
 

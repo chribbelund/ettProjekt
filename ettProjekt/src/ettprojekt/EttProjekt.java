@@ -17,6 +17,7 @@ public class EttProjekt {
 
     public static String userDir;
     public static InfDB idb;
+    public static int siffraVilken;
 
     /**
      * @param args the command line arguments

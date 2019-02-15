@@ -58,6 +58,8 @@ void showTime(){
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        informellaBlogg = new javax.swing.JLabel();
+        formellaBlogg = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lbdate = new javax.swing.JLabel();
         lbtime = new javax.swing.JLabel();
@@ -111,21 +113,40 @@ void showTime(){
             }
         });
 
+        informellaBlogg.setText("Informella Blogg");
+        informellaBlogg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                informellaBloggMouseClicked(evt);
+            }
+        });
+
+        formellaBlogg.setText("Formella Blogg");
+        formellaBlogg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formellaBloggMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel8)
                 .addGap(64, 64, 64)
                 .addComponent(jLabel7)
                 .addGap(77, 77, 77)
-                .addComponent(jLabel6)
-                .addGap(68, 68, 68)
-                .addComponent(jLabel5)
-                .addGap(55, 55, 55)
-                .addComponent(jLabel4)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(informellaBlogg))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel4))
+                    .addComponent(formellaBlogg))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -138,7 +159,11 @@ void showTime(){
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(informellaBlogg)
+                    .addComponent(formellaBlogg))
+                .addGap(11, 11, 11))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/loggo_liten.png"))); // NOI18N
@@ -189,14 +214,11 @@ void showTime(){
                     .addComponent(jLabel2))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbtime)
-                            .addComponent(jLabel3))
-                        .addGap(25, 25, 25)))
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbtime)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,6 +261,16 @@ void showTime(){
         new Kalender().setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void informellaBloggMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informellaBloggMouseClicked
+        EttProjekt.siffraVilken = 4;
+        new InformellaBlogg().setVisible(true);
+    }//GEN-LAST:event_informellaBloggMouseClicked
+
+    private void formellaBloggMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formellaBloggMouseClicked
+        EttProjekt.siffraVilken = 3;
+        new FormellaBlogg().setVisible(true);
+    }//GEN-LAST:event_formellaBloggMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -246,6 +278,8 @@ void showTime(){
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel formellaBlogg;
+    private javax.swing.JLabel informellaBlogg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

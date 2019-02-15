@@ -73,4 +73,30 @@ public class ComboBox {
 
     }
 
+    public static void cboxLaggTillUtbildningProjekt(JComboBox cboxProjekt) {
+
+        try {
+            //Importerar databasen
+            idb = new InfDB(userDir);
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+            System.out.println(userDir);
+        }
+        try {
+            //Hämtar alla kursnamn
+            String fraga = "SELECT UTBILDNINGSNAMN FROM UTBILDNING;";
+            ArrayList<String> projektlista = idb.fetchColumn(fraga);
+            cboxProjekt.removeAllItems();
+            for (String currentProjekt : projektlista) {
+
+                cboxProjekt.addItem(currentProjekt);
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+
+    }
+
 }

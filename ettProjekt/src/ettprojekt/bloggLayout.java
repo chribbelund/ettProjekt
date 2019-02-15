@@ -18,15 +18,12 @@ import oru.inf.InfException;
  * @author Christoffer
  */
 public class bloggLayout extends javax.swing.JFrame {
-    
+
     private inlaggFrame panel;
-    
-   private Validering val;
-   private static String projekt;
-   
 
-    
-
+    private Validering val;
+    private static String projekt;
+    private static String utbildningProjekt;
 
     /**
      * Creates new form bloggLayout
@@ -39,30 +36,27 @@ public class bloggLayout extends javax.swing.JFrame {
         this.setExtendedState(this.MAXIMIZED_BOTH);
         panel = new inlaggFrame();
         val = new Validering();
-        
-        
-        
-       
-      
-     
 
-       
     }
-    
+
     public String getProjektNamn() {
-        
+
         return projekt;
     }
-    
+
     public void setProjektNamn() {
-        
+
         projekt = (String) projektBox.getSelectedItem();
-        
+
     }
-    
-    
-    
-    
+
+    public void setUtbildningNamn() {
+        utbildningProjekt = (String) utbildningBox.getSelectedItem();
+    }
+
+    public String getUtbildningProjekt() {
+        return utbildningProjekt;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,11 +73,13 @@ public class bloggLayout extends javax.swing.JFrame {
         ComboBox.cboxLaggTillProjekt(projektBox);
         visaProjekt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        utbildningBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         taBortProjekt = new javax.swing.JButton();
-        nyttProjekt = new javax.swing.JButton();
+        nyttForskningProjekt = new javax.swing.JButton();
+        nyUtbildning = new javax.swing.JButton();
+        taBortUtbildning = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -120,10 +116,24 @@ public class bloggLayout extends javax.swing.JFrame {
             }
         });
 
-        nyttProjekt.setText("Nytt projekt");
-        nyttProjekt.addActionListener(new java.awt.event.ActionListener() {
+        nyttForskningProjekt.setText("Nytt projekt");
+        nyttForskningProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nyttProjektActionPerformed(evt);
+                nyttForskningProjektActionPerformed(evt);
+            }
+        });
+
+        nyUtbildning.setText("Nytt projekt");
+        nyUtbildning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nyUtbildningActionPerformed(evt);
+            }
+        });
+
+        taBortUtbildning.setText("Ta bort projekt");
+        taBortUtbildning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taBortUtbildningActionPerformed(evt);
             }
         });
 
@@ -140,19 +150,17 @@ public class bloggLayout extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(visaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(projektBox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(projektBox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nyttForskningProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(taBortProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(105, 105, 105)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(utbildningBox, 0, 135, Short.MAX_VALUE)
+                    .addComponent(nyUtbildning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(taBortUtbildning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(nyttProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(taBortProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,16 +172,20 @@ public class bloggLayout extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(projektBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(utbildningBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(visaProjekt)
                     .addComponent(jButton1))
-                .addGap(78, 78, 78)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nyttProjekt)
-                    .addComponent(taBortProjekt))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addComponent(nyttForskningProjekt)
+                    .addComponent(nyUtbildning))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(taBortProjekt)
+                    .addComponent(taBortUtbildning))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/loggo_liten.png"))); // NOI18N
@@ -239,41 +251,70 @@ public class bloggLayout extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void visaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaProjektActionPerformed
+        EttProjekt.siffraVilken = 1;
         setProjektNamn();
         new projektBloggen().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_visaProjektActionPerformed
 
-    private void nyttProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttProjektActionPerformed
+    private void nyttForskningProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttForskningProjektActionPerformed
+        EttProjekt.siffraVilken = 1;
         new nyttProjekt().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_nyttProjektActionPerformed
+    }//GEN-LAST:event_nyttForskningProjektActionPerformed
 
     private void taBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortProjektActionPerformed
         try {
-          
-            if(val.isProjektAgare(projektBox)){
-            String projektNamn = (String) projektBox.getSelectedItem();
-            String id = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-            String projektId = idb.fetchSingle(id);
-            String fraga2 = "DELETE FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-            System.out.println(fraga2);
-            String fraga1 = "DELETE FROM PROJEKT_INLAGG WHERE PROJEKT_ID = '" + projektId + "'";
-            System.out.println(fraga1);
-            
-            idb.delete(fraga1);
-            idb.delete(fraga2);
-            ComboBox.cboxLaggTillProjekt(projektBox);
-            JOptionPane.showMessageDialog(null, "Projekt har tagits bort");
-        } }catch (InfException e) {
+
+            if (val.isProjektAgare(projektBox)) {
+                String projektNamn = (String) projektBox.getSelectedItem();
+                String id = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+                String projektId = idb.fetchSingle(id);
+                String fraga2 = "DELETE FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+                System.out.println(fraga2);
+                String fraga1 = "DELETE FROM PROJEKT_INLAGG WHERE PROJEKT_ID = '" + projektId + "'";
+                System.out.println(fraga1);
+
+                idb.delete(fraga1);
+                idb.delete(fraga2);
+                ComboBox.cboxLaggTillProjekt(projektBox);
+                JOptionPane.showMessageDialog(null, "Projekt har tagits bort");
+            }
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
     }//GEN-LAST:event_taBortProjektActionPerformed
 
+    private void nyUtbildningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyUtbildningActionPerformed
+        EttProjekt.siffraVilken = 2;
+        new nyttProjekt().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_nyUtbildningActionPerformed
+
+    private void taBortUtbildningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortUtbildningActionPerformed
+        try {
+            if (val.isProjektAgare(utbildningBox)) {
+                String projektNamn = (String) utbildningBox.getSelectedItem();
+                String id = "SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektNamn + "'";
+                String projektId = idb.fetchSingle(id);
+                String fraga2 = "DELETE FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektNamn + "'";
+                System.out.println(fraga2);
+                String fraga1 = "DELETE FROM UTBILDNING_INLAGG WHERE UTBILDNINGS_ID = '" + projektId + "'";
+                System.out.println(fraga1);
+
+                idb.delete(fraga1);
+                idb.delete(fraga2);
+                ComboBox.cboxLaggTillProjekt(utbildningBox);
+                JOptionPane.showMessageDialog(null, "Projekt har tagits bort");
+            }
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+    }//GEN-LAST:event_taBortUtbildningActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,9 +323,12 @@ public class bloggLayout extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton nyttProjekt;
+    private javax.swing.JButton nyUtbildning;
+    private javax.swing.JButton nyttForskningProjekt;
     private javax.swing.JComboBox<String> projektBox;
     private javax.swing.JButton taBortProjekt;
+    private javax.swing.JButton taBortUtbildning;
+    private javax.swing.JComboBox<String> utbildningBox;
     private javax.swing.JButton visaProjekt;
     // End of variables declaration//GEN-END:variables
 }

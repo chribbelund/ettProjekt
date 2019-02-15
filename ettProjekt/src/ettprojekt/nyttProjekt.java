@@ -18,6 +18,7 @@ public class nyttProjekt extends javax.swing.JFrame {
 
     /**
      * Creates new form nyttProjekt
+     *
      * @param idb
      */
     public nyttProjekt() {
@@ -180,21 +181,26 @@ public class nyttProjekt extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void skapaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skapaProjektActionPerformed
-    try { 
-     String namn = projektNamn.getText();
-     String beskrivning = projektBeskrivning.getText();
-     String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
-     User u = User.getInstance();
-     int agare = u.getID();
-    
-     String fraga = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
-     System.out.println(fraga);
-     idb.insert(fraga);
-     
-    }
-    catch(InfException e){
-        JOptionPane.showMessageDialog(null, "Något gick snett");
-    }
+        try {
+            User u = User.getInstance();
+            int agare = u.getID();
+            String namn = projektNamn.getText();
+            String beskrivning = projektBeskrivning.getText();
+
+            if (EttProjekt.siffraVilken == 1) {
+                String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
+
+                String fraga = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
+                idb.insert(fraga);
+            } else if (EttProjekt.siffraVilken == 2) {
+                String increment = idb.getAutoIncrement("UTBILDNING", "UTBILDNINGS_ID");
+                String fraga = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
+                idb.insert(fraga);
+            }
+            JOptionPane.showMessageDialog(null, "Projekt har lagts till");
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick snett");
+        }
     }//GEN-LAST:event_skapaProjektActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -202,8 +208,6 @@ public class nyttProjekt extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -124,6 +124,8 @@ public class nyttInlagg extends javax.swing.JFrame {
 
     private void nyttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttActionPerformed
         try {
+
+            bloggLayout l = new bloggLayout();
             User u = User.getInstance();
             int id = u.getID();
 
@@ -143,26 +145,78 @@ public class nyttInlagg extends javax.swing.JFrame {
 
             String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
 
-            bloggLayout l = new bloggLayout();
-            String projektNamn = l.getProjektNamn();
-            System.out.println(projektNamn);
+            if (EttProjekt.siffraVilken == 1) {
+                String projektNamn = l.getProjektNamn();
+                System.out.println(projektNamn);
 
-            String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-            String projektId = idb.fetchSingle(fraga1);
-            int projektIdInt = Integer.parseInt(projektId);
-            System.out.println(projektIdInt);
-            String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
-            String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-            String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
-            System.out.println(fraga3);
+                String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+                String projektId = idb.fetchSingle(fraga1);
+                int projektIdInt = Integer.parseInt(projektId);
+                System.out.println(projektIdInt);
+                String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
+                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
+                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                System.out.println(fraga3);
 
-            idb.insert(fraga3);
-            idb.insert(fraga2);
-            idb.insert(fraga4);
+                idb.insert(fraga3);
+                idb.insert(fraga2);
+                idb.insert(fraga4);
 
-            JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+            } else if (EttProjekt.siffraVilken == 2) {
+
+                String projektNamn = l.getUtbildningProjekt();
+                System.out.println(projektNamn);
+
+                String fraga1 = "SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektNamn + "'";
+                String projektId = idb.fetchSingle(fraga1);
+                int projektIdInt = Integer.parseInt(projektId);
+                System.out.println(projektIdInt);
+                String fraga2 = "INSERT INTO UTBILDNING_INLAGG VALUES (" + projektIdInt + "," + increment + ")";
+                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
+                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                System.out.println(fraga3);
+                System.out.println(fraga4);
+                System.out.println(fraga2);
+
+                idb.insert(fraga3);
+                idb.insert(fraga2);
+                idb.insert(fraga4);
+
+                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+
+            } else if (EttProjekt.siffraVilken == 3) {
+
+                String fraga2 = "INSERT INTO INLAGG_FORMELL VALUES (" + increment + ")";
+                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
+                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                System.out.println(fraga3);
+                System.out.println(fraga4);
+                System.out.println(fraga2);
+
+                idb.insert(fraga3);
+                idb.insert(fraga2);
+                idb.insert(fraga4);
+
+                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+
+            } else if (EttProjekt.siffraVilken == 4) {
+
+                String fraga2 = "INSERT INTO INLAGG_INFORMELL VALUES (" + increment + ")";
+                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
+                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                System.out.println(fraga3);
+                System.out.println(fraga4);
+                System.out.println(fraga2);
+
+                idb.insert(fraga3);
+                idb.insert(fraga2);
+                idb.insert(fraga4);
+
+                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+            }
         } catch (InfException e) {
-            JOptionPane.showConfirmDialog(null, "Något gick fel");
+            JOptionPane.showMessageDialog(null, "Något gick fel");
         }
     }//GEN-LAST:event_nyttActionPerformed
 
