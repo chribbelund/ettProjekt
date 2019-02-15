@@ -221,8 +221,19 @@ public class nyttInlagg extends javax.swing.JFrame {
     }//GEN-LAST:event_nyttActionPerformed
 
     private void tillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaActionPerformed
-        new projektBloggen().setVisible(true);
-        this.dispose();
+        if (EttProjekt.siffraVilken == 1) {
+            new projektBloggen().setVisible(true);
+            this.dispose();
+        } else if (EttProjekt.siffraVilken == 2) {
+            new UtbildningProjektFlode().setVisible(true);
+            this.dispose();
+        } else if (EttProjekt.siffraVilken == 3) {
+            new FormellaBlogg().setVisible(true);
+            this.dispose();
+        } else if (EttProjekt.siffraVilken == 4) {
+            new InformellaBlogg().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_tillbakaActionPerformed
 
 

@@ -74,6 +74,7 @@ public class bloggLayout extends javax.swing.JFrame {
         visaProjekt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         utbildningBox = new javax.swing.JComboBox<>();
+        ComboBox.cboxLaggTillUtbildningProjekt(utbildningBox);
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         taBortProjekt = new javax.swing.JButton();
