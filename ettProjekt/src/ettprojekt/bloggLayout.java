@@ -109,6 +109,11 @@ public class bloggLayout extends javax.swing.JFrame {
         jLabel2.setText("Utbildningsprojekt");
 
         jButton1.setText("Visa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         taBortProjekt.setText("Ta bort projekt");
         taBortProjekt.addActionListener(new java.awt.event.ActionListener() {
@@ -312,6 +317,13 @@ public class bloggLayout extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
     }//GEN-LAST:event_taBortUtbildningActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        EttProjekt.siffraVilken = 2;
+        setUtbildningNamn();
+        new UtbildningProjektFlode().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
