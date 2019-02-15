@@ -135,6 +135,7 @@ byte[] person_image=null;
         lblbild = new javax.swing.JLabel();
         lbltel = new javax.swing.JLabel();
         txttel = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,6 +209,13 @@ byte[] person_image=null;
 
         txttel.setFont(new java.awt.Font("Shree Devanagari 714", 0, 14)); // NOI18N
 
+        jButton1.setText("Tillbaka");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -243,14 +251,16 @@ byte[] person_image=null;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
+                        .addGap(108, 108, 108)
+                        .addComponent(jButton1)
+                        .addGap(29, 29, 29)
                         .addComponent(avbryt)
-                        .addGap(37, 37, 37)
+                        .addGap(26, 26, 26)
                         .addComponent(btnupdate))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel2)))
-                .addGap(122, 448, Short.MAX_VALUE))
+                .addGap(122, 451, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,10 +294,11 @@ byte[] person_image=null;
                     .addComponent(lblosen)
                     .addComponent(txtlosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbild))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avbryt)
-                    .addComponent(btnupdate))
+                    .addComponent(btnupdate)
+                    .addComponent(jButton1))
                 .addGap(53, 53, 53))
         );
 
@@ -373,6 +384,10 @@ byte[] person_image=null;
 //        }
     }//GEN-LAST:event_btnbildActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
 
 
@@ -380,6 +395,7 @@ byte[] person_image=null;
     private javax.swing.JButton avbryt;
     private javax.swing.JButton btnbild;
     private javax.swing.JButton btnupdate;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
