@@ -293,7 +293,6 @@ public class Validering {
         boolean isAgare = false;
         try {
             String projektNamn = (String) boxNamn.getSelectedItem();
-            System.out.println(projektNamn);
             User u = User.getInstance();
             int id = u.getID();
             String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
@@ -307,7 +306,10 @@ public class Validering {
                 
                 if (ettProjekt.equals(projektNamn)) {
                     isAgare = true;
-
+                }
+                else{
+                    isAgare = false;
+                    JOptionPane.showMessageDialog(null, "Ej behörig");
                 }
             }
 
@@ -317,13 +319,14 @@ public class Validering {
         return isAgare;
     }
     
-    public boolean isProjektAgare(String projektnamn) {
+    public boolean isProjektAgareString(String projektnamn) {
         boolean isAgare = false;
         try {
             User u = User.getInstance();
             int id = u.getID();
             String fraga = "SELECT PROJEKTNAMN FROM PROJEKT WHERE AGARE = " + id + ";";
             ArrayList<String> agare = idb.fetchColumn(fraga);
+
             if (agare == null) {
                 isAgare = false;
                 JOptionPane.showMessageDialog(null, "Ej behörig");
@@ -334,6 +337,43 @@ public class Validering {
                 if (ettProjekt.equals(projektnamn)) {
                     isAgare = true;
 
+                }
+                else{
+                    isAgare = false;
+                    JOptionPane.showMessageDialog(null, "Du är inte ägare för detta projekt");
+                }
+            }
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Ej behörig");
+        }
+        return isAgare;
+    }
+    
+    public boolean isUtbildningtAgareString(String projektnamn) {
+        boolean isAgare = false;
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+            String fraga = "SELECT UTBILDNINGSNAMN FROM UTBILDNING WHERE AGARE = " + id + ";";
+            ArrayList<String> agare = idb.fetchColumn(fraga);
+            System.out.println(agare);
+
+            if (agare == null) {
+                isAgare = false;
+                JOptionPane.showMessageDialog(null, "Ej behörig");
+            }
+            for (int i = 0; i < agare.size(); i++) {
+                String ettProjekt = agare.get(i);
+                System.out.println(ettProjekt);
+                
+                if (ettProjekt.equals(projektnamn)) {
+                    isAgare = true;
+
+                }
+                else{
+                    isAgare = false;
+                    JOptionPane.showMessageDialog(null, "Du är inte ägare för detta projekt");
                 }
             }
 
@@ -377,6 +417,7 @@ public class Validering {
             ArrayList<String> medlemmar = idb.fetchColumn(fraga2);
             if (medlemmar == null) {
                 isMedlem = false;
+                JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
 
             }
             for (int i = 0; i < medlemmar.size(); i++) {
@@ -389,7 +430,7 @@ public class Validering {
                 }
             }
         } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Du är inte medlem i detta projekt");
+            JOptionPane.showMessageDialog(null, "Något gick fel");
         }
         return isMedlem;
     }
