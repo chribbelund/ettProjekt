@@ -76,7 +76,7 @@ public class bloggLayout extends javax.swing.JFrame {
         utbildningBox = new javax.swing.JComboBox<>();
         ComboBox.cboxLaggTillUtbildningProjekt(utbildningBox);
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        visaUtbildningProjekt = new javax.swing.JButton();
         taBortProjekt = new javax.swing.JButton();
         nyttForskningProjekt = new javax.swing.JButton();
         nyUtbildning = new javax.swing.JButton();
@@ -108,10 +108,10 @@ public class bloggLayout extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Utbildningsprojekt");
 
-        jButton1.setText("Visa");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        visaUtbildningProjekt.setText("Visa");
+        visaUtbildningProjekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                visaUtbildningProjektActionPerformed(evt);
             }
         });
 
@@ -162,7 +162,7 @@ public class bloggLayout extends javax.swing.JFrame {
                         .addGap(105, 105, 105)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(visaUtbildningProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addComponent(utbildningBox, 0, 135, Short.MAX_VALUE)
                     .addComponent(nyUtbildning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(taBortUtbildning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -182,7 +182,7 @@ public class bloggLayout extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(visaProjekt)
-                    .addComponent(jButton1))
+                    .addComponent(visaUtbildningProjekt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nyttForskningProjekt)
@@ -280,8 +280,10 @@ public class bloggLayout extends javax.swing.JFrame {
                 System.out.println(fraga2);
                 String fraga1 = "DELETE FROM PROJEKT_INLAGG WHERE PROJEKT_ID = '" + projektId + "'";
                 System.out.println(fraga1);
+                String fraga3 = "DELETE FROM DELTAR_I_PROJEKT WHERE PROJEKT_ID = '" + projektId + "'";
 
                 idb.delete(fraga1);
+                idb.delete(fraga3);
                 idb.delete(fraga2);
                 ComboBox.cboxLaggTillProjekt(projektBox);
                 JOptionPane.showMessageDialog(null, "Projekt har tagits bort");
@@ -307,7 +309,9 @@ public class bloggLayout extends javax.swing.JFrame {
                 System.out.println(fraga2);
                 String fraga1 = "DELETE FROM UTBILDNING_INLAGG WHERE UTBILDNINGS_ID = '" + projektId + "'";
                 System.out.println(fraga1);
+                String fraga3 = "DELETE FROM DELTAR_I_UTBILDNING WHERE UTBILDNINGS_ID = '" + projektId + "'";
 
+                idb.delete(fraga3);
                 idb.delete(fraga1);
                 idb.delete(fraga2);
                 ComboBox.cboxLaggTillProjekt(utbildningBox);
@@ -318,16 +322,15 @@ public class bloggLayout extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_taBortUtbildningActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void visaUtbildningProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaUtbildningProjektActionPerformed
         EttProjekt.siffraVilken = 2;
         setUtbildningNamn();
         new UtbildningProjektFlode().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_visaUtbildningProjektActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -343,5 +346,6 @@ public class bloggLayout extends javax.swing.JFrame {
     private javax.swing.JButton taBortUtbildning;
     private javax.swing.JComboBox<String> utbildningBox;
     private javax.swing.JButton visaProjekt;
+    private javax.swing.JButton visaUtbildningProjekt;
     // End of variables declaration//GEN-END:variables
 }

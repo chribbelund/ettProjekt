@@ -188,10 +188,11 @@ public class projektBloggen extends javax.swing.JFrame {
     private void anvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anvandareActionPerformed
         bloggLayout layout = new bloggLayout();
         String projektNamn = layout.getProjektNamn();
-        if (val.isProjektAgare(projektNamn)) {
+        if (val.isProjektAgareString(projektNamn)) {
             new HanteraAnvandare().setVisible(true);
+            this.dispose();
         }
-        this.dispose();
+       
     }//GEN-LAST:event_anvandareActionPerformed
 
     public void bloggInlaggen() {
@@ -230,6 +231,7 @@ public class projektBloggen extends javax.swing.JFrame {
                 String allaTitlar = titlar.get(j);
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
+                panel.setBild(id);
                 panel.setID(id);
                 System.out.println(id);
                 panel.setProjektBloggen(this);

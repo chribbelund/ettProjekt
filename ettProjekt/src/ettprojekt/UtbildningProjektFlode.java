@@ -47,7 +47,7 @@ public class UtbildningProjektFlode extends javax.swing.JFrame {
         nyttInlagg = new javax.swing.JMenuItem();
         hanteraAnvandare = new javax.swing.JMenuItem();
         tillbaka = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        tillbakaUtbildning = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utbildningsprojekt");
@@ -87,13 +87,13 @@ public class UtbildningProjektFlode extends javax.swing.JFrame {
 
         tillbaka.setText("Tillbaka");
 
-        jMenuItem1.setText("Tillbaka");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        tillbakaUtbildning.setText("Tillbaka");
+        tillbakaUtbildning.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                tillbakaUtbildningActionPerformed(evt);
             }
         });
-        tillbaka.add(jMenuItem1);
+        tillbaka.add(tillbakaUtbildning);
 
         jMenuBar1.add(tillbaka);
 
@@ -115,22 +115,26 @@ public class UtbildningProjektFlode extends javax.swing.JFrame {
 
     private void nyttInlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlaggActionPerformed
      bloggLayout layout = new bloggLayout();
-     String projektNamn = layout.getProjektNamn();
-     if(val.isMedIForskningProjekt(projektNamn)){
+     String projektNamn = layout.getUtbildningProjekt();
+     if(val.isMedIUtbildningProjekt(projektNamn)){
      new nyttInlagg().setVisible(true);
      this.dispose();
      }
     }//GEN-LAST:event_nyttInlaggActionPerformed
 
     private void hanteraAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hanteraAnvandareActionPerformed
+     bloggLayout l = new bloggLayout();    
+     String projektNamn = l.getUtbildningProjekt();
+     if(val.isUtbildningtAgareString(projektNamn)){
      new HanteraAnvandare().setVisible(true);
      this.dispose();
+     }
     }//GEN-LAST:event_hanteraAnvandareActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void tillbakaUtbildningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaUtbildningActionPerformed
          new bloggLayout().setVisible(true);
          this.dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_tillbakaUtbildningActionPerformed
     
     private void bloggInlaggen(){
          try {
@@ -201,11 +205,11 @@ public class UtbildningProjektFlode extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem hanteraAnvandare;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu meny;
     private javax.swing.JMenuItem nyttInlagg;
     private javax.swing.JPanel panelen;
     private javax.swing.JMenu tillbaka;
+    private javax.swing.JMenuItem tillbakaUtbildning;
     // End of variables declaration//GEN-END:variables
 }

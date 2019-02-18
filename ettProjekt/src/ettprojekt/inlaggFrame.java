@@ -7,7 +7,6 @@ package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -71,8 +70,22 @@ public class inlaggFrame extends javax.swing.JPanel {
 
     public void setSkapare(String namn) {
         namnet = namn;
-        lblNamn.setText(namn);
+        lblProfil.setText(namn);
 
+    }
+    
+    public void setBild(String id) throws InfException{
+        System.out.println("test");
+        String fraga = ("SELECT BILDER FROM INLAGG WHERE INLAGG_ID = '" + id + "';");
+        String bilden = "";
+        //bilden = idb.fetchSingle(fraga);
+        System.out.println(bilden);
+        System.out.println(id);
+        try {
+            bilden = bilden.replaceAll("\\s+", "");
+        } catch(NullPointerException n){
+        }
+        bild.setText(id);
     }
 
     public String getSkapare() {
@@ -94,10 +107,8 @@ public class inlaggFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblNamn = new javax.swing.JButton();
         txtTitel = new javax.swing.JTextField();
         txtInlagg = new java.awt.TextArea();
-        bild = new javax.swing.JLabel();
         tagg6 = new javax.swing.JLabel();
         tagg7 = new javax.swing.JLabel();
         tagg8 = new javax.swing.JLabel();
@@ -109,19 +120,12 @@ public class inlaggFrame extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblRubrik = new javax.swing.JLabel();
+        lblProfil = new javax.swing.JLabel();
+        bild = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
-
-        lblNamn.setBackground(new java.awt.Color(255, 255, 255));
-        lblNamn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblNamnActionPerformed(evt);
-            }
-        });
-
-        bild.setText("bild");
 
         tagg6.setText("Tagg5");
 
@@ -159,7 +163,6 @@ public class inlaggFrame extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bilder/loggo_liten.png"))); // NOI18N
 
         lblRubrik.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
-        lblRubrik.setText("Rubrik");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -182,6 +185,14 @@ public class inlaggFrame extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        lblProfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblProfilMouseClicked(evt);
+            }
+        });
+
+        bild.setText("123");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,12 +202,6 @@ public class inlaggFrame extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(lblNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(296, 296, 296)
-                        .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -219,7 +224,12 @@ public class inlaggFrame extends javax.swing.JPanel {
                                     .addComponent(taBort))
                                 .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(296, 296, 296)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTitel, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .addComponent(lblProfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,30 +237,29 @@ public class inlaggFrame extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(lblProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(263, 263, 263))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblNamn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tagg7)
-                                .addComponent(tagg8)
-                                .addComponent(tagg9)
-                                .addComponent(tagg10)
-                                .addComponent(tagg6))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(redigera)
-                                .addComponent(taBort)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spara)
-                        .addGap(141, 141, 141))))
+                        .addGap(10, 10, 10)
+                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tagg7)
+                        .addComponent(tagg8)
+                        .addComponent(tagg9)
+                        .addComponent(tagg10)
+                        .addComponent(tagg6))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(redigera)
+                        .addComponent(taBort)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spara)
+                .addGap(141, 141, 141))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -275,7 +284,7 @@ public class inlaggFrame extends javax.swing.JPanel {
 
             String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
 
-            String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";
+            String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";                                                                                  
 
             idb.delete(fraga2);
             idb.delete(fraga3);
@@ -420,14 +429,14 @@ public class inlaggFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_sparaActionPerformed
 
     public void setLabelOsynlig() {
-        lblNamn.setVisible(false);
+        lblProfil.setVisible(false);
     }
 
     public String getUserId() {
         return userId;
     }
-    private void lblNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblNamnActionPerformed
-        try {
+    private void lblProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilMouseClicked
+       try {
             String fornamnet = namnet.split(" ")[0];
             String efternamnet = namnet.split(" ")[1];
             String fraga = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + fornamnet + "'AND LAST_NAME = '" + efternamnet + "'";
@@ -438,7 +447,8 @@ public class inlaggFrame extends javax.swing.JPanel {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-    }//GEN-LAST:event_lblNamnActionPerformed
+       
+    }//GEN-LAST:event_lblProfilMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -446,7 +456,7 @@ public class inlaggFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton lblNamn;
+    private javax.swing.JLabel lblProfil;
     private javax.swing.JLabel lblRubrik;
     private javax.swing.JButton redigera;
     private javax.swing.JButton spara;

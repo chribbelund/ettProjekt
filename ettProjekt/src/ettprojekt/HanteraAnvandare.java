@@ -135,12 +135,12 @@ public class HanteraAnvandare extends javax.swing.JFrame {
             bloggLayout layout = new bloggLayout();
 
             String email = txtMail.getText();
-            String projektNamn = layout.getProjektNamn();
-
             String fraga1 = ("SELECT USER_ID FROM USERS WHERE EMAIL = '" + email + "';");
             System.out.println(fraga1);
             String userId = idb.fetchSingle(fraga1);
-
+            
+            if(EttProjekt.siffraVilken ==1 ){
+            String projektNamn = layout.getProjektNamn();
             String fraga2 = ("SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "';");
             System.out.println(fraga2);
             String projektId = idb.fetchSingle(fraga2);
@@ -148,7 +148,18 @@ public class HanteraAnvandare extends javax.swing.JFrame {
             String fraga = ("INSERT INTO DELTAR_I_PROJEKT VALUES ('" + projektId + "', '" + userId + "');");
             System.out.println(fraga);
             idb.insert("INSERT INTO DELTAR_I_PROJEKT VALUES ('" + projektId + "', '" + userId + "');");
-
+            } 
+            else if(EttProjekt.siffraVilken == 2){
+            System.out.println(EttProjekt.siffraVilken);
+            String utbildningNamn = layout.getUtbildningProjekt();
+            String fraga3 = ("SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + utbildningNamn + "';");
+            
+            String utbildningId = idb.fetchSingle(fraga3);
+            System.out.println(utbildningId);
+            String fraga = ("INSERT INTO DELTAR_I_UTBILDNING VALUES ('" + utbildningId + "', '" + userId + "');");
+            System.out.println(fraga);
+            idb.insert("INSERT INTO DELTAR_I_UTBILDNING VALUES ('" + utbildningId + "', '" + userId + "');");
+            }
             txtMail.setText(null);
 
             JOptionPane.showMessageDialog(null, email + " är tillagd");

@@ -24,7 +24,7 @@ public class nyttInlagg extends javax.swing.JFrame {
     /**
      * Creates new form nyttInlagg
      *
-     * @param idb
+     * 
      */
     public nyttInlagg() {
         initComponents();

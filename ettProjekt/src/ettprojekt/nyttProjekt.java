@@ -190,12 +190,16 @@ public class nyttProjekt extends javax.swing.JFrame {
             if (EttProjekt.siffraVilken == 1) {
                 String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
 
-                String fraga = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
-                idb.insert(fraga);
+                String fraga1 = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
+                String fraga2 = "Insert into deltar_i_projekt values ( " + increment + "," + agare + ")";
+                idb.insert(fraga1);
+                idb.insert(fraga2);
             } else if (EttProjekt.siffraVilken == 2) {
                 String increment = idb.getAutoIncrement("UTBILDNING", "UTBILDNINGS_ID");
-                String fraga = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
-                idb.insert(fraga);
+                String fraga3 = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
+                String fraga4 = "insert into deltar_i_utbildning values (" + increment + "," + agare + ")";
+                idb.insert(fraga3);
+                idb.insert(fraga4);
             }
             JOptionPane.showMessageDialog(null, "Projekt har lagts till");
         } catch (InfException e) {
