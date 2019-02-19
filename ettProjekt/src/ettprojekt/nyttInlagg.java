@@ -6,6 +6,8 @@
 package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.BoxLayout;
@@ -20,11 +22,12 @@ public class nyttInlagg extends javax.swing.JFrame {
 
     private bloggLayout layout;
     private inlaggFrame panelInlagg;
+    static String filename = null;
 
     /**
      * Creates new form nyttInlagg
      *
-     * 
+     *
      */
     public nyttInlagg() {
         initComponents();
@@ -36,6 +39,7 @@ public class nyttInlagg extends javax.swing.JFrame {
         panelInlagg.setVisible(true);
         panelInlagg.setOsynlig();
         panelInlagg.setLabelOsynlig();
+        filename = null;
 
     }
 
@@ -144,76 +148,88 @@ public class nyttInlagg extends javax.swing.JFrame {
             String date = simpleDateFormat.format(new Date());
 
             String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
+            try {
+                String output = "";
+                int idt = Integer.parseInt(increment);
+                if (!(filename == null)) {
+                    output = filePicker.fileSaverProfil(filename, idt);
+                    File outputFile = new File(output);
+                    System.out.println(output);
+                    File inputFile = new File(filename);
+                    fileSave.copyFileUsingStream(inputFile, outputFile);
+                }
+                if (EttProjekt.siffraVilken == 1) {
+                    String projektNamn = l.getProjektNamn();
+                    System.out.println(projektNamn);
 
-            if (EttProjekt.siffraVilken == 1) {
-                String projektNamn = l.getProjektNamn();
-                System.out.println(projektNamn);
+                    String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
+                    String projektId = idb.fetchSingle(fraga1);
+                    int projektIdInt = Integer.parseInt(projektId);
+                    System.out.println(projektIdInt);
+                    String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ", '" + output + "');";
+                    String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                    System.out.println(fraga3);
 
-                String fraga1 = "SELECT PROJEKT_ID FROM PROJEKT WHERE PROJEKTNAMN = '" + projektNamn + "'";
-                String projektId = idb.fetchSingle(fraga1);
-                int projektIdInt = Integer.parseInt(projektId);
-                System.out.println(projektIdInt);
-                String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
-                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
-                System.out.println(fraga3);
+                    idb.insert(fraga3);
+                    idb.insert(fraga2);
+                    idb.insert(fraga4);
 
-                idb.insert(fraga3);
-                idb.insert(fraga2);
-                idb.insert(fraga4);
+                    JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
 
-                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
-            } else if (EttProjekt.siffraVilken == 2) {
+                } else if (EttProjekt.siffraVilken == 2) {
 
-                String projektNamn = l.getUtbildningProjekt();
-                System.out.println(projektNamn);
+                    String projektNamn = l.getUtbildningProjekt();
+                    System.out.println(projektNamn);
 
-                String fraga1 = "SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektNamn + "'";
-                String projektId = idb.fetchSingle(fraga1);
-                int projektIdInt = Integer.parseInt(projektId);
-                System.out.println(projektIdInt);
-                String fraga2 = "INSERT INTO UTBILDNING_INLAGG VALUES (" + projektIdInt + "," + increment + ")";
-                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
-                System.out.println(fraga3);
-                System.out.println(fraga4);
-                System.out.println(fraga2);
+                    String fraga1 = "SELECT UTBILDNINGS_ID FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + projektNamn + "'";
+                    String projektId = idb.fetchSingle(fraga1);
+                    int projektIdInt = Integer.parseInt(projektId);
+                    System.out.println(projektIdInt);
+                    String fraga2 = "INSERT INTO UTBILDNING_INLAGG VALUES (" + projektIdInt + "," + increment + ")";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ", '" + output + "');";
+                    String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                    System.out.println(fraga3);
+                    System.out.println(fraga4);
+                    System.out.println(fraga2);
 
-                idb.insert(fraga3);
-                idb.insert(fraga2);
-                idb.insert(fraga4);
+                    idb.insert(fraga3);
+                    idb.insert(fraga2);
+                    idb.insert(fraga4);
 
-                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+                    JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
 
-            } else if (EttProjekt.siffraVilken == 3) {
+                } else if (EttProjekt.siffraVilken == 3) {
 
-                String fraga2 = "INSERT INTO INLAGG_FORMELL VALUES (" + increment + ")";
-                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
-                System.out.println(fraga3);
-                System.out.println(fraga4);
-                System.out.println(fraga2);
+                    String fraga2 = "INSERT INTO INLAGG_FORMELL VALUES (" + increment + ")";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ", '" + output + "');";
+                    String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                    System.out.println(fraga3);
+                    System.out.println(fraga4);
+                    System.out.println(fraga2);
 
-                idb.insert(fraga3);
-                idb.insert(fraga2);
-                idb.insert(fraga4);
+                    idb.insert(fraga3);
+                    idb.insert(fraga2);
+                    idb.insert(fraga4);
 
-                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+                    JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
 
-            } else if (EttProjekt.siffraVilken == 4) {
+                } else if (EttProjekt.siffraVilken == 4) {
 
-                String fraga2 = "INSERT INTO INLAGG_INFORMELL VALUES (" + increment + ")";
-                String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ")";
-                String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
-                System.out.println(fraga3);
-                System.out.println(fraga4);
-                System.out.println(fraga2);
+                    String fraga2 = "INSERT INTO INLAGG_INFORMELL VALUES (" + increment + ")";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + text + "','" + titel + "'," + increment + ", '" + output + "');";
+                    String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
+                    System.out.println(fraga3);
+                    System.out.println(fraga4);
+                    System.out.println(fraga2);
 
-                idb.insert(fraga3);
-                idb.insert(fraga2);
-                idb.insert(fraga4);
+                    idb.insert(fraga3);
+                    idb.insert(fraga2);
+                    idb.insert(fraga4);
 
-                JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+                    JOptionPane.showMessageDialog(null, "Inlägg har tillagts");
+                }
+            } catch (IOException i) {
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");

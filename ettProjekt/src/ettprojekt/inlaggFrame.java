@@ -6,8 +6,14 @@
 package ettprojekt;
 
 import static ettprojekt.EttProjekt.idb;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import oru.inf.InfException;
@@ -18,6 +24,7 @@ import oru.inf.InfException;
  */
 public class inlaggFrame extends javax.swing.JPanel {
 
+    String filename = null;
     private String ID;
     private Validering val;
     private projektBloggen blogg;
@@ -35,7 +42,6 @@ public class inlaggFrame extends javax.swing.JPanel {
         initComponents();
         val = new Validering();
         spara.setVisible(false);
-
     }
 
     public String getText() {
@@ -73,19 +79,28 @@ public class inlaggFrame extends javax.swing.JPanel {
         lblProfil.setText(namn);
 
     }
-    
-    public void setBild(String id) throws InfException{
-        System.out.println("test");
-        String fraga = ("SELECT BILDER FROM INLAGG WHERE INLAGG_ID = '" + id + "';");
-        String bilden = "";
+
+    public void setBild(String id) {
+        System.out.println("testbild 123");
+        String fraga = ("SELECT BILD FROM INLAGG WHERE INLAGG_ID = '" + id + "';");
+        System.out.println(fraga);
+        try {
+        String bilden = idb.fetchSingle(fraga);
         //bilden = idb.fetchSingle(fraga);
         System.out.println(bilden);
         System.out.println(id);
         try {
             bilden = bilden.replaceAll("\\s+", "");
-        } catch(NullPointerException n){
+            filename = bilden;
+            ImageIcon imageIcon = new ImageIcon(bilden);
+            bild.setIcon(imageIcon);
+        } catch (NullPointerException n) {
         }
-        bild.setText(id);
+        }
+        catch(InfException e){
+            
+        }
+        bild.setText("");
     }
 
     public String getSkapare() {
@@ -109,11 +124,6 @@ public class inlaggFrame extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         txtTitel = new javax.swing.JTextField();
         txtInlagg = new java.awt.TextArea();
-        tagg6 = new javax.swing.JLabel();
-        tagg7 = new javax.swing.JLabel();
-        tagg8 = new javax.swing.JLabel();
-        tagg9 = new javax.swing.JLabel();
-        tagg10 = new javax.swing.JLabel();
         taBort = new javax.swing.JButton();
         redigera = new javax.swing.JButton();
         spara = new javax.swing.JButton();
@@ -122,20 +132,11 @@ public class inlaggFrame extends javax.swing.JPanel {
         lblRubrik = new javax.swing.JLabel();
         lblProfil = new javax.swing.JLabel();
         bild = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
-
-        tagg6.setText("Tagg5");
-
-        tagg7.setText("Tagg1");
-
-        tagg8.setText("Tagg2");
-
-        tagg9.setText("Tagg3");
-
-        tagg10.setText("Tagg4");
 
         taBort.setText("Ta bort");
         taBort.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +194,8 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         bild.setText("123");
 
+        jButton1.setText("Bifoga Bild");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -206,25 +209,17 @@ public class inlaggFrame extends javax.swing.JPanel {
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(spara)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(tagg7)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tagg8)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tagg9)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tagg10)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tagg6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(222, 222, 222)
                                     .addComponent(redigera)
                                     .addGap(66, 66, 66)
                                     .addComponent(taBort))
                                 .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(296, 296, 296)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -247,16 +242,10 @@ public class inlaggFrame extends javax.swing.JPanel {
                         .addGap(10, 10, 10)
                         .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tagg7)
-                        .addComponent(tagg8)
-                        .addComponent(tagg9)
-                        .addComponent(tagg10)
-                        .addComponent(tagg6))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(redigera)
-                        .addComponent(taBort)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(redigera)
+                    .addComponent(taBort)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spara)
                 .addGap(141, 141, 141))
@@ -276,7 +265,24 @@ public class inlaggFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setBild() {
+        try {
+            System.out.println(ID);
+            String hamtabild = "SELECT BILD from INLAGG where INLAGG_ID = " + ID + ";";
+            System.out.println(hamtabild);
 
+            String bilden = idb.fetchSingle(hamtabild);
+            System.out.println(bilden + ".");
+            try {
+                bilden = bilden.replaceAll("\\s+", "");
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(bilden).getImage().getScaledInstance(bild.getWidth(), bild.getHeight(), Image.SCALE_SMOOTH));
+                bild.setIcon(imageIcon);
+            } catch (NullPointerException i) {
+            }
+        } catch (InfException ex) {
+            Logger.getLogger(inlaggFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void taBortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortActionPerformed
         try {
 
@@ -284,7 +290,7 @@ public class inlaggFrame extends javax.swing.JPanel {
 
             String fraga2 = "DELETE FROM PROJEKT_INLAGG WHERE INLAGG_ID = '" + ID + "'";
 
-            String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";                                                                                  
+            String fraga3 = "DELETE FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + ID + "'";
 
             idb.delete(fraga2);
             idb.delete(fraga3);
@@ -416,13 +422,13 @@ public class inlaggFrame extends javax.swing.JPanel {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(new Date());
             System.out.println(ID);
-
             String fraga5 = "UPDATE INLAGG SET DATUM= '" + date + "', TEXT ='" + nyText + "' , TITEL = '" + nyTitel + "', INLAGG_ID ='" + ID + "' WHERE INLAGG_ID = '" + ID + "'";
             System.out.println(fraga5);
             idb.update(fraga5);
             JOptionPane.showMessageDialog(null, "Inlägg har uppdaterats");
             setEditable();
             spara.setVisible(false);
+
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
@@ -436,7 +442,7 @@ public class inlaggFrame extends javax.swing.JPanel {
         return userId;
     }
     private void lblProfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfilMouseClicked
-       try {
+        try {
             String fornamnet = namnet.split(" ")[0];
             String efternamnet = namnet.split(" ")[1];
             String fraga = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + fornamnet + "'AND LAST_NAME = '" + efternamnet + "'";
@@ -447,12 +453,13 @@ public class inlaggFrame extends javax.swing.JPanel {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-       
+
     }//GEN-LAST:event_lblProfilMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bild;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -461,11 +468,6 @@ public class inlaggFrame extends javax.swing.JPanel {
     private javax.swing.JButton redigera;
     private javax.swing.JButton spara;
     private javax.swing.JButton taBort;
-    private javax.swing.JLabel tagg10;
-    private javax.swing.JLabel tagg6;
-    private javax.swing.JLabel tagg7;
-    private javax.swing.JLabel tagg8;
-    private javax.swing.JLabel tagg9;
     private java.awt.TextArea txtInlagg;
     private javax.swing.JTextField txtTitel;
     // End of variables declaration//GEN-END:variables

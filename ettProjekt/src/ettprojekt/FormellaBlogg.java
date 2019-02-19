@@ -145,6 +145,7 @@ public class FormellaBlogg extends javax.swing.JFrame {
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
                 panel.setID(id);
+                panel.setBild(id);
                 panel.setFormellaBloggen(this);
                 panel.setEditable();
 

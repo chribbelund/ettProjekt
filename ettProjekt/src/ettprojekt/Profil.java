@@ -24,74 +24,72 @@ import oru.inf.InfException;
  */
 public class Profil extends javax.swing.JFrame {
 
-  
-public static InfDB idb;
-String filename = null;
-byte[] person_image=null;
- int id;
+    public static InfDB idb;
+    String filename = null;
+    byte[] person_image = null;
+    int id;
+
     /**
      * Creates new form profil
      */
     public Profil() {
-     initComponents(); 
-    
+        initComponents();
+
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
         userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
-        try{
-          //Importerar databasen
+        try {
+            //Importerar databasen
             idb = new InfDB(EttProjekt.userDir);
-           System.out.println(userDir);
-        }
-        
-       catch(InfException e){
+            System.out.println(userDir);
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("fel:" + e);
-    }
+        }
         setinfo();
-                     
-    User u = User.getInstance();
-    id = u.getID();
 
-        
-    
+        User u = User.getInstance();
+        id = u.getID();
+
     }
-   public void setinfo (){
-    try{
-             
-    User u = User.getInstance();
-    int id = u.getID();
-    System.out.println(id);
-    
-    String hamtafnamn = "SELECT FIRST_NAME from users where user_id =" +id + ";";
-    String fnamn = idb.fetchSingle(hamtafnamn);
-    
-    String hamtaenamn = "SELECT LAST_NAME from users where user_id = " +id + ";";
-    String enamn = idb.fetchSingle(hamtaenamn);
-    
-    String hamtalosen = "SELECT LOSENORD from users where user_id =" +id + ";";
-    System.out.println(hamtalosen);
-    
-    String hamtatel = "SELECT TELEFON from users where user_id =" +id + ";";
-    System.out.println(hamtatel);
-    
-   String hamtabild = "SELECT BILDER from users where user_id =" +id+ ";";
-   System.out.println(hamtabild);
-   
-   String bild = idb.fetchSingle(hamtabild);
-   System.out.println(bild + ".");
-   try{
-   bild = bild.replaceAll("\\s+","");
-   }catch(NullPointerException i ){}
-   System.out.println(bild + ".");
-    
-    String losen = idb.fetchSingle(hamtalosen);
-    System.out.println(losen);
-    
-     String tel = idb.fetchSingle(hamtatel);
-    System.out.println(tel);
-    
-    String hamtamejl = "SELECT EMAIL from users where user_id ="+id+ ";";
-    String mejlen = idb.fetchSingle(hamtamejl);
+
+    public void setinfo() {
+        try {
+
+            User u = User.getInstance();
+            int id = u.getID();
+            System.out.println(id);
+
+            String hamtafnamn = "SELECT FIRST_NAME from users where user_id =" + id + ";";
+            String fnamn = idb.fetchSingle(hamtafnamn);
+
+            String hamtaenamn = "SELECT LAST_NAME from users where user_id = " + id + ";";
+            String enamn = idb.fetchSingle(hamtaenamn);
+
+            String hamtalosen = "SELECT LOSENORD from users where user_id =" + id + ";";
+            System.out.println(hamtalosen);
+
+            String hamtatel = "SELECT TELEFON from users where user_id =" + id + ";";
+            System.out.println(hamtatel);
+
+            String hamtabild = "SELECT BILDER from users where user_id =" + id + ";";
+            System.out.println(hamtabild);
+
+            String bild = idb.fetchSingle(hamtabild);
+            System.out.println(bild + ".");
+            try {
+                bild = bild.replaceAll("\\s+", "");
+            } catch (NullPointerException i) {
+            }
+            System.out.println(bild + ".");
+
+            String losen = idb.fetchSingle(hamtalosen);
+            System.out.println(losen);
+
+            String tel = idb.fetchSingle(hamtatel);
+            System.out.println(tel);
+
+            String hamtamejl = "SELECT EMAIL from users where user_id =" + id + ";";
+            String mejlen = idb.fetchSingle(hamtamejl);
 
             lbfnamn.setText(fnamn);
             lbenamn.setText(enamn);
@@ -99,15 +97,13 @@ byte[] person_image=null;
             txtmejl.setText(mejlen);
             txttel.setText(tel);
             //String test = ("/Users/mira/NetBeansProjects/ettProjekt/ettProjekt/files/2019-02-08 12.54.06.108-asplund.jpg");
-            ImageIcon imageIcon = new ImageIcon (new ImageIcon(bild).getImage().getScaledInstance(lblbild.getWidth(),lblbild.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(bild).getImage().getScaledInstance(lblbild.getWidth(), lblbild.getHeight(), Image.SCALE_SMOOTH));
             lblbild.setIcon(imageIcon);
-             
-    }catch(InfException e){
-            
-        
-            }
-     }
 
+        } catch (InfException e) {
+
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -333,45 +329,43 @@ byte[] person_image=null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        
-        try{
-             User u = User.getInstance();
-             int id = u.getID();
-             System.out.println(id);
+
+        try {
+            User u = User.getInstance();
+            int id = u.getID();
+            System.out.println(id);
 
             String losenord = txtlosen.getText();
             System.out.println(losenord);
             String mejl = txtmejl.getText();
-           String tel =txttel.getText();
-            
+            String tel = txttel.getText();
 
-            String sql = "update users set LOSENORD ='" + losenord + "' ,EMAIL= '"+ mejl+ "',TELEFON= '" +tel+ "' where  USER_ID = '" +id+"';";
+            String sql = "update users set LOSENORD ='" + losenord + "' ,EMAIL= '" + mejl + "',TELEFON= '" + tel + "' where  USER_ID = '" + id + "';";
             System.out.println(sql);
             idb.update(sql);
-         try{
-            try{
-        String output = filePicker.fileSaverProfil(filename, id);
-        File outputFile = new File(output);
-        System.out.println(output);
-        File inputFile = new File(filename);
-        fileSave.copyFileUsingStream(inputFile, outputFile);
-        String fraga = ("UPDATE USERS SET BILDER = '" + output + "' WHERE USER_ID = '" + id + "';");
-        System.out.println(fraga);
-        idb.update(fraga);
-        }
-            catch(IOException i) {}
-        }
-        catch(InfException e){}
-            
+            try {
+                try {
+                    String output = filePicker.fileSaverProfil(filename, id);
+                    File outputFile = new File(output);
+                    System.out.println(output);
+                    File inputFile = new File(filename);
+                    fileSave.copyFileUsingStream(inputFile, outputFile);
+                    String fraga = ("UPDATE USERS SET BILDER = '" + output + "' WHERE USER_ID = '" + id + "';");
+                    System.out.println(fraga);
+                    idb.update(fraga);
+                } catch (IOException i) {
+                }
+            } catch (InfException e) {
+            }
+
             JOptionPane.showMessageDialog(null, "Användare har uppdaterats!");
 
-        }
-        catch(InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
-    
-      
+
+
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void avbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avbrytActionPerformed
@@ -382,7 +376,7 @@ byte[] person_image=null;
         String file = filePicker.filePicker();
         System.out.println(file);
         filename = file;
-        ImageIcon imageIcon = new ImageIcon (new ImageIcon(filename).getImage().getScaledInstance(lblbild.getWidth(),lblbild.getHeight(),Image.SCALE_SMOOTH));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(lblbild.getWidth(), lblbild.getHeight(), Image.SCALE_SMOOTH));
         lblbild.setIcon(imageIcon);
 //        try{
 //            File image = new File(filename);
@@ -401,10 +395,8 @@ byte[] person_image=null;
     }//GEN-LAST:event_btnbildActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
