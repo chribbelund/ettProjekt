@@ -148,6 +148,9 @@ public class nyttInlagg extends javax.swing.JFrame {
             String date = simpleDateFormat.format(new Date());
 
             String increment = idb.getAutoIncrement("INLAGG", "INLAGG_ID");
+            if(increment == null){
+                increment = "1";
+            }
             System.out.println(increment + " increment");
             try {
                 String output = "";
