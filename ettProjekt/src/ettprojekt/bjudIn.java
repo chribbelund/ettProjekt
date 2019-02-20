@@ -5,6 +5,8 @@
  */
 package ettprojekt;
 
+import static ettprojekt.EttProjekt.userDir;
+import static ettprojekt.Profil.idb;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -25,16 +27,26 @@ public class bjudIn extends javax.swing.JFrame {
     private Integer aID;
     private Integer mID;
 
-    public bjudIn(InfDB idb, String namn) {
-        initComponents();
-        this.idb = idb;
-        this.namn = namn;
+//    public bjudIn(InfDB idb, String namn) {
+//        initComponents();
+//        this.idb = idb;
+//        this.namn = namn;
+//
+//    }
 
-    }
-
-    public bjudIn(InfDB idb) {
+    public bjudIn() {
         initComponents();
-        this.idb = idb;
+
+        userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
+        userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
+        try {
+            //Importerar databasen
+            idb = new InfDB(EttProjekt.userDir);
+            System.out.println(userDir);
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("fel:" + e);
+        }
         this.namn = namn;
         getAnvandare();
         getMoten();
