@@ -60,6 +60,7 @@ void showTime(){
         jLabel8 = new javax.swing.JLabel();
         informellaBlogg = new javax.swing.JLabel();
         formellaBlogg = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lbdate = new javax.swing.JLabel();
         lbtime = new javax.swing.JLabel();
@@ -127,6 +128,13 @@ void showTime(){
             }
         });
 
+        jLabel9.setText("Mötesinbjudan");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -135,8 +143,10 @@ void showTime(){
                 .addGap(43, 43, 43)
                 .addComponent(jLabel8)
                 .addGap(64, 64, 64)
-                .addComponent(jLabel7)
-                .addGap(77, 77, 77)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(informellaBlogg))
@@ -162,7 +172,8 @@ void showTime(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(informellaBlogg)
-                    .addComponent(formellaBlogg))
+                    .addComponent(formellaBlogg)
+                    .addComponent(jLabel9))
                 .addGap(11, 11, 11))
         );
 
@@ -271,6 +282,11 @@ void showTime(){
         new FormellaBlogg().setVisible(true);
     }//GEN-LAST:event_formellaBloggMouseClicked
 
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        new bjudIn().setVisible(true);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -288,6 +304,7 @@ void showTime(){
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;

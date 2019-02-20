@@ -195,7 +195,7 @@ public class loggaIn extends javax.swing.JFrame {
                 }
                 if (val.isPasswordCorrect(txtUsername, pws)) {
                     if (val.isSuperAdminCorrect()) {
-                        new startsidan().setVisible(true);
+                        new startsidan2().setVisible(true);
                         System.out.println("SuperAdmin");
                         dispose();
                     } else if (val.isAdminCorrect()) {
@@ -203,7 +203,7 @@ public class loggaIn extends javax.swing.JFrame {
                         System.out.println("Admin");
                         dispose();
                     } else {
-                        new startsidan().setVisible(true);
+                        new startsidan1().setVisible(true);
                         System.out.println("Standard");
                         dispose();
                     }
