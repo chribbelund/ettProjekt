@@ -36,9 +36,11 @@ public class ComboBox {
             String fraga = "SELECT PROJEKTNAMN FROM PROJEKT;";
             ArrayList<String> projektlista = idb.fetchColumn(fraga);
             cboxKurs.removeAllItems();
-            for (String currentProjekt : projektlista) {
-                //Loopar igenom alla kursnamn och lägger till dem i den valda Comboboxen
-                cboxKurs.addItem(currentProjekt);
+            if (!(projektlista == null)) {
+                for (String currentProjekt : projektlista) {
+                    //Loopar igenom alla kursnamn och lägger till dem i den valda Comboboxen
+                    cboxKurs.addItem(currentProjekt);
+                }
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -86,11 +88,15 @@ public class ComboBox {
         try {
             //Hämtar alla kursnamn
             String fraga = "SELECT UTBILDNINGSNAMN FROM UTBILDNING;";
-            ArrayList<String> projektlista = idb.fetchColumn(fraga);
+            ArrayList<String> projektlista;
+            projektlista = idb.fetchColumn(fraga);
             cboxProjekt.removeAllItems();
-            for (String currentProjekt : projektlista) {
 
-                cboxProjekt.addItem(currentProjekt);
+            if (!(projektlista == null)) {
+                for (String currentProjekt : projektlista) {
+
+                    cboxProjekt.addItem(currentProjekt);
+                }
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");

@@ -152,6 +152,7 @@ public class nyttInlagg extends javax.swing.JFrame {
             try {
                 String output = "";
                 int idt = Integer.parseInt(increment);
+                System.out.println(filename);
                 if (!(filename == null)) {
                     output = filePicker.fileSaverProfil(filename, idt);
                     File outputFile = new File(output);

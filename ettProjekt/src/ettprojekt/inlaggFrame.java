@@ -33,6 +33,7 @@ public class inlaggFrame extends javax.swing.JPanel {
     private UtbildningProjektFlode utbildningBloggen;
     private FormellaBlogg formellaBloggen;
     private InformellaBlogg informellaBloggen;
+    int idOther;
 
     /**
      * Creates new form inlaggFrame
@@ -42,6 +43,8 @@ public class inlaggFrame extends javax.swing.JPanel {
         initComponents();
         val = new Validering();
         spara.setVisible(false);
+        User u = User.getInstance();
+        idOther = u.getOtherID();
     }
 
     public String getText() {
@@ -85,20 +88,19 @@ public class inlaggFrame extends javax.swing.JPanel {
         String fraga = ("SELECT BILD FROM INLAGG WHERE INLAGG_ID = '" + id + "';");
         System.out.println(fraga);
         try {
-        String bilden = idb.fetchSingle(fraga);
-        //bilden = idb.fetchSingle(fraga);
-        System.out.println(bilden);
-        System.out.println(id);
-        try {
-            bilden = bilden.replaceAll("\\s+", "");
-            filename = bilden;
-            ImageIcon imageIcon = new ImageIcon(bilden);
-            bild.setIcon(imageIcon);
-        } catch (NullPointerException n) {
-        }
-        }
-        catch(InfException e){
-            
+            String bilden = idb.fetchSingle(fraga);
+            //bilden = idb.fetchSingle(fraga);
+            System.out.println(bilden);
+            System.out.println(id);
+            try {
+                bilden = bilden.replaceAll("\\s+", "");
+                filename = bilden;
+                ImageIcon imageIcon = new ImageIcon(bilden);
+                bild.setIcon(imageIcon);
+            } catch (NullPointerException n) {
+            }
+        } catch (InfException e) {
+
         }
         bild.setText("");
     }
@@ -137,6 +139,12 @@ public class inlaggFrame extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(698, 358));
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
+
+        txtTitel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitelActionPerformed(evt);
+            }
+        });
 
         taBort.setText("Ta bort");
         taBort.addActionListener(new java.awt.event.ActionListener() {
@@ -192,9 +200,12 @@ public class inlaggFrame extends javax.swing.JPanel {
             }
         });
 
-        bild.setText("123");
-
         jButton1.setText("Bifoga Bild");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -265,24 +276,6 @@ public class inlaggFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setBild() {
-        try {
-            System.out.println(ID);
-            String hamtabild = "SELECT BILD from INLAGG where INLAGG_ID = " + ID + ";";
-            System.out.println(hamtabild);
-
-            String bilden = idb.fetchSingle(hamtabild);
-            System.out.println(bilden + ".");
-            try {
-                bilden = bilden.replaceAll("\\s+", "");
-                ImageIcon imageIcon = new ImageIcon(new ImageIcon(bilden).getImage().getScaledInstance(bild.getWidth(), bild.getHeight(), Image.SCALE_SMOOTH));
-                bild.setIcon(imageIcon);
-            } catch (NullPointerException i) {
-            }
-        } catch (InfException ex) {
-            Logger.getLogger(inlaggFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     private void taBortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taBortActionPerformed
         try {
 
@@ -447,14 +440,30 @@ public class inlaggFrame extends javax.swing.JPanel {
             String efternamnet = namnet.split(" ")[1];
             String fraga = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + fornamnet + "'AND LAST_NAME = '" + efternamnet + "'";
             String anvandare = idb.fetchSingle(fraga);
-            userId = anvandare;
-            new Profil().setVisible(true);
+            idOther = Integer.parseInt(anvandare);
+            User.otherUserId = idOther;
+            new profilFlode().setVisible(true);
 
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
 
     }//GEN-LAST:event_lblProfilMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String bilden = filePicker.filePicker();
+        try {
+            bilden = bilden.replaceAll("\\s+", "");
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(bilden).getImage().getScaledInstance(bild.getWidth(), bild.getHeight(), Image.SCALE_SMOOTH));
+            bild.setIcon(imageIcon);
+            nyttInlagg.filename = bilden;
+        } catch (NullPointerException i) {
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtTitelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

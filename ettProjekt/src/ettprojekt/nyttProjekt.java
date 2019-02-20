@@ -189,6 +189,10 @@ public class nyttProjekt extends javax.swing.JFrame {
 
             if (EttProjekt.siffraVilken == 1) {
                 String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
+                if(increment == null){
+                    increment = ("1");
+                }
+                System.out.println(increment + ".increment");
 
                 String fraga1 = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
                 String fraga2 = "Insert into deltar_i_projekt values ( " + increment + "," + agare + ")";
@@ -196,6 +200,9 @@ public class nyttProjekt extends javax.swing.JFrame {
                 idb.insert(fraga2);
             } else if (EttProjekt.siffraVilken == 2) {
                 String increment = idb.getAutoIncrement("UTBILDNING", "UTBILDNINGS_ID");
+                if(increment == null){
+                    increment = ("1");
+                }
                 String fraga3 = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
                 String fraga4 = "insert into deltar_i_utbildning values (" + increment + "," + agare + ")";
                 idb.insert(fraga3);

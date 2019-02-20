@@ -29,118 +29,107 @@ import oru.inf.InfException;
  */
 public class profilFlode extends javax.swing.JFrame {
 
-  
-public static InfDB idb;
-String filename = null;
-byte[] person_image=null;
- int id;
+    public static InfDB idb;
+    String filename = null;
+    byte[] person_image = null;
+    int id;
+
     /**
      * Creates new form profil
      */
     public profilFlode() {
-        initComponents(); 
+        initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        flode();
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
         userDir += "/lib/DATABASE.FDB"; //Pekar på vart databasen ligger lagrad
-        try{
-          //Importerar databasen
+        try {
+            //Importerar databasen
             idb = new InfDB(EttProjekt.userDir);
-           System.out.println(userDir);
-        }
-        
-       catch(InfException e){
+            System.out.println(userDir);
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("fel:" + e);
-    }
+        }
+
+        User u = User.getInstance();
+        id = u.getOtherID();
+        System.out.println(id + " funka förfan");
         setinfo();
-                     
-    User u = User.getInstance();
-    id = u.getID();
-
-        
-    
+        flode();
     }
-   public void setinfo (){
-    try{
-             
-    User u = User.getInstance();
-    int id = u.getID();
-    System.out.println(id);
-    
-    String hamtafnamn = "SELECT FIRST_NAME from users where user_id =" +id + ";";
-    String fnamn = idb.fetchSingle(hamtafnamn);
-    
-    String hamtaenamn = "SELECT LAST_NAME from users where user_id = " +id + ";";
-    String enamn = idb.fetchSingle(hamtaenamn);
-    
-    String hamtalosen = "SELECT LOSENORD from users where user_id =" +id + ";";
-    System.out.println(hamtalosen);
-    
-    String hamtatel = "SELECT TELEFON from users where user_id =" +id + ";";
-    System.out.println(hamtatel);
-    
-   String hamtabild = "SELECT BILDER from users where user_id =" +id+ ";";
-   System.out.println(hamtabild);
-   
-   String bild = idb.fetchSingle(hamtabild);
-   System.out.println(bild + ".");
-   try{
-   bild = bild.replaceAll("\\s+","");
-   }catch(NullPointerException i ){}
-   System.out.println(bild + ".");
-    
-   /// String losen = idb.fetchSingle(hamtalosen);
 
-    
-    /// String tel = idb.fetchSingle(hamtatel);
+    public void setinfo() {
+        try {
 
-    
-    ///String hamtamejl = "SELECT EMAIL from users where user_id ="+id+ ";";
-    ///String mejlen = idb.fetchSingle(hamtamejl);
+            System.out.println(id);
 
+            String hamtafnamn = "SELECT FIRST_NAME from users where user_id =" + id + ";";
+            String fnamn = idb.fetchSingle(hamtafnamn);
+
+            String hamtaenamn = "SELECT LAST_NAME from users where user_id = " + id + ";";
+            String enamn = idb.fetchSingle(hamtaenamn);
+
+            String hamtalosen = "SELECT LOSENORD from users where user_id =" + id + ";";
+            System.out.println(hamtalosen);
+
+            String hamtatel = "SELECT TELEFON from users where user_id =" + id + ";";
+            System.out.println(hamtatel);
+
+            String hamtabild = "SELECT BILDER from users where user_id =" + id + ";";
+            System.out.println(hamtabild);
+
+            String bild = idb.fetchSingle(hamtabild);
+            System.out.println(bild + ".");
+            try {
+                bild = bild.replaceAll("\\s+", "");
+            } catch (NullPointerException i) {
+            }
+            System.out.println(bild + ".");
+
+            /// String losen = idb.fetchSingle(hamtalosen);
+            /// String tel = idb.fetchSingle(hamtatel);
+            ///String hamtamejl = "SELECT EMAIL from users where user_id ="+id+ ";";
+            ///String mejlen = idb.fetchSingle(hamtamejl);
             lbfnamn.setText(fnamn);
             lbenamn.setText(enamn);
             ///txtlosen.setText(losen);
             ///txtmejl.setText(mejlen);
             ///txttel.setText(tel);
             //String test = ("/Users/mira/NetBeansProjects/ettProjekt/ettProjekt/files/2019-02-08 12.54.06.108-asplund.jpg");
-            ImageIcon imageIcon = new ImageIcon (new ImageIcon(bild).getImage().getScaledInstance(lblbild.getWidth(),lblbild.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(bild).getImage().getScaledInstance(lblbild.getWidth(), lblbild.getHeight(), Image.SCALE_SMOOTH));
             lblbild.setIcon(imageIcon);
-             
-    }catch(InfException e){
-            
-        
-            }
-     }
-    private void flode(){
-         try {
-            inlaggFrame layout = new inlaggFrame();
-            String profilNamn = layout.getUserId();
-            
-            String fraga1 = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + profilNamn + "'";
-            String projektId = idb.fetchSingle(fraga1);
-            int projektIdInt = Integer.parseInt(projektId);
-            String fraga2 = "SELECT INLAGG_ID FROM SKAPA_INLAGG WHERE USER_ID = " + projektIdInt + ";";
+
+        } catch (InfException e) {
+
+        }
+    }
+
+    private void flode() {
+        try {
+
+//            String fraga1 = "SELECT USER_ID FROM USERS WHERE FIRST_NAME = '" + profilNamn + "'";
+//            String projektId = idb.fetchSingle(fraga1);
+//            int projektIdInt = Integer.parseInt(projektId);
+            String fraga2 = "SELECT INLAGG_ID FROM SKAPA_INLAGG WHERE USER_ID = " + id + ";";
             ArrayList<String> inlaggLista = idb.fetchColumn(fraga2);
-          
+
             if (inlaggLista == null) {
                 return;
 
             }
             Collections.reverse(inlaggLista);
             int antalInlagg = inlaggLista.size();
-            String fragan = "SELECT TEXT FROM INLAGG JOIN SKAPA_INLAGG ON INLAGG.INLAGG_ID = SKAPA_INLAGG.INLAGG_ID WHERE INLAGG_ID = " + projektIdInt + ";";
+            String fragan = "SELECT TEXT FROM INLAGG JOIN SKAPA_INLAGG ON INLAGG.INLAGG_ID = SKAPA_INLAGG.INLAGG_ID WHERE USER_ID = " + id + ";";
             ArrayList<String> texter = idb.fetchColumn(fragan);
             Collections.reverse(texter);
 
-            fragan = "SELECT TITEL FROM INLAGG JOIN SKAPA_INLAGG ON INLAGG.INLAGG_ID = SKAPA_INLAGG.INLAGG_ID WHERE INLAGG_ID = " + projektIdInt + ";";
+            fragan = "SELECT TITEL FROM INLAGG JOIN SKAPA_INLAGG ON INLAGG.INLAGG_ID = SKAPA_INLAGG.INLAGG_ID WHERE USER_ID = " + id + ";";
             ArrayList<String> titlar = idb.fetchColumn(fragan);
             Collections.reverse(titlar);
 
             for (int j = 0; j < antalInlagg; j++) {
                 inlaggFrame panel = new inlaggFrame();
-                String id = inlaggLista.get(j);
+                String ids = inlaggLista.get(j);
                 panelen.setLayout(new BoxLayout(panelen, BoxLayout.PAGE_AXIS));
                 panelen.add(Box.createRigidArea(new Dimension(0, 20)));
                 panelen.add(panel);
@@ -149,18 +138,17 @@ byte[] person_image=null;
                 String allaTitlar = titlar.get(j);
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
-                panel.setID(id);
-                System.out.println(id);
-               // panel.setinlaggFrame(this);
+                panel.setID(ids);
+                System.out.println(ids);
+                // panel.setinlaggFrame(this);
                 //panel.setEditable();
                 //panel.utbildningAgare();
 
                 try {
-                    String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
-                    String anvandarId = idb.fetchSingle(anvandare);
-                    String fornamn = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
+
+                    String fornamn = "SELECT FIRST_NAME FROM USERS WHERE USER_ID = '" + id + "'";
                     String fornamnet = idb.fetchSingle(fornamn);
-                    String efternamn = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + anvandarId + "'";
+                    String efternamn = "SELECT LAST_NAME FROM USERS WHERE USER_ID = '" + id + "'";
                     String efternamnet = idb.fetchSingle(efternamn);
                     String helaNamnet = fornamnet + " " + efternamnet;
                     panel.setSkapare(helaNamnet);
@@ -339,10 +327,8 @@ byte[] person_image=null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
