@@ -14,7 +14,8 @@ import javax.mail.internet.*;
  * @author emmaj
  */
 public class Mejl {
-    public static void SkickaMejlet(String till, String amne, String meddelande){
+
+    public static void SkickaMejlet(String till, String amne, String meddelande) {
         //Hämtar objektet 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -24,29 +25,28 @@ public class Mejl {
         props.put("mail.smtp.port", "465");
         String losen = "Javagrupp5";
         String fran = "ettprojekt1@gmail.com";
-        
+
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(fran,losen);     
+                return new PasswordAuthentication(fran, losen);
             }
         });
-        
-        try{
+
+        try {
             //Skapar meddelandet genom att hämta det användaren har skrivit in från fönstret SkickaMejl
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fran));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(till));
             message.setSubject(amne);
             message.setText(meddelande);
-            
+
             //Skickar mejlet till vald mejladress
             Transport.send(message);
-            
-        }catch(MessagingException e){
+
+        } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-        
-        
+
     }
-    
+
 }

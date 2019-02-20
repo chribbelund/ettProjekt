@@ -124,7 +124,6 @@ public class Profil extends javax.swing.JFrame {
         txtmejl = new javax.swing.JTextField();
         txtlosen = new javax.swing.JTextField();
         btnbild = new javax.swing.JButton();
-        avbryt = new javax.swing.JButton();
         btnupdate = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -168,14 +167,7 @@ public class Profil extends javax.swing.JFrame {
             }
         });
 
-        avbryt.setText("Avbryt");
-        avbryt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avbrytActionPerformed(evt);
-            }
-        });
-
-        btnupdate.setText("uppdatera");
+        btnupdate.setText("Uppdatera");
         btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnupdateActionPerformed(evt);
@@ -250,11 +242,9 @@ public class Profil extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addComponent(jButton1)
-                .addGap(29, 29, 29)
-                .addComponent(avbryt)
-                .addGap(26, 26, 26)
+                .addGap(121, 121, 121)
                 .addComponent(btnupdate)
-                .addGap(122, 451, Short.MAX_VALUE))
+                .addGap(122, 450, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -308,7 +298,6 @@ public class Profil extends javax.swing.JFrame {
                     .addComponent(btnbild))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avbryt)
                     .addComponent(btnupdate)
                     .addComponent(jButton1))
                 .addGap(53, 53, 53))
@@ -368,10 +357,6 @@ public class Profil extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnupdateActionPerformed
 
-    private void avbrytActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avbrytActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_avbrytActionPerformed
-
     private void btnbildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbildActionPerformed
         String file = filePicker.filePicker();
         System.out.println(file);
@@ -400,7 +385,6 @@ public class Profil extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton avbryt;
     private javax.swing.JButton btnbild;
     private javax.swing.JButton btnupdate;
     private javax.swing.JButton jButton1;

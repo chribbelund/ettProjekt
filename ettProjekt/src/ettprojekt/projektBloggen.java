@@ -192,7 +192,7 @@ public class projektBloggen extends javax.swing.JFrame {
             new HanteraAnvandare().setVisible(true);
             this.dispose();
         }
-       
+
     }//GEN-LAST:event_anvandareActionPerformed
 
     public void bloggInlaggen() {
@@ -231,13 +231,12 @@ public class projektBloggen extends javax.swing.JFrame {
                 String allaTitlar = titlar.get(j);
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
-                panel.setBild(id);
                 panel.setID(id);
                 System.out.println(id);
                 panel.setProjektBloggen(this);
                 panel.setEditable();
                 panel.projektAgare();
-
+                panel.setBild(id);
                 try {
                     String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
                     String anvandarId = idb.fetchSingle(anvandare);

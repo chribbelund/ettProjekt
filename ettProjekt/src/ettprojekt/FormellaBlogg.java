@@ -103,12 +103,10 @@ public class FormellaBlogg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TillbakaActionPerformed
-        new startsidan().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_TillbakaActionPerformed
 
     private void nyttInlnlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlnlaggActionPerformed
-        new nyttInlagg().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_nyttInlnlaggActionPerformed
 
@@ -145,9 +143,9 @@ public class FormellaBlogg extends javax.swing.JFrame {
                 panel.setText(allaTexter);
                 panel.setTitel(allaTitlar);
                 panel.setID(id);
-                panel.setBild(id);
                 panel.setFormellaBloggen(this);
                 panel.setEditable();
+                panel.setBild(id);
 
                 try {
                     String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";

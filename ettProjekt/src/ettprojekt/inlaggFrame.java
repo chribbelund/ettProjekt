@@ -75,6 +75,7 @@ public class inlaggFrame extends javax.swing.JPanel {
     public void setEditable() {
         txtTitel.setEditable(false);
         txtInlagg.setEditable(false);
+        bifogaBild.setVisible(false);
     }
 
     public void setSkapare(String namn) {
@@ -95,7 +96,7 @@ public class inlaggFrame extends javax.swing.JPanel {
             try {
                 bilden = bilden.replaceAll("\\s+", "");
                 filename = bilden;
-                ImageIcon imageIcon = new ImageIcon(bilden);
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(bilden).getImage().getScaledInstance(135, 200, Image.SCALE_SMOOTH));
                 bild.setIcon(imageIcon);
             } catch (NullPointerException n) {
             }
@@ -134,7 +135,7 @@ public class inlaggFrame extends javax.swing.JPanel {
         lblRubrik = new javax.swing.JLabel();
         lblProfil = new javax.swing.JLabel();
         bild = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bifogaBild = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
 
@@ -200,10 +201,14 @@ public class inlaggFrame extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Bifoga Bild");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bild.setText(" ");
+        bild.setMaximumSize(new java.awt.Dimension(20, 16));
+        bild.setMinimumSize(new java.awt.Dimension(20, 16));
+
+        bifogaBild.setText("Bifoga Bild");
+        bifogaBild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bifogaBildActionPerformed(evt);
             }
         });
 
@@ -229,8 +234,8 @@ public class inlaggFrame extends javax.swing.JPanel {
                                 .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
+                            .addComponent(bifogaBild)
+                            .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(296, 296, 296)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -246,17 +251,18 @@ public class inlaggFrame extends javax.swing.JPanel {
                 .addComponent(lblProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTitel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInlagg, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(bild, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(redigera)
                     .addComponent(taBort)
-                    .addComponent(jButton1))
+                    .addComponent(bifogaBild))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spara)
                 .addGap(141, 141, 141))
@@ -450,7 +456,7 @@ public class inlaggFrame extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lblProfilMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bifogaBildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bifogaBildActionPerformed
         String bilden = filePicker.filePicker();
         try {
             bilden = bilden.replaceAll("\\s+", "");
@@ -459,7 +465,7 @@ public class inlaggFrame extends javax.swing.JPanel {
             nyttInlagg.filename = bilden;
         } catch (NullPointerException i) {
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bifogaBildActionPerformed
 
     private void txtTitelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitelActionPerformed
         // TODO add your handling code here:
@@ -467,8 +473,8 @@ public class inlaggFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bifogaBild;
     private javax.swing.JLabel bild;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

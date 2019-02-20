@@ -102,12 +102,10 @@ public class InformellaBlogg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nyttInlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlaggActionPerformed
-        new nyttInlagg().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_nyttInlaggActionPerformed
 
     private void tillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaActionPerformed
-        new startsidan().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_tillbakaActionPerformed
     private void bloggInlaggen() {
