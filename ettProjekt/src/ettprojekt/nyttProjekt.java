@@ -188,27 +188,40 @@ public class nyttProjekt extends javax.swing.JFrame {
             String beskrivning = projektBeskrivning.getText();
 
             if (EttProjekt.siffraVilken == 1) {
-                String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
-                if(increment == null){
-                    increment = ("1");
-                }
-                System.out.println(increment + ".increment");
+                String cykla = idb.fetchSingle("SELECT PROJEKTNAMN FROM PROJEKT WHERE PROJEKTNAMN = '" + namn + "';");
+                if ((cykla == null)) {
+                    String increment = idb.getAutoIncrement("PROJEKT", "PROJEKT_ID");
+                    if (increment == null) {
+                        increment = ("1");
+                    }
+                    System.out.println(increment + ".increment");
 
-                String fraga1 = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
-                String fraga2 = "Insert into deltar_i_projekt values ( " + increment + "," + agare + ")";
-                idb.insert(fraga1);
-                idb.insert(fraga2);
-            } else if (EttProjekt.siffraVilken == 2) {
-                String increment = idb.getAutoIncrement("UTBILDNING", "UTBILDNINGS_ID");
-                if(increment == null){
-                    increment = ("1");
+                    String fraga1 = "Insert into projekt values ( '" + namn + "', " + increment + "," + agare + ",'" + beskrivning + "')";
+                    String fraga2 = "Insert into deltar_i_projekt values ( " + increment + "," + agare + ")";
+                    idb.insert(fraga1);
+                    idb.insert(fraga2);
+                    JOptionPane.showMessageDialog(null, "Projekt har lagts till");
                 }
-                String fraga3 = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
-                String fraga4 = "insert into deltar_i_utbildning values (" + increment + "," + agare + ")";
-                idb.insert(fraga3);
-                idb.insert(fraga4);
+                else{
+                    JOptionPane.showMessageDialog(null, "Det finns redan ett projekt med det namnet");
+                }
+            } else if (EttProjekt.siffraVilken == 2) {
+                String cykla = idb.fetchSingle("SELECT UTBILDNINGSNAMN FROM UTBILDNING WHERE UTBILDNINGSNAMN = '" + namn + "';");
+                if ((cykla == null)) {
+                    String increment = idb.getAutoIncrement("UTBILDNING", "UTBILDNINGS_ID");
+                    if (increment == null) {
+                        increment = ("1");
+                    }
+                    String fraga3 = "Insert into utbildning values ( '" + namn + "', '" + beskrivning + "'," + agare + "," + increment + ")";
+                    String fraga4 = "insert into deltar_i_utbildning values (" + increment + "," + agare + ")";
+                    idb.insert(fraga3);
+                    idb.insert(fraga4);
+                    JOptionPane.showMessageDialog(null, "Projekt har lagts till");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Det finns redan ett projekt med det namnet");
+                }
             }
-            JOptionPane.showMessageDialog(null, "Projekt har lagts till");
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick snett");
         }
