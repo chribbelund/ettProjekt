@@ -23,6 +23,7 @@ public class nyttInlagg extends javax.swing.JFrame {
     private bloggLayout layout;
     private inlaggFrame panelInlagg;
     static String filename = null;
+    static String filename1 = null;
 
     /**
      * Creates new form nyttInlagg
@@ -40,6 +41,7 @@ public class nyttInlagg extends javax.swing.JFrame {
         panelInlagg.setOsynlig();
         panelInlagg.setLabelOsynlig();
         filename = null;
+        filename1 = null;
 
     }
 
@@ -154,6 +156,7 @@ public class nyttInlagg extends javax.swing.JFrame {
             System.out.println(increment + " increment");
             try {
                 String output = "";
+                String output1 = "";
                 int idt = Integer.parseInt(increment);
                 System.out.println(filename);
                 if (!(filename == null)) {
@@ -162,6 +165,13 @@ public class nyttInlagg extends javax.swing.JFrame {
                     System.out.println(output);
                     File inputFile = new File(filename);
                     fileSave.copyFileUsingStream(inputFile, outputFile);
+                }
+                if (!(filename1 == null)) {
+                    output1 = filePicker.fileSaverProfil(filename1, idt);
+                    File outputFile1 = new File(output1);
+                    System.out.println(output1);
+                    File inputFile1 = new File(filename1);
+                    fileSave.copyFileUsingStream(inputFile1, outputFile1);
                 }
                 if (EttProjekt.siffraVilken == 1) {
                     String projektNamn = l.getProjektNamn();
@@ -172,7 +182,7 @@ public class nyttInlagg extends javax.swing.JFrame {
                     int projektIdInt = Integer.parseInt(projektId);
                     System.out.println(projektIdInt);
                     String fraga2 = "INSERT INTO PROJEKT_INLAGG VALUES (" + increment + "," + projektIdInt + ")";
-                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "');";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "', '" + output1 + "');";
                     String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
                     System.out.println(fraga3);
 
@@ -192,7 +202,7 @@ public class nyttInlagg extends javax.swing.JFrame {
                     int projektIdInt = Integer.parseInt(projektId);
                     System.out.println(projektIdInt);
                     String fraga2 = "INSERT INTO UTBILDNING_INLAGG VALUES (" + projektIdInt + "," + increment + ")";
-                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "');";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "', '" + output1 + "');";
                     String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
                     System.out.println(fraga3);
                     System.out.println(fraga4);
@@ -207,7 +217,7 @@ public class nyttInlagg extends javax.swing.JFrame {
                 } else if (EttProjekt.siffraVilken == 3) {
 
                     String fraga2 = "INSERT INTO INLAGG_FORMELL VALUES (" + increment + ")";
-                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "');";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "', '" + output1 + "');";
                     String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
                     System.out.println(fraga3);
                     System.out.println(fraga4);
@@ -222,7 +232,7 @@ public class nyttInlagg extends javax.swing.JFrame {
                 } else if (EttProjekt.siffraVilken == 4) {
 
                     String fraga2 = "INSERT INTO INLAGG_INFORMELL VALUES (" + increment + ")";
-                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "');";
+                    String fraga3 = "INSERT INTO INLAGG VALUES ('" + date + "','" + output + "','" + text + "', '" + titel + "', '" + increment + "', '" + output1 + "');";
                     String fraga4 = "INSERT INTO SKAPA_INLAGG VALUES (" + id + "," + increment + ")";
                     System.out.println(fraga3);
                     System.out.println(fraga4);

@@ -25,6 +25,7 @@ import oru.inf.InfException;
 public class inlaggFrame extends javax.swing.JPanel {
 
     String filename = null;
+    String filename1 = null;
     private String ID;
     private Validering val;
     private projektBloggen blogg;
@@ -76,6 +77,7 @@ public class inlaggFrame extends javax.swing.JPanel {
         txtTitel.setEditable(false);
         txtInlagg.setEditable(false);
         bifogaBild.setVisible(false);
+        btnFil.setVisible(false);
     }
 
     public void setSkapare(String namn) {
@@ -104,6 +106,23 @@ public class inlaggFrame extends javax.swing.JPanel {
 
         }
         bild.setText("");
+    }
+
+    public void setFil(String id) {
+        String fraga = ("SELECT FILE FROM INLAGG WHERE INLAGG_ID = '" + id + "';");
+        System.out.println(fraga + " setFilFraga");
+        try {
+            String filen = idb.fetchSingle(fraga);
+            System.out.println(fraga + " setFilFil");
+            try {
+                filen = filen.replaceAll("\\s+", "");
+                filename1 = filen;
+                System.out.println(filename1);
+                jlabelFil.setText(filename1);
+            } catch (NullPointerException n) {
+            }
+        } catch (InfException e) {
+        }
     }
 
     public String getSkapare() {
@@ -136,6 +155,8 @@ public class inlaggFrame extends javax.swing.JPanel {
         lblProfil = new javax.swing.JLabel();
         bild = new javax.swing.JLabel();
         bifogaBild = new javax.swing.JButton();
+        btnFil = new javax.swing.JButton();
+        jlabelFil = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(698, 358));
 
@@ -212,6 +233,20 @@ public class inlaggFrame extends javax.swing.JPanel {
             }
         });
 
+        btnFil.setText("Bifoga Fil");
+        btnFil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilActionPerformed(evt);
+            }
+        });
+
+        jlabelFil.setMaximumSize(new java.awt.Dimension(20, 300));
+        jlabelFil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlabelFilMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -225,9 +260,12 @@ public class inlaggFrame extends javax.swing.JPanel {
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(spara)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(222, 222, 222)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jlabelFil, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnFil)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(redigera)
                                     .addGap(66, 66, 66)
                                     .addComponent(taBort))
@@ -262,7 +300,9 @@ public class inlaggFrame extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(redigera)
                     .addComponent(taBort)
-                    .addComponent(bifogaBild))
+                    .addComponent(bifogaBild)
+                    .addComponent(btnFil)
+                    .addComponent(jlabelFil, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spara)
                 .addGap(141, 141, 141))
@@ -471,13 +511,33 @@ public class inlaggFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTitelActionPerformed
 
+    private void btnFilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilActionPerformed
+        String file = filePicker.filePicker();
+        jlabelFil.setText(file);
+        nyttInlagg.filename1 = file;
+    }//GEN-LAST:event_btnFilActionPerformed
+
+    private void jlabelFilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelFilMouseClicked
+        if (!(jlabelFil.getText() == "")) {
+            try {
+                filePicker.fileDownload(jlabelFil.getText());
+            } catch (InfException ex) {
+                Logger.getLogger(inlaggFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(inlaggFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jlabelFilMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bifogaBild;
     private javax.swing.JLabel bild;
+    private javax.swing.JButton btnFil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jlabelFil;
     private javax.swing.JLabel lblProfil;
     private javax.swing.JLabel lblRubrik;
     private javax.swing.JButton redigera;

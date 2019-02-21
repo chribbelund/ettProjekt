@@ -237,6 +237,7 @@ public class projektBloggen extends javax.swing.JFrame {
                 panel.setEditable();
                 panel.projektAgare();
                 panel.setBild(id);
+                panel.setFil(id);
                 try {
                     String anvandare = "SELECT USER_ID FROM SKAPA_INLAGG WHERE INLAGG_ID = '" + id + "'";
                     String anvandarId = idb.fetchSingle(anvandare);

@@ -57,7 +57,15 @@ public class filePicker {
         fileSave.copyFileUsingStream(inputFile, outputFile);
         return outputPath;
     }
-    
+
+    public static void fileDownload(String inputFile) throws InfException, IOException{
+        File file = new File(inputFile);
+        String outputPath = System.getProperty("user.dir") + "/downloads/" + "-" + FilenameUtils.getName(inputFile);
+        outputPath = outputPath.replaceAll("\\s+", "");
+        File outputFile = new File(outputPath);
+
+        fileSave.copyFileUsingStream(file, outputFile);
+    }
 
     public static String filePicker() {
         JFileChooser chooser = new JFileChooser();
