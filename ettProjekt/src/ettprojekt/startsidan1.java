@@ -32,6 +32,7 @@ public final class startsidan1 extends javax.swing.JFrame {
         showDate();
         showTime();
         bloggInlaggen();
+        setSize(1000,900);
         
     }
 void showDate() {

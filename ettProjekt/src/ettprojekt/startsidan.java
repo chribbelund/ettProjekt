@@ -32,6 +32,7 @@ public final class startsidan extends javax.swing.JFrame {
         showDate();
         showTime();
         bloggInlaggen();
+        setSize(1000,900);
         
     }
 void showDate() {
@@ -155,19 +156,19 @@ void showTime(){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
                 .addGap(27, 27, 27)
+                .addComponent(jLabel7)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel9)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addGap(42, 42, 42)
+                .addGap(52, 52, 52)
                 .addComponent(informellaBlogg)
-                .addGap(54, 54, 54)
+                .addGap(45, 45, 45)
                 .addComponent(formellaBlogg)
-                .addGap(47, 47, 47)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel4)
-                .addGap(46, 46, 46)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel5)
                 .addContainerGap())
         );
