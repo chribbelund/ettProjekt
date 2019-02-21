@@ -102,6 +102,8 @@ public class InformellaBlogg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nyttInlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlaggActionPerformed
+        EttProjekt.siffraVilken = 4;
+        new nyttInlagg().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_nyttInlaggActionPerformed
 

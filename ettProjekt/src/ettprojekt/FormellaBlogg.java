@@ -107,6 +107,8 @@ public class FormellaBlogg extends javax.swing.JFrame {
     }//GEN-LAST:event_TillbakaActionPerformed
 
     private void nyttInlnlaggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nyttInlnlaggActionPerformed
+        EttProjekt.siffraVilken = 3;
+        new nyttInlagg().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_nyttInlnlaggActionPerformed
 
