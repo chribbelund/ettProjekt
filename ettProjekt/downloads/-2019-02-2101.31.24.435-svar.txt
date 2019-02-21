@@ -1,0 +1,41 @@
+spara lösen anv
+
+och formella blogginlägg
+
+admin
+ta bort inlägg
+ge admin
+
+vanligt konto
+ändra inlägg
+ta bort inlägg
+namn
+epost
+profilbild
+tfn (valfritt)
+
+pdf
+bilder
+png jpeg gif
+zip
+
+skapa forskprojekt
+bjuda in deltagare (endast skaparen)
+ladda upp filer
+projektskaparen är admin för sitt eget projekt
+
+startflöde med allt
+
+informell blogg flöde
+
+utb sida med alla projekt
+forsk sida med alla projekt
+
+sökfunktion för inlägg
+
+ändra språk (låg)
+
+kryptera inlogg
+
+skalbart
+
